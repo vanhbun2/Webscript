@@ -1,1 +1,2178 @@
-# Webscript
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vanh Hub — Script Repository</title>
+<meta name="description" content="Vanh Hub - Script Repository">
+<meta name="theme-color" content="#6366f1">
+<style>
+:root {
+    --bg: #f5f7ff;
+    --bg2: #ffffff;
+    --card: rgba(255,255,255,.78);
+    --text: #111827;
+    --text2: #68748a;
+    --muted: #98a2b3;
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --success: #22c55e;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    --border: rgba(99,102,241,.13);
+    --shadow:
+        0 20px 60px rgba(42,55,110,.08);
+    --radius: 18px;
+}
+body.dark {
+    --bg: #070a12;
+    --bg2: #0c101a;
+    --card: rgba(17,23,39,.76);
+    --text: #f5f7ff;
+    --text2: #9ba6ba;
+    --muted: #667085;
+    --primary: #818cf8;
+    --primary-dark: #6366f1;
+    --border: rgba(129,140,248,.15);
+    --shadow:
+        0 25px 70px rgba(0,0,0,.35);
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html {
+    scroll-behavior: smooth;
+}
+body {
+    min-height: 100vh;
+    font-family:
+        Inter,
+        Arial,
+        sans-serif;
+    background:
+        radial-gradient(
+            circle at 50% -20%,
+            rgba(99,102,241,.12),
+            transparent 40%
+        ),
+        var(--bg);
+    color: var(--text);
+    transition:
+        background .3s ease,
+        color .3s ease;
+    overflow-x: hidden;
+}
+button,
+input,
+select {
+    font-family: inherit;
+}
+button {
+    cursor: pointer;
+}
+a {
+    color: inherit;
+}
+.background-glow {
+    position: fixed;
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    filter: blur(110px);
+    opacity: .12;
+    pointer-events: none;
+    z-index: -1;
+}
+.glow1 {
+    background: #6366f1;
+    top: 80px;
+    left: -230px;
+}
+.glow2 {
+    background: #8b5cf6;
+    top: 550px;
+    right: -230px;
+}
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    height: 72px;
+    padding: 0 7%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background:
+        rgba(255,255,255,.72);
+    backdrop-filter: blur(18px);
+    border-bottom:
+        1px solid var(--border);
+}
+body.dark .navbar {
+    background:
+        rgba(7,10,18,.75);
+}
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: -.5px;
+}
+.logo-icon {
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    border-radius: 11px;
+    color: white;
+    background:
+        linear-gradient(
+            135deg,
+            #818cf8,
+            #4f46e5
+        );
+    box-shadow:
+        0 8px 25px
+        rgba(99,102,241,.35);
+}
+.logo-light {
+    color: var(--primary);
+}
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+}
+.nav-links a {
+    text-decoration: none;
+    color: var(--text2);
+    font-size: 14px;
+    font-weight: 500;
+    transition: .2s;
+}
+.nav-links a:hover {
+    color: var(--primary);
+}
+.discord {
+    padding: 10px 16px;
+    border-radius: 10px;
+    color: white !important;
+    background:
+        linear-gradient(
+            135deg,
+            #6366f1,
+            #4f46e5
+        );
+    box-shadow:
+        0 8px 25px
+        rgba(99,102,241,.22);
+}
+.discord:hover {
+    transform:
+        translateY(-2px);
+}
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.theme-btn,
+.menu-btn {
+    width: 40px;
+    height: 40px;
+    border:
+        1px solid var(--border);
+    border-radius: 10px;
+    background: var(--card);
+    color: var(--text);
+    transition: .2s;
+}
+.theme-btn:hover,
+.menu-btn:hover {
+    color: white;
+    background:
+        var(--primary);
+    transform:
+        translateY(-2px);
+}
+.menu-btn {
+    display: none;
+}
+.page {
+    display: none;
+}
+.page.active {
+    display: block;
+}
+.hero {
+    max-width: 1050px;
+    margin: auto;
+    text-align: center;
+    padding:
+        120px 20px 90px;
+}
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 13px;
+    border:
+        1px solid var(--border);
+    border-radius: 100px;
+    color: var(--text2);
+    background: var(--card);
+    backdrop-filter:
+        blur(10px);
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 25px;
+    animation:
+        fadeUp .7s ease;
+}
+.status-dot {
+    width: 7px;
+    height: 7px;
+    background:
+        var(--success);
+    border-radius: 50%;
+    box-shadow:
+        0 0 0 4px
+        rgba(34,197,94,.10);
+    animation:
+        pulse 2s infinite;
+}
+.hero h1 {
+    font-size:
+        clamp(50px,8vw,85px);
+    line-height:
+        .98;
+    letter-spacing:
+        -5px;
+    font-weight: 800;
+    margin-bottom: 25px;
+    animation:
+        fadeUp .8s ease;
+}
+.hero h1 span {
+    background:
+        linear-gradient(
+            135deg,
+            #818cf8,
+            #4f46e5,
+            #8b5cf6
+        );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+.hero p {
+    color: var(--text2);
+    line-height: 1.7;
+    font-size: 16px;
+    margin-bottom: 32px;
+    animation:
+        fadeUp .9s ease;
+}
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    animation:
+        fadeUp 1s ease;
+}
+.primary-btn,
+.secondary-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    border: none;
+    padding: 13px 20px;
+    border-radius: 11px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: .25s;
+}
+.primary-btn {
+    color: white;
+    background:
+        linear-gradient(
+            135deg,
+            #6366f1,
+            #4f46e5
+        );
+    box-shadow:
+        0 10px 30px
+        rgba(99,102,241,.25);
+}
+.primary-btn:hover {
+    transform:
+        translateY(-3px);
+    box-shadow:
+        0 15px 40px
+        rgba(99,102,241,.35);
+}
+.secondary-btn {
+    color: var(--text);
+    background: var(--card);
+    border:
+        1px solid var(--border);
+    backdrop-filter:
+        blur(10px);
+}
+.secondary-btn:hover {
+    transform:
+        translateY(-3px);
+    border-color:
+        var(--primary);
+}
+.stats {
+    display: flex;
+    justify-content: center;
+    margin-top: 70px;
+    animation:
+        fadeUp 1.1s ease;
+}
+.stat {
+    min-width: 150px;
+    padding: 0 30px;
+    border-right:
+        1px solid var(--border);
+}
+.stat:last-child {
+    border-right: none;
+}
+.stat strong {
+    display: block;
+    font-size: 25px;
+    margin-bottom: 5px;
+}
+.stat span {
+    color: var(--muted);
+    font-size: 12px;
+}
+.featured-section,
+.scripts-page {
+    max-width: 1100px;
+    margin: auto;
+    padding:
+        70px 20px;
+}
+.section-heading,
+.page-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+.eyebrow {
+    color: var(--primary);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+.section-heading h2,
+.page-heading h1 {
+    font-size: 32px;
+    letter-spacing: -1px;
+    margin-top: 5px;
+}
+.page-heading p {
+    color: var(--text2);
+    margin-top: 8px;
+    font-size: 14px;
+}
+.text-btn {
+    border: none;
+    background: none;
+    color: var(--primary);
+    font-size: 13px;
+    font-weight: 600;
+}
+.script-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(3,1fr);
+    gap: 18px;
+}
+.card {
+    position: relative;
+    padding: 21px;
+    border:
+        1px solid var(--border);
+    border-radius:
+        var(--radius);
+    background:
+        var(--card);
+    backdrop-filter:
+        blur(15px);
+    box-shadow:
+        var(--shadow);
+    overflow: hidden;
+    transition:
+        transform .3s ease,
+        border .3s ease,
+        box-shadow .3s ease;
+    animation:
+        cardIn .5s ease both;
+}
+.card::before {
+    content: "";
+    position: absolute;
+    width: 170px;
+    height: 170px;
+    right: -90px;
+    top: -90px;
+    background:
+        var(--primary);
+    opacity: .07;
+    border-radius: 50%;
+    filter: blur(35px);
+    pointer-events: none;
+}
+.card:hover {
+    transform:
+        translateY(-7px);
+    border-color:
+        rgba(99,102,241,.35);
+    box-shadow:
+        0 25px 60px
+        rgba(42,55,110,.13);
+}
+.card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 17px;
+}
+.category {
+    padding: 5px 9px;
+    border-radius: 7px;
+    background:
+        rgba(99,102,241,.09);
+    color:
+        var(--primary);
+    font-size: 10px;
+    font-weight: 700;
+}
+.status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color:
+        var(--success);
+    font-size: 10px;
+    font-weight: 600;
+}
+.status.offline {
+    color:
+        var(--danger);
+}
+.status i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background:
+        currentColor;
+}
+.card h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+.card-description {
+    color:
+        var(--text2);
+    font-size: 13px;
+    line-height: 1.6;
+    min-height: 42px;
+    margin-bottom: 17px;
+}
+.card-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    color:
+        var(--muted);
+    font-size: 10px;
+    margin-bottom: 18px;
+}
+.card-buttons {
+    display: flex;
+    gap: 8px;
+}
+.card-btn {
+    flex: 1;
+    border: none;
+    padding: 10px;
+    border-radius: 9px;
+    font-size: 12px;
+    font-weight: 600;
+    transition: .2s;
+}
+.view-btn {
+    color:
+        var(--primary);
+    background:
+        rgba(99,102,241,.10);
+}
+.copy-btn {
+    color: white;
+    background:
+        linear-gradient(
+            135deg,
+            #6366f1,
+            #4f46e5
+        );
+}
+.card-btn:hover {
+    transform:
+        translateY(-2px);
+}
+.search-wrapper {
+    position: relative;
+    margin-bottom: 18px;
+}
+.search-wrapper input {
+    width: 100%;
+    height: 54px;
+    padding:
+        0 45px;
+    border:
+        1px solid var(--border);
+    outline: none;
+    border-radius: 13px;
+    background:
+        var(--card);
+    color:
+        var(--text);
+    font-size: 14px;
+    backdrop-filter:
+        blur(15px);
+    transition: .2s;
+}
+.search-wrapper input::placeholder {
+    color:
+        var(--muted);
+}
+.search-wrapper input:focus {
+    border-color:
+        var(--primary);
+    box-shadow:
+        0 0 0 4px
+        rgba(99,102,241,.08);
+}
+.search-icon {
+    position: absolute;
+    left: 17px;
+    top: 50%;
+    transform:
+        translateY(-50%);
+    color:
+        var(--muted);
+    font-size: 22px;
+}
+.clear-search {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform:
+        translateY(-50%);
+    width: 27px;
+    height: 27px;
+    border: none;
+    border-radius: 50%;
+    background:
+        var(--border);
+    color:
+        var(--text2);
+    display: none;
+}
+.filters {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+.filter {
+    border:
+        1px solid var(--border);
+    border-radius: 9px;
+    padding:
+        8px 13px;
+    background:
+        var(--card);
+    color:
+        var(--text2);
+    font-size: 12px;
+    transition: .2s;
+}
+.filter:hover {
+    color:
+        var(--primary);
+}
+.filter.active {
+    color: white;
+    background:
+        var(--primary);
+    border-color:
+        var(--primary);
+}
+.repository-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+    color:
+        var(--muted);
+    font-size: 12px;
+}
+.repository-bar select {
+    border:
+        1px solid var(--border);
+    border-radius: 8px;
+    padding:
+        8px 10px;
+    background:
+        var(--card);
+    color:
+        var(--text);
+    outline: none;
+}
+.empty-state {
+    text-align: center;
+    padding:
+        80px 20px;
+}
+.empty-icon {
+    width: 55px;
+    height: 55px;
+    margin:
+        0 auto 15px;
+    display: grid;
+    place-items: center;
+    border-radius: 15px;
+    color:
+        var(--primary);
+    background:
+        rgba(99,102,241,.10);
+    font-size: 25px;
+}
+.empty-state h3 {
+    margin-bottom: 7px;
+}
+.empty-state p {
+    color:
+        var(--text2);
+    font-size: 13px;
+    margin-bottom: 18px;
+}
+.small {
+    padding:
+        10px 16px;
+}
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background:
+        rgba(0,0,0,.65);
+    backdrop-filter:
+        blur(8px);
+}
+.modal-overlay.active {
+    display: flex;
+    animation:
+        fadeIn .2s ease;
+}
+.modal {
+    width:
+        min(850px,100%);
+    max-height:
+        85vh;
+    border:
+        1px solid var(--border);
+    border-radius: 18px;
+    overflow: hidden;
+    background:
+        var(--bg2);
+    box-shadow:
+        0 40px 100px
+        rgba(0,0,0,.35);
+    animation:
+        modalIn .25s ease;
+}
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    border-bottom:
+        1px solid var(--border);
+}
+.modal-header h2 {
+    margin-top: 4px;
+}
+.modal-close {
+    width: 35px;
+    height: 35px;
+    border: none;
+    border-radius: 9px;
+    background:
+        var(--border);
+    color:
+        var(--text);
+    font-size: 20px;
+}
+.modal-close:hover {
+    background:
+        var(--danger);
+    color: white;
+}
+.code-container {
+    padding: 20px;
+}
+.code-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding:
+        10px 13px;
+    background:
+        #111827;
+    border-radius:
+        10px 10px 0 0;
+    color:
+        #9ca3af;
+    font-size: 11px;
+}
+.code-language {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+.code-language i {
+    width: 7px;
+    height: 7px;
+    background:
+        #fbbf24;
+    border-radius: 50%;
+}
+.copy-modal-btn {
+    border: none;
+    padding:
+        7px 10px;
+    border-radius: 7px;
+    background:
+        #6366f1;
+    color: white;
+    font-size: 11px;
+}
+.copy-modal-btn:hover {
+    background:
+        #4f46e5;
+}
+#modalCode {
+    max-height:
+        50vh;
+    overflow: auto;
+    padding: 18px;
+    background:
+        #0b1120;
+    color:
+        #dbeafe;
+    font-family:
+        Consolas,
+        Monaco,
+        monospace;
+    font-size: 12px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    word-break: break-word;
+    border-radius:
+        0 0 10px 10px;
+}
+.toast-container {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.toast {
+    min-width: 260px;
+    padding:
+        13px 16px;
+    border:
+        1px solid var(--border);
+    border-left:
+        3px solid var(--success);
+    border-radius: 11px;
+    background:
+        var(--bg2);
+    color:
+        var(--text);
+    box-shadow:
+        0 15px 40px
+        rgba(0,0,0,.15);
+    font-size: 13px;
+    animation:
+        toastIn .3s ease;
+}
+footer {
+    margin-top: 40px;
+    padding:
+        30px 20px;
+    text-align: center;
+    color:
+        var(--muted);
+    font-size: 12px;
+    border-top:
+        1px solid var(--border);
+}
+footer b {
+    color:
+        var(--primary);
+}
+footer span {
+    margin:
+        0 5px;
+}
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform:
+            translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform:
+            translateY(0);
+    }
+}
+@keyframes cardIn {
+    from {
+        opacity: 0;
+        transform:
+            translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform:
+            translateY(0);
+    }
+}
+@keyframes modalIn {
+    from {
+        opacity: 0;
+        transform:
+            scale(.96)
+            translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform:
+            scale(1)
+            translateY(0);
+    }
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@keyframes toastIn {
+    from {
+        opacity: 0;
+        transform:
+            translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform:
+            translateX(0);
+    }
+}
+@keyframes pulse {
+    0%,100% {
+        box-shadow:
+            0 0 0 4px
+            rgba(34,197,94,.10);
+    }
+    50% {
+        box-shadow:
+            0 0 0 8px
+            rgba(34,197,94,.03);
+    }
+}
+@media(max-width:800px) {
+    .navbar {
+        padding:
+            0 20px;
+    }
+    .nav-actions {
+        margin-left:
+            auto;
+    }
+    .menu-btn {
+        display: block;
+    }
+    .nav-links {
+        position: absolute;
+        top: 72px;
+        left: 15px;
+        right: 15px;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 4px;
+        padding: 10px;
+        border:
+            1px solid var(--border);
+        border-radius: 13px;
+        background:
+            var(--bg2);
+        box-shadow:
+            0 20px 50px
+            rgba(0,0,0,.15);
+    }
+    .nav-links.open {
+        display: flex;
+        animation:
+            fadeUp .2s ease;
+    }
+    .nav-links a {
+        padding: 12px;
+    }
+    .discord {
+        text-align:
+            center;
+    }
+    .hero {
+        padding-top:
+            90px;
+    }
+    .hero h1 {
+        letter-spacing:
+            -3px;
+    }
+    .hero-buttons {
+        flex-direction:
+            column;
+    }
+    .stats {
+        margin-top:
+            55px;
+    }
+    .stat {
+        min-width: 0;
+        flex: 1;
+        padding:
+            0 10px;
+    }
+    .script-grid {
+        grid-template-columns:
+            1fr;
+    }
+    .section-heading,
+    .page-heading {
+        align-items:
+            flex-start;
+    }
+    .text-btn {
+        margin-top:
+            5px;
+    }
+}
+@media(max-width:450px) {
+    .hero h1 {
+        font-size:
+            46px;
+    }
+    .hero p {
+        font-size:
+            14px;
+    }
+    .stats {
+        gap: 0;
+    }
+    .stat strong {
+        font-size:
+            20px;
+    }
+    .stat span {
+        font-size:
+            10px;
+    }
+    .modal {
+        max-height:
+            90vh;
+    }
+    .code-container {
+        padding:
+            12px;
+    }
+    .toast {
+        left: 15px;
+        right: 15px;
+        min-width: 0;
+    }
+}
+</style>
+</head>
+<body>
+<div class="background-glow glow1"></div>
+<div class="background-glow glow2"></div>
+<nav class="navbar">
+    <a
+        href="#"
+        class="logo"
+        onclick="showPage('home'); return false;"
+    >
+        <span class="logo-icon">
+            V
+        </span>
+        <span>
+            VANH<span class="logo-light">
+                HUB
+            </span>
+        </span>
+    </a>
+    <div
+        class="nav-links"
+        id="navLinks"
+    >
+        <a
+            href="#"
+            onclick="showPage('home'); return false;"
+        >
+            Home
+        </a>
+        <a
+            href="#"
+            onclick="showPage('scripts'); return false;"
+        >
+            Scripts
+        </a>
+        <a
+            class="discord"
+            href="https://discord.gg/79YS89UXxN"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            Discord ↗
+        </a>
+    </div>
+    <div class="nav-actions">
+        <button
+            class="theme-btn"
+            id="themeBtn"
+            onclick="toggleTheme()"
+            aria-label="Đổi giao diện"
+        >
+            🌙
+        </button>
+        <button
+            class="menu-btn"
+            onclick="toggleMenu()"
+            aria-label="Mở menu"
+        >
+            ☰
+        </button>
+    </div>
+</nav>
+<main
+    id="home"
+    class="page active"
+>
+    <section class="hero">
+        <div class="hero-badge">
+            <span class="status-dot"></span>
+            Vanh Hub is online
+        </div>
+        <h1>
+            Your Scripts.<br>
+            <span>
+                One Hub.
+            </span>
+        </h1>
+        <p>
+            Khám phá, quản lý và copy scripts
+            nhanh chóng.
+            <br>
+            Simple. Fast. Clean.
+        </p>
+        <div class="hero-buttons">
+            <button
+                class="primary-btn"
+                onclick="showPage('scripts')"
+            >
+                Khám phá Scripts
+                <span>
+                    →
+                </span>
+            </button>
+            <a
+                class="secondary-btn"
+                href="https://discord.gg/79YS89UXxN"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Join Discord
+            </a>
+        </div>
+        <div class="stats">
+            <div class="stat">
+                <strong id="scriptCount">
+                    0
+                </strong>
+                <span>
+                    Scripts
+                </span>
+            </div>
+            <div class="stat">
+                <strong id="workingCount">
+                    0
+                </strong>
+                <span>
+                    Working
+                </span>
+            </div>
+            <div class="stat">
+                <strong>
+                    24/7
+                </strong>
+                <span>
+                    Available
+                </span>
+            </div>
+        </div>
+    </section>
+    <section
+        class="featured-section"
+    >
+        <div class="section-heading">
+            <div>
+                <span class="eyebrow">
+                    FEATURED
+                </span>
+                <h2>
+                    Scripts nổi bật
+                </h2>
+            </div>
+            <button
+                class="text-btn"
+                onclick="showPage('scripts')"
+            >
+                Xem tất cả →
+            </button>
+        </div>
+        <div
+            class="script-grid"
+            id="featuredGrid"
+        ></div>
+    </section>
+    <footer>
+        © 2026
+        <b>
+            Vanh Hub
+        </b>
+        <span>
+            •
+        </span>
+        Script Repository
+    </footer>
+</main>
+<main
+    id="scripts"
+    class="page"
+>
+    <section class="scripts-page">
+        <div class="page-heading">
+            <div>
+                <span class="eyebrow">
+                    REPOSITORY
+                </span>
+                <h1>
+                    Scripts
+                </h1>
+                <p>
+                    Tìm kiếm và khám phá các
+                    scripts của Vanh Hub.
+                </p>
+            </div>
+        </div>
+        <div class="search-wrapper">
+            <span class="search-icon">
+                ⌕
+            </span>
+            <input
+                id="search"
+                type="text"
+                autocomplete="off"
+                placeholder="Tìm kiếm script..."
+                oninput="searchScripts()"
+            >
+            <button
+                id="clearSearch"
+                class="clear-search"
+                onclick="clearSearch()"
+            >
+                ×
+            </button>
+        </div>
+        <div class="filters">
+            <button
+                class="filter active"
+                data-category="all"
+                onclick="setCategory('all',this)"
+            >
+                Tất cả
+            </button>
+            <button
+                class="filter"
+                data-category="Roblox"
+                onclick="setCategory('Roblox',this)"
+            >
+                Roblox
+            </button>
+            <button
+                class="filter"
+                data-category="Utility"
+                onclick="setCategory('Utility',this)"
+            >
+                Utility
+            </button>
+            <button
+                class="filter"
+                data-category="Other"
+                onclick="setCategory('Other',this)"
+            >
+                Other
+            </button>
+        </div>
+        <div class="repository-bar">
+            <span id="resultCount">
+                0 scripts
+            </span>
+            <select
+                id="sortSelect"
+                onchange="sortScripts()"
+            >
+                <option value="featured">
+                    Featured
+                </option>
+                <option value="newest">
+                    Mới nhất
+                </option>
+                <option value="az">
+                    A → Z
+                </option>
+                <option value="views">
+                    Nhiều lượt xem
+                </option>
+            </select>
+        </div>
+        <div
+            class="script-grid"
+            id="scriptGrid"
+        ></div>
+        <div
+            id="emptyState"
+            class="empty-state"
+            style="display:none;"
+        >
+            <div class="empty-icon">
+                ⌕
+            </div>
+            <h3>
+                Không tìm thấy script
+            </h3>
+            <p>
+                Thử tìm kiếm với từ khóa khác.
+            </p>
+            <button
+                class="primary-btn small"
+                onclick="resetFilters()"
+            >
+                Reset
+            </button>
+        </div>
+    </section>
+    <footer>
+        © 2026
+        <b>
+            Vanh Hub
+        </b>
+        <span>
+            •
+        </span>
+        Script Repository
+    </footer>
+</main>
+<div
+    class="modal-overlay"
+    id="codeModal"
+    onclick="closeModal(event)"
+>
+    <div class="modal">
+        <div class="modal-header">
+            <div>
+                <span class="eyebrow">
+                    SCRIPT CODE
+                </span>
+                <h2 id="modalTitle">
+                    Script
+                </h2>
+            </div>
+            <button
+                class="modal-close"
+                onclick="closeCodeModal()"
+            >
+                ×
+            </button>
+        </div>
+        <div class="code-container">
+            <div class="code-topbar">
+                <span class="code-language">
+                    <i></i>
+                    Lua
+                </span>
+                <button
+                    class="copy-modal-btn"
+                    id="modalCopyBtn"
+                    onclick="copyModalCode()"
+                >
+                    Copy Code
+                </button>
+            </div>
+            <pre id="modalCode"></pre>
+        </div>
+    </div>
+</div>
+<div
+    id="toastContainer"
+    class="toast-container"
+></div>
+<script>
+const scripts = [
+    {
+        id: "blox-fruits",
+        name: "Blox Fruits",
+        category: "Roblox",
+        description:
+            "Script dành cho Blox Fruits.",
+        status:
+            "working",
+        featured:
+            true,
+        version:
+            "1.0.0",
+        updated:
+            "2026-08-20",
+        views:
+            1240,
+        copies:
+            386,
+        code:
+`loadstring(game:HttpGet("Ko cho dau :D"))()`
+    },
+    {
+        id: "example-utility",
+        name: "Example Utility",
+        category: "Utility",
+        description:
+            "Utility script demo cho Vanh Hub.",
+        status:
+            "working",
+        featured:
+            true,
+        version:
+            "1.2.0",
+        updated:
+            "2026-08-18",
+        views:
+            840,
+        copies:
+            215,
+        code:
+`print("Hello from Vanh Hub!")`
+    },
+    {
+        id: "offline-example",
+        name: "Offline Example",
+        category: "Other",
+        description:
+            "Một script mẫu đang được bảo trì.",
+        status:
+            "offline",
+        featured:
+            false,
+        version:
+            "0.9.0",
+        updated:
+            "2026-08-10",
+        views:
+            421,
+        copies:
+            97,
+        code:
+`print("This script is currently offline.")`
+    }
+];
+let currentCategory =
+    "all";
+let currentSearch =
+    "";
+let currentScripts =
+    [...scripts];
+let currentModalScript =
+    null;
+function showPage(pageName) {
+    document
+        .querySelectorAll(".page")
+        .forEach(page => {
+            page.classList.remove(
+                "active"
+            );
+        });
+    const page =
+        document.getElementById(
+            pageName
+        );
+    if (page) {
+        page.classList.add(
+            "active"
+        );
+    }
+    closeMenu();
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+function toggleMenu() {
+    document
+        .getElementById("navLinks")
+        .classList.toggle(
+            "open"
+        );
+}
+function closeMenu() {
+    document
+        .getElementById("navLinks")
+        .classList.remove(
+            "open"
+        );
+}
+function loadTheme() {
+    const saved =
+        localStorage.getItem(
+            "vanh-theme"
+        );
+    if (saved === "dark") {
+        document.body.classList.add(
+            "dark"
+        );
+    }
+    updateThemeButton();
+}
+function toggleTheme() {
+    document.body.classList.toggle(
+        "dark"
+    );
+    const dark =
+        document.body.classList.contains(
+            "dark"
+        );
+    localStorage.setItem(
+        "vanh-theme",
+        dark
+            ? "dark"
+            : "light"
+    );
+    updateThemeButton();
+    showToast(
+        dark
+            ? "🌙 Đã bật Dark Mode"
+            : "☀️ Đã bật Light Mode"
+    );
+}
+function updateThemeButton() {
+    const button =
+        document.getElementById(
+            "themeBtn"
+        );
+    const dark =
+        document.body.classList.contains(
+            "dark"
+        );
+    button.innerText =
+        dark
+            ? "☀️"
+            : "🌙";
+}
+function createCard(script) {
+    const working =
+        script.status ===
+        "working";
+    const statusText =
+        working
+            ? "Working"
+            : "Offline";
+    return `
+        <article class="card">
+            <div class="card-top">
+                <span class="category">
+                    ${escapeHTML(
+                        script.category
+                    )}
+                </span>
+                <span
+                    class="status ${
+                        working
+                            ? ""
+                            : "offline"
+                    }"
+                >
+                    <i></i>
+                    ${statusText}
+                </span>
+            </div>
+            <h3>
+                ${escapeHTML(
+                    script.name
+                )}
+            </h3>
+            <p class="card-description">
+                ${escapeHTML(
+                    script.description
+                )}
+            </p>
+            <div class="card-meta">
+                <span>
+                    v${escapeHTML(
+                        script.version
+                    )}
+                </span>
+                <span>
+                    👁
+                    ${formatNumber(
+                        script.views
+                    )}
+                </span>
+                <span>
+                    📋
+                    ${formatNumber(
+                        script.copies
+                    )}
+                </span>
+                ${
+                    script.featured
+                    ? `<span>
+                        ⭐ Featured
+                       </span>`
+                    : ""
+                }
+            </div>
+            <div class="card-buttons">
+                <button
+                    class="card-btn view-btn"
+                    onclick="openCodeModal('${script.id}')"
+                >
+                    Xem Code
+                </button>
+                <button
+                    class="card-btn copy-btn"
+                    onclick="copyScript('${script.id}')"
+                >
+                    Copy
+                </button>
+            </div>
+        </article>
+    `;
+}
+function renderScripts(
+    list = currentScripts
+) {
+    const grid =
+        document.getElementById(
+            "scriptGrid"
+        );
+    const featuredGrid =
+        document.getElementById(
+            "featuredGrid"
+        );
+    if (grid) {
+        grid.innerHTML =
+            list
+                .map(createCard)
+                .join("");
+    }
+    if (featuredGrid) {
+        const featured =
+            scripts
+                .filter(
+                    script =>
+                        script.featured
+                )
+                .slice(0,3);
+        featuredGrid.innerHTML =
+            featured
+                .map(createCard)
+                .join("");
+    }
+    updateResultCount(
+        list
+    );
+}
+function searchScripts() {
+    const input =
+        document.getElementById(
+            "search"
+        );
+    currentSearch =
+        input.value
+            .trim()
+            .toLowerCase();
+    const clear =
+        document.getElementById(
+            "clearSearch"
+        );
+    clear.style.display =
+        currentSearch
+            ? "block"
+            : "none";
+    applyFilters();
+}
+function setCategory(
+    category,
+    button
+) {
+    currentCategory =
+        category;
+    document
+        .querySelectorAll(
+            ".filter"
+        )
+        .forEach(filter => {
+            filter.classList.remove(
+                "active"
+            );
+        });
+    button.classList.add(
+        "active"
+    );
+    applyFilters();
+}
+function applyFilters() {
+    currentScripts =
+        scripts.filter(
+            script => {
+                const searchMatch =
+                    script.name
+                        .toLowerCase()
+                        .includes(
+                            currentSearch
+                        )
+                    ||
+                    script.description
+                        .toLowerCase()
+                        .includes(
+                            currentSearch
+                        )
+                    ||
+                    script.category
+                        .toLowerCase()
+                        .includes(
+                            currentSearch
+                        );
+                const categoryMatch =
+                    currentCategory ===
+                    "all"
+                    ||
+                    script.category ===
+                    currentCategory;
+                return (
+                    searchMatch &&
+                    categoryMatch
+                );
+            }
+        );
+    sortScripts(
+        false
+    );
+}
+function sortScripts(
+    shouldRender = true
+) {
+    const select =
+        document.getElementById(
+            "sortSelect"
+        );
+    const type =
+        select.value;
+    currentScripts.sort(
+        (a,b) => {
+            if (
+                type === "newest"
+            ) {
+                return new Date(
+                    b.updated
+                )
+                -
+                new Date(
+                    a.updated
+                );
+            }
+            if (
+                type === "az"
+            ) {
+                return a.name.localeCompare(
+                    b.name
+                );
+            }
+            if (
+                type === "views"
+            ) {
+                return (
+                    b.views -
+                    a.views
+                );
+            }
+            if (
+                a.featured !==
+                b.featured
+            ) {
+                return a.featured
+                    ? -1
+                    : 1;
+            }
+            return (
+                b.views -
+                a.views
+            );
+        }
+    );
+    if (shouldRender) {
+        renderScripts(
+            currentScripts
+        );
+    }
+    updateEmptyState();
+}
+function clearSearch() {
+    document.getElementById(
+        "search"
+    ).value = "";
+    currentSearch =
+        "";
+    document.getElementById(
+        "clearSearch"
+    ).style.display =
+        "none";
+    applyFilters();
+}
+function resetFilters() {
+    currentCategory =
+        "all";
+    currentSearch =
+        "";
+    document.getElementById(
+        "search"
+    ).value = "";
+    document.getElementById(
+        "clearSearch"
+    ).style.display =
+        "none";
+    document
+        .querySelectorAll(
+            ".filter"
+        )
+        .forEach(
+            filter =>
+                filter.classList.remove(
+                    "active"
+                )
+        );
+    document
+        .querySelector(
+            '.filter[data-category="all"]'
+        )
+        .classList.add(
+            "active"
+        );
+    document.getElementById(
+        "sortSelect"
+    ).value =
+        "featured";
+    currentScripts =
+        [...scripts];
+    sortScripts();
+}
+function updateEmptyState() {
+    const empty =
+        document.getElementById(
+            "emptyState"
+        );
+    if (!empty) return;
+    empty.style.display =
+        currentScripts.length === 0
+            ? "block"
+            : "none";
+}
+function updateResultCount(
+    list
+) {
+    const result =
+        document.getElementById(
+            "resultCount"
+        );
+    if (!result) return;
+    result.innerText =
+        `${list.length} script${
+            list.length !== 1
+                ? "s"
+                : ""
+        }`;
+}
+function openCodeModal(
+    id
+) {
+    const script =
+        scripts.find(
+            item =>
+                item.id === id
+        );
+    if (!script) return;
+    currentModalScript =
+        script;
+    document.getElementById(
+        "modalTitle"
+    ).innerText =
+        script.name;
+    document.getElementById(
+        "modalCode"
+    ).textContent =
+        script.code;
+    document
+        .getElementById(
+            "codeModal"
+        )
+        .classList.add(
+            "active"
+        );
+    document.body.style.overflow =
+        "hidden";
+    script.views++;
+    updateStats();
+}
+function closeCodeModal() {
+    document
+        .getElementById(
+            "codeModal"
+        )
+        .classList.remove(
+            "active"
+        );
+    document.body.style.overflow =
+        "";
+}
+function closeModal(
+    event
+) {
+    if (
+        event.target.id ===
+        "codeModal"
+    ) {
+        closeCodeModal();
+    }
+}
+async function copyScript(
+    id
+) {
+    const script =
+        scripts.find(
+            item =>
+                item.id === id
+        );
+    if (!script) return;
+    const success =
+        await copyText(
+            script.code
+        );
+    if (!success) {
+        showToast(
+            "❌ Không thể copy code"
+        );
+        return;
+    }
+    script.copies++;
+    showToast(
+        `✓ Đã copy "${script.name}"`
+    );
+    renderScripts(
+        currentScripts
+    );
+}
+async function copyModalCode() {
+    if (!currentModalScript)
+        return;
+    const success =
+        await copyText(
+            currentModalScript.code
+        );
+    if (!success) {
+        showToast(
+            "❌ Không thể copy code"
+        );
+        return;
+    }
+    currentModalScript.copies++;
+    const button =
+        document.getElementById(
+            "modalCopyBtn"
+        );
+    const oldText =
+        button.innerText;
+    button.innerText =
+        "✓ Copied";
+    setTimeout(
+        () => {
+            button.innerText =
+                oldText;
+        },
+        1200
+    );
+    showToast(
+        "✓ Đã copy code"
+    );
+    renderScripts(
+        currentScripts
+    );
+}
+async function copyText(
+    text
+) {
+    try {
+        if (
+            navigator.clipboard &&
+            window.isSecureContext
+        ) {
+            await navigator
+                .clipboard
+                .writeText(text);
+            return true;
+        }
+        const textarea =
+            document.createElement(
+                "textarea"
+            );
+        textarea.value =
+            text;
+        textarea.style.position =
+            "fixed";
+        textarea.style.opacity =
+            "0";
+        document.body.appendChild(
+            textarea
+        );
+        textarea.focus();
+        textarea.select();
+        const success =
+            document.execCommand(
+                "copy"
+            );
+        textarea.remove();
+        return success;
+    }
+    catch {
+        return false;
+    }
+}
+function showToast(
+    message
+) {
+    const container =
+        document.getElementById(
+            "toastContainer"
+        );
+    const toast =
+        document.createElement(
+            "div"
+        );
+    toast.className =
+        "toast";
+    toast.innerText =
+        message;
+    container.appendChild(
+        toast
+    );
+    setTimeout(
+        () => {
+            toast.style.opacity =
+                "0";
+            toast.style.transform =
+                "translateX(20px)";
+            setTimeout(
+                () =>
+                    toast.remove(),
+                300
+            );
+        },
+        1800
+    );
+}
+function updateStats() {
+    const scriptCount =
+        document.getElementById(
+            "scriptCount"
+        );
+    const workingCount =
+        document.getElementById(
+            "workingCount"
+        );
+    if (scriptCount) {
+        scriptCount.innerText =
+            scripts.length;
+    }
+    if (workingCount) {
+        workingCount.innerText =
+            scripts.filter(
+                script =>
+                    script.status ===
+                    "working"
+            ).length;
+    }
+}
+function formatNumber(
+    number
+) {
+    return new Intl.NumberFormat(
+        "en-US",
+        {
+            notation:
+                "compact",
+            maximumFractionDigits:
+                1
+        }
+    ).format(
+        number
+    );
+}
+function escapeHTML(
+    value
+) {
+    return String(value)
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+}
+document.addEventListener(
+    "keydown",
+    event => {
+        if (
+            event.key ===
+            "Escape"
+        ) {
+            closeCodeModal();
+            closeMenu();
+        }
+        if (
+            (event.ctrlKey ||
+             event.metaKey)
+            &&
+            event.key.toLowerCase()
+            === "k"
+        ) {
+            event.preventDefault();
+            showPage(
+                "scripts"
+            );
+            setTimeout(
+                () => {
+                    document
+                        .getElementById(
+                            "search"
+                        )
+                        ?.focus();
+                },
+                100
+            );
+        }
+    }
+);
+document.addEventListener(
+    "click",
+    event => {
+        const nav =
+            document.getElementById(
+                "navLinks"
+            );
+        const menu =
+            document.querySelector(
+                ".menu-btn"
+            );
+        if (
+            nav.classList.contains(
+                "open"
+            )
+            &&
+            !nav.contains(
+                event.target
+            )
+            &&
+            !menu.contains(
+                event.target
+            )
+        ) {
+            closeMenu();
+        }
+    }
+);
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+        loadTheme();
+        updateStats();
+        renderScripts(
+            scripts
+        );
+        applyFilters();
+    }
+);
+</script>
+</body>
+</html>
