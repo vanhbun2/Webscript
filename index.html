@@ -1,81 +1,107 @@
+```html
 <!DOCTYPE html>
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<title>Giải hệ phương trình</title>
+<title> Giải hệ phương trình </title>
 
 <style>
 *{box-sizing:border-box}
+
 body{
     margin:0;
-    min-height:100vh;
+    padding:35px 15px;
     font-family:Arial;
     background:linear-gradient(135deg,#0f172a,#1e3a8a);
     color:white;
-    padding:40px 15px
 }
+
 .box{
-    max-width:700px;
+    max-width:750px;
     margin:auto;
-    background:#ffffff12;
     padding:25px;
+    background:#ffffff12;
     border-radius:18px;
-    box-shadow:0 10px 35px #0005
+    box-shadow:0 10px 35px #0005;
 }
-h1,h2{text-align:center}
-.system{text-align:center;font-size:22px;line-height:1.8}
+
+h1{text-align:center}
+
+.system{
+    text-align:center;
+    font-size:23px;
+    line-height:1.8;
+    margin:20px;
+}
+
 .row{
     display:grid;
     grid-template-columns:repeat(3,1fr);
     gap:12px;
-    margin:15px 0 25px
+    margin:12px 0 25px;
 }
-label{font-size:14px;color:#cbd5e1}
+
+label{
+    display:block;
+    color:#cbd5e1;
+    margin-bottom:5px;
+}
+
 input{
     width:100%;
-    margin-top:6px;
     padding:11px;
     border:1px solid #64748b;
-    border-radius:9px;
+    border-radius:8px;
     background:#0f172acc;
     color:white;
     text-align:center;
-    font-size:16px
+    font-size:16px;
 }
+
+.buttons{
+    display:flex;
+    gap:10px;
+}
+
 button{
-    width:48%;
+    flex:1;
     padding:12px;
     border:0;
     border-radius:9px;
     color:white;
     font-weight:bold;
-    cursor:pointer
+    cursor:pointer;
 }
+
 .solve{background:#2563eb}
 .clear{background:#475569}
-.buttons{display:flex;justify-content:space-between}
+
 #result{
     display:none;
     margin-top:20px;
-    background:#0f172acc;
     padding:20px;
+    background:#0f172acc;
     border-radius:14px;
-    line-height:2
+    line-height:2;
 }
+
 .step{
-    padding:12px 15px;
+    padding:15px;
     margin:12px 0;
     border-left:4px solid #60a5fa;
     background:#ffffff08;
-    border-radius:8px
+    border-radius:8px;
 }
+
 .answer{
     text-align:center;
-    padding:15px;
-    margin-top:15px;
+    margin-top:20px;
+    padding:18px;
     border-radius:10px;
-    background:#16a34a33
+    background:#16a34a33;
+    font-size:20px;
 }
+
 @media(max-width:550px){
     .row{grid-template-columns:1fr}
 }
@@ -89,45 +115,51 @@ button{
 <h1>🧮 Giải hệ phương trình</h1>
 
 <div class="system">
-    ax + by = c<br>
-    a'x + b'y = c'
+2 phương trình bậc nhất 2 ẩn<br>
+<b>Phương pháp thế</b>
 </div>
 
 <h3>Phương trình 1</h3>
+
 <div class="row">
-    <div>
-        <label>a</label>
-        <input id="a" type="number">
-    </div>
-    <div>
-        <label>b</label>
-        <input id="b" type="number">
-    </div>
-    <div>
-        <label>c</label>
-        <input id="c" type="number">
-    </div>
+<div>
+<label>a</label>
+<input id="a" type="number">
+</div>
+
+<div>
+<label>b</label>
+<input id="b" type="number">
+</div>
+
+<div>
+<label>c</label>
+<input id="c" type="number">
+</div>
 </div>
 
 <h3>Phương trình 2</h3>
+
 <div class="row">
-    <div>
-        <label>a'</label>
-        <input id="a1" type="number">
-    </div>
-    <div>
-        <label>b'</label>
-        <input id="b1" type="number">
-    </div>
-    <div>
-        <label>c'</label>
-        <input id="c1" type="number">
-    </div>
+<div>
+<label>a'</label>
+<input id="a1" type="number">
+</div>
+
+<div>
+<label>b'</label>
+<input id="b1" type="number">
+</div>
+
+<div>
+<label>c'</label>
+<input id="c1" type="number">
+</div>
 </div>
 
 <div class="buttons">
-    <button class="solve" onclick="giai()">🔍 Giải</button>
-    <button class="clear" onclick="xoa()">🗑 Xóa</button>
+<button class="solve" onclick="giai()">🔍 GIẢI</button>
+<button class="clear" onclick="xoa()">🗑 XÓA</button>
 </div>
 
 <div id="result"></div>
@@ -135,83 +167,198 @@ button{
 </div>
 
 <script>
+
+function f(n){
+    return Number.isInteger(n)
+        ? n
+        : Number(n.toFixed(6));
+}
+
+function frac(a,b){
+    if(b==1) return `${f(a)}`;
+    return `(${f(a)})/${f(b)}`;
+}
+
 function giai(){
 
 let a=+document.getElementById("a").value;
 let b=+document.getElementById("b").value;
 let c=+document.getElementById("c").value;
+
 let a1=+document.getElementById("a1").value;
 let b1=+document.getElementById("b1").value;
 let c1=+document.getElementById("c1").value;
 
-let D=a*b1-a1*b;
-let Dx=c*b1-c1*b;
-let Dy=a*c1-a1*c;
 let r=document.getElementById("result");
+
+if(
+document.getElementById("a").value=="" ||
+document.getElementById("b").value=="" ||
+document.getElementById("c").value=="" ||
+document.getElementById("a1").value=="" ||
+document.getElementById("b1").value=="" ||
+document.getElementById("c1").value==""
+){
+r.style.display="block";
+r.innerHTML="⚠️ Vui lòng nhập đủ 6 hệ số.";
+return;
+}
 
 r.style.display="block";
 
-if(D==0){
-    r.innerHTML=Dx==0&&Dy==0
-    ?"<div class='answer'>♾️ Hệ có vô số nghiệm</div>"
-    :"<div class='answer'>❌ Hệ vô nghiệm</div>";
-    return;
-}
+/*
+Nếu b khác 0 thì rút y từ phương trình 1.
+Nếu không thì rút x.
+*/
 
-let x=Dx/D;
-let y=Dy/D;
+let html="";
 
-r.innerHTML=`
-<h2>📖 Cách giải</h2>
+if(b!=0){
 
+let p=-a/b;
+let q=c/b;
+
+html+=`
 <div class="step">
-<b>Tính D:</b><br>
-D = a × b' − a' × b<br>
-D = ${a} × ${b1} − ${a1} × ${b}<br>
-D = <b>${D}</b>
+<b>Bước 1: Biểu diễn y theo x</b><br><br>
+
+Từ phương trình thứ nhất:
+<br>
+${a}x + ${b}y = ${c}
+<br>
+${b}y = ${c} - ${a}x
+<br>
+y = (${c} - ${a}x) / ${b}
+<br>
+y = ${frac(c,b)} ${p>=0?"+":"−"} ${f(Math.abs(p))}x
+</div>
+`;
+
+let A=a1*p+b1;
+let B=a1*q-c1;
+
+html+=`
+<div class="step">
+<b>Bước 2: Thế y vào phương trình thứ hai</b><br><br>
+
+Thay
+y = ${frac(c,b)} ${p>=0?"+":"−"} ${f(Math.abs(p))}x
+<br>
+vào:
+<br>
+${a1}x + ${b1}y = ${c1}
+<br><br>
+
+${a1}x + ${b1}(${frac(c,b)} ${p>=0?"+":"−"} ${f(Math.abs(p))}x) = ${c1}
+<br>
+${f(A)}x ${B>=0?"+":"−"} ${f(Math.abs(B))} = 0
+</div>
+`;
+
+let x=(c1-b1*q)/A;
+let y=q+p*x;
+
+html+=`
+<div class="step">
+<b>Giải phương trình tìm x</b><br><br>
+
+${f(A)}x = ${f(-B)}
+<br>
+x = ${f(x)}
 </div>
 
 <div class="step">
-<b>Tính Dₓ:</b><br>
-Dₓ = c × b' − c' × b<br>
-Dₓ = ${c} × ${b1} − ${c1} × ${b}<br>
-Dₓ = <b>${Dx}</b>
-</div>
+<b>Bước 3: Tìm y</b><br><br>
 
-<div class="step">
-<b>Tính Dᵧ:</b><br>
-Dᵧ = a × c' − a' × c<br>
-Dᵧ = ${a} × ${c1} − ${a1} × ${c}<br>
-Dᵧ = <b>${Dy}</b>
-</div>
-
-<div class="step">
-<b>Tính x:</b><br>
-x = Dₓ / D<br>
-x = ${Dx} / ${D}<br>
-x = <b>${x}</b>
-</div>
-
-<div class="step">
-<b>Tính y:</b><br>
-y = Dᵧ / D<br>
-y = ${Dy} / ${D}<br>
-y = <b>${y}</b>
+Thay x = ${f(x)} vào:
+<br>
+y = ${frac(c,b)} ${p>=0?"+":"−"} ${f(Math.abs(p))}x
+<br>
+y = ${f(q)} ${p>=0?"+":"−"} ${f(Math.abs(p*x))}
+<br>
+y = <b>${f(y)}</b>
 </div>
 
 <div class="answer">
-<h2>✅ Kết quả</h2>
-x = <b>${x}</b> &nbsp;&nbsp; y = <b>${y}</b><br>
-Nghiệm: <b>(${x}; ${y})</b>
+<b>✅ Kết quả</b><br><br>
+x = ${f(x)}<br>
+y = ${f(y)}<br><br>
+Nghiệm của hệ:
+<b>(${f(x)} ; ${f(y)})</b>
 </div>
 `;
+
+}else{
+
+/*
+Nếu b = 0 thì phương trình 1 có dạng ax = c.
+*/
+
+let x=c/a;
+
+html+=`
+<div class="step">
+<b>Bước 1: Tìm x</b><br><br>
+
+Từ phương trình thứ nhất:
+<br>
+${a}x = ${c}
+<br>
+x = ${f(x)}
+</div>
+`;
+
+if(b1!=0){
+
+let y=(c1-a1*x)/b1;
+
+html+=`
+<div class="step">
+<b>Bước 2: Thay x vào phương trình thứ hai</b><br><br>
+
+${a1} × ${f(x)} + ${b1}y = ${c1}
+<br>
+${b1}y = ${f(c1-a1*x)}
+<br>
+y = ${f(y)}
+</div>
+
+<div class="answer">
+<b>✅ Kết quả</b><br><br>
+x = ${f(x)}<br>
+y = ${f(y)}<br><br>
+Nghiệm:
+<b>(${f(x)} ; ${f(y)})</b>
+</div>
+`;
+
+}else{
+
+html+=`
+<div class="answer">
+Không thể giải hệ theo trường hợp này.
+</div>
+`;
+
+}
+
+}
+
+r.innerHTML=html;
+
 }
 
 function xoa(){
-document.querySelectorAll("input").forEach(e=>e.value="");
+
+document.querySelectorAll("input")
+.forEach(e=>e.value="");
+
 document.getElementById("result").style.display="none";
+
 }
+
 </script>
 
 </body>
 </html>
+```
