@@ -5,14 +5,12 @@
 <title>Giải hệ phương trình</title>
 
 <style>
-*{
-    box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
     margin:0;
     padding:35px 15px;
-    font-family:Arial,sans-serif;
+    font-family:Arial;
     background:linear-gradient(135deg,#0f172a,#1e3a8a);
     color:white;
 }
@@ -26,9 +24,7 @@ body{
     box-shadow:0 10px 35px #0005;
 }
 
-h1{
-    text-align:center;
-}
+h1{text-align:center}
 
 .system{
     text-align:center;
@@ -76,13 +72,8 @@ button{
     cursor:pointer;
 }
 
-.solve{
-    background:#2563eb;
-}
-
-.clear{
-    background:#475569;
-}
+.solve{background:#2563eb}
+.clear{background:#475569}
 
 #result{
     display:none;
@@ -99,7 +90,6 @@ button{
     border-left:4px solid #60a5fa;
     background:#ffffff08;
     border-radius:8px;
-    overflow-x:auto;
 }
 
 .answer{
@@ -117,22 +107,11 @@ button{
     padding:18px;
     border-radius:10px;
     background:#dc262633;
-    font-size:18px;
-}
-
-.warning{
-    text-align:center;
-    margin-top:20px;
-    padding:18px;
-    border-radius:10px;
-    background:#f59e0b33;
-    font-size:18px;
+    font-size:20px;
 }
 
 @media(max-width:550px){
-    .row{
-        grid-template-columns:1fr;
-    }
+    .row{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -144,8 +123,8 @@ button{
 <h1>🧮 Giải hệ phương trình</h1>
 
 <div class="system">
-    2 phương trình bậc nhất 2 ẩn<br>
-    <b>Phương pháp thế</b>
+2 phương trình bậc nhất 2 ẩn<br>
+<b>Phương pháp thế</b>
 </div>
 
 <h3>Phương trình 1</h3>
@@ -192,13 +171,9 @@ button{
 
 <div class="buttons">
 
-<button class="solve" onclick="giai()">
-🔍 GIẢI
-</button>
+<button class="solve" onclick="giai()">🔍 GIẢI</button>
 
-<button class="clear" onclick="xoa()">
-🗑 XÓA
-</button>
+<button class="clear" onclick="xoa()">🗑 XÓA</button>
 
 </div>
 
@@ -209,444 +184,421 @@ button{
 <script>
 
 function f(n){
-
-    if(Math.abs(n) < 1e-10)
-        n = 0;
+    if(Math.abs(n)<0.000000001) n=0;
 
     return Number.isInteger(n)
         ? n
         : Number(n.toFixed(6));
 }
 
-function dau(n){
-
-    if(n >= 0)
-        return "+ " + f(n);
-
-    return "− " + f(Math.abs(n));
-}
-
-function term(coef, variable){
-
-    if(coef === 0)
-        return "";
-
-    if(coef === 1)
-        return variable;
-
-    if(coef === -1)
-        return "−" + variable;
-
-    return f(coef) + variable;
-}
-
-function equation(a,b,c){
-
-    let s = "";
-
-    if(a !== 0)
-        s += term(a,"x");
-
-    if(b !== 0){
-
-        if(s !== "")
-            s += " " + dau(b) + "y";
-        else
-            s += term(b,"y");
-
-    }
-
-    if(s === "")
-        s = "0";
-
-    s += " = " + f(c);
-
-    return s;
-}
-
-function checkEquation(a,b,c){
-
-    if(a === 0 && b === 0){
-
-        if(c === 0)
-            return "infinite";
-
-        return "none";
-    }
-
-    return "normal";
+function frac(a,b){
+    if(b==1) return `${f(a)}`;
+    if(b==-1) return `−${f(a)}`;
+    return `(${f(a)})/(${f(b)})`;
 }
 
 function giai(){
 
-    let a = Number(document.getElementById("a").value);
-    let b = Number(document.getElementById("b").value);
-    let c = Number(document.getElementById("c").value);
+let a=+document.getElementById("a").value;
+let b=+document.getElementById("b").value;
+let c=+document.getElementById("c").value;
 
-    let a1 = Number(document.getElementById("a1").value);
-    let b1 = Number(document.getElementById("b1").value);
-    let c1 = Number(document.getElementById("c1").value);
+let a1=+document.getElementById("a1").value;
+let b1=+document.getElementById("b1").value;
+let c1=+document.getElementById("c1").value;
 
-    let r = document.getElementById("result");
+let r=document.getElementById("result");
 
-    if(
-        document.getElementById("a").value === "" ||
-        document.getElementById("b").value === "" ||
-        document.getElementById("c").value === "" ||
-        document.getElementById("a1").value === "" ||
-        document.getElementById("b1").value === "" ||
-        document.getElementById("c1").value === ""
-    ){
+if(
+document.getElementById("a").value=="" ||
+document.getElementById("b").value=="" ||
+document.getElementById("c").value=="" ||
+document.getElementById("a1").value=="" ||
+document.getElementById("b1").value=="" ||
+document.getElementById("c1").value==""
+){
+r.style.display="block";
+r.innerHTML=`
+<div class="error">
+⚠️ Vui lòng nhập đủ 6 hệ số.
+</div>
+`;
+return;
+}
 
-        r.style.display = "block";
+r.style.display="block";
 
-        r.innerHTML = `
-        <div class="warning">
-            ⚠️ Vui lòng nhập đủ 6 hệ số.
-        </div>
-        `;
+let html="";
 
-        return;
-    }
+if(a==0 && b==0){
 
-    r.style.display = "block";
+if(c!=0){
 
-    let html = "";
+r.innerHTML=`
+<div class="error">
+❌ <b>Hệ vô nghiệm</b>
+<br><br>
+Phương trình thứ nhất trở thành:
+<br>
+0 = ${f(c)}
+</div>
+`;
 
-    let check1 = checkEquation(a,b,c);
-    let check2 = checkEquation(a1,b1,c1);
+return;
+}
 
-    if(check1 === "none" || check2 === "none"){
+if(a1==0 && b1==0){
 
-        html += `
-        <div class="step">
-            ${equation(a,b,c)}
-            <br>
-            ${equation(a1,b1,c1)}
-        </div>
+if(c1!=0){
 
-        <div class="error">
-            ❌ <b>Hệ vô nghiệm</b>
-        </div>
-        `;
+r.innerHTML=`
+<div class="error">
+❌ <b>Hệ vô nghiệm</b>
+<br><br>
+Phương trình thứ hai trở thành:
+<br>
+0 = ${f(c1)}
+</div>
+`;
 
-        r.innerHTML = html;
-        return;
-    }
+return;
+}
 
-    if(check1 === "infinite" && check2 === "infinite"){
+r.innerHTML=`
+<div class="answer">
+♾️ <b>Hệ có vô số nghiệm</b>
+</div>
+`;
 
-        html += `
-        <div class="step">
-            ${equation(a,b,c)}
-            <br>
-            ${equation(a1,b1,c1)}
-        </div>
+return;
+}
 
-        <div class="answer">
-            ♾️ <b>Hệ có vô số nghiệm.</b>
-        </div>
-        `;
+a=a1;
+b=b1;
+c=c1;
 
-        r.innerHTML = html;
-        return;
-    }
+a1=+document.getElementById("a").value;
+b1=+document.getElementById("b").value;
+c1=+document.getElementById("c").value;
 
-    if(check1 === "infinite"){
+}
 
-        a = a1;
-        b = b1;
-        c = c1;
+if(b!=0){
 
-        a1 = 0;
-        b1 = 0;
-        c1 = 0;
-    }
+let p=-a/b;
+let q=c/b;
 
-    let p,q;
+html+=`
+<div class="step">
 
-    if(b !== 0){
+<b>Bước 1</b><br><br>
 
-        p = -a/b;
-        q = c/b;
+Từ phương trình thứ nhất:
+<br>
 
-        html += `
-        <div class="step">
+${a}x + ${b}y = ${c}
 
-        <b>Bước 1</b>
+<br>
 
-        <br><br>
+${b}y = ${c} - ${a}x
 
-        ${equation(a,b,c)}
+<br>
 
-        <br><br>
+y = (${c} - ${a}x) / ${b}
 
-        ${f(b)}y = ${f(c)} − ${f(a)}x
+<br>
 
-        <br><br>
+y = ${frac(c,b)} ${p>=0?"+":"−"} ${f(Math.abs(p))}x
 
-        <b>
-        y = ${f(q)} ${p >= 0 ? "+ " + f(p) + "x" : "− " + f(Math.abs(p)) + "x"}
-        </b>
+</div>
+`;
 
-        </div>
-        `;
+let A=a1*p+b1;
+let B=a1*q;
 
-        let A = a1 + b1*p;
-        let B = b1*q;
+html+=`
+<div class="step">
 
-        html += `
-        <div class="step">
+<b>Bước 2</b><br><br>
 
-        <b>Bước 2</b>
+Thay
+y = ${frac(c,b)} ${p>=0?"+":"−"} ${f(Math.abs(p))}x
 
-        <br><br>
+<br>
+vào:
 
-        ${equation(a1,b1,c1)}
+<br>
 
-        <br><br>
+${a1}x + ${b1}y = ${c1}
 
-        ${f(a1)}x + ${f(b1)}
-        (${f(q)} ${p >= 0 ? "+ " + f(p) + "x" : "− " + f(Math.abs(p)) + "x"})
-        = ${f(c1)}
+<br><br>
 
-        <br><br>
+${a1}x + ${b1}(${frac(c,b)} ${p>=0?"+":"−"} ${f(Math.abs(p))}x) = ${c1}
 
-        ${f(A)}x + ${f(B)} = ${f(c1)}
+<br>
 
-        </div>
-        `;
+${f(A)}x ${B>=0?"+":"−"} ${f(Math.abs(B))} = ${c1}
 
-        if(Math.abs(A) < 1e-10){
+</div>
+`;
 
-            if(Math.abs(B-c1) < 1e-10){
+if(Math.abs(A)<0.000000001){
 
-                html += `
-                <div class="answer">
+if(Math.abs(B-c1)<0.000000001){
 
-                ♾️ <b>Hệ có vô số nghiệm.</b>
+html+=`
+<div class="answer">
 
-                <br><br>
+♾️ <b>Hệ có vô số nghiệm</b>
 
-                y = ${f(q)}
-                ${p >= 0 ? "+ " + f(p) + "x" : "− " + f(Math.abs(p)) + "x"}
+<br><br>
 
-                </div>
-                `;
+Vì sau khi thế ta được:
 
-            }
-            else{
+<br>
 
-                html += `
-                <div class="error">
+<b>
+${f(B)} = ${f(c1)}
+</b>
 
-                ❌ <b>Hệ vô nghiệm.</b>
+<br><br>
 
-                </div>
-                `;
+Đây là đẳng thức đúng.
 
-            }
+</div>
+`;
 
-            r.innerHTML = html;
-            return;
-        }
+}else{
 
-        let x = (c1-B)/A;
+html+=`
+<div class="error">
 
-        html += `
-        <div class="step">
+❌ <b>Hệ vô nghiệm</b>
 
-        <b>Bước 3</b>
+<br><br>
 
-        <br><br>
+Vì sau khi thế ta được:
 
-        ${f(A)}x = ${f(c1-B)}
+<br>
 
-        <br><br>
+<b>
+${f(B)} = ${f(c1)}
+</b>
 
-        x = <b>${f(x)}</b>
+<br><br>
 
-        </div>
-        `;
+Đây là đẳng thức sai.
 
-        let y = q + p*x;
+</div>
+`;
+}
 
-        html += `
-        <div class="step">
+r.innerHTML=html;
+return;
+}
 
-        <b>Bước 4</b>
+let x=(c1-B)/A;
 
-        <br><br>
+html+=`
+<div class="step">
 
-        y =
-        ${f(q)}
-        ${p >= 0 ? "+ " + f(p) + "x" : "− " + f(Math.abs(p)) + "x"}
+<b>Tìm x</b><br><br>
 
-        <br><br>
+${f(A)}x = ${f(c1-B)}
 
-        y = ${f(y)}
+<br>
 
-        </div>
+x = ${f(x)}
 
-        <div class="answer">
+</div>
+`;
 
-        ✅ <b>Kết quả</b>
+let y=q+p*x;
 
-        <br><br>
+html+=`
+<div class="step">
 
-        x = ${f(x)}
+<b>Tìm y</b><br><br>
 
-        <br>
+Thay x = ${f(x)} vào:
 
-        y = ${f(y)}
+<br>
 
-        <br><br>
+y = ${frac(c,b)} ${p>=0?"+":"−"} ${f(Math.abs(p))}x
 
-        Nghiệm của hệ là:
+<br>
 
-        <br>
+y = ${f(q)} ${p>=0?"+":"−"} ${f(Math.abs(p*x))}
 
-        <b>
-        (${f(x)} ; ${f(y)})
-        </b>
+<br>
 
-        </div>
-        `;
+y = <b>${f(y)}</b>
 
-    }
+</div>
 
-    else{
+<div class="answer">
 
-        if(a === 0){
+<b>✅ Kết quả</b><br><br>
 
-            r.innerHTML = `
-            <div class="error">
-                ❌ Không thể xử lý trường hợp này.
-            </div>
-            `;
+x = ${f(x)}<br>
 
-            return;
-        }
+y = ${f(y)}
 
-        let x = c/a;
+<br><br>
 
-        html += `
-        <div class="step">
+Nghiệm của hệ phương trình là:
 
-        <b>Bước 1</b>
+<br>
 
-        <br><br>
+<b>(${f(x)} ; ${f(y)})</b>
 
-        ${equation(a,b,c)}
+</div>
+`;
 
-        <br><br>
+}
 
-        ${f(a)}x = ${f(c)}
+else{
 
-        <br><br>
+if(a==0){
 
-        x = <b>${f(x)}</b>
+if(c==0){
 
-        </div>
-        `;
+if(a1==0 && b1==0 && c1==0){
 
-        if(b1 !== 0){
+r.innerHTML=`
+<div class="answer">
+♾️ <b>Hệ có vô số nghiệm</b>
+</div>
+`;
 
-            let y = (c1-a1*x)/b1;
+}else{
 
-            html += `
-            <div class="step">
+r.innerHTML=`
+<div class="error">
+❌ <b>Hệ vô nghiệm</b>
+</div>
+`;
+}
 
-            <b>Bước 2</b>
+return;
+}
 
-            <br><br>
+r.innerHTML=`
+<div class="error">
+❌ <b>Hệ vô nghiệm</b>
+</div>
+`;
 
-            ${f(a1)} × ${f(x)}
-            ${b1 >= 0 ? "+ " + f(b1) + "y" : "− " + f(Math.abs(b1)) + "y"}
-            = ${f(c1)}
+return;
+}
 
-            <br><br>
+let x=c/a;
 
-            y = <b>${f(y)}</b>
+html+=`
+<div class="step">
 
-            </div>
+<b>Bước 1</b><br><br>
 
-            <div class="answer">
+Từ phương trình thứ nhất:
 
-            ✅ <b>Kết quả</b>
+<br>
 
-            <br><br>
+${a}x = ${c}
 
-            x = ${f(x)}
+<br>
 
-            <br>
+x = ${f(x)}
 
-            y = ${f(y)}
+</div>
+`;
 
-            <br><br>
+if(b1!=0){
 
-            Nghiệm của hệ là:
+let y=(c1-a1*x)/b1;
 
-            <br>
+html+=`
+<div class="step">
 
-            <b>
-            (${f(x)} ; ${f(y)})
-            </b>
+<b>Bước 2</b><br><br>
 
-            </div>
-            `;
+${a1} × ${f(x)} + ${b1}y = ${c1}
 
-        }
+<br>
 
-        else{
+${b1}y = ${f(c1-a1*x)}
 
-            if(Math.abs(a1*x-c1) < 1e-10){
+<br>
 
-                html += `
-                <div class="answer">
+y = ${f(y)}
 
-                ♾️ <b>Hệ có vô số nghiệm.</b>
+</div>
 
-                <br><br>
+<div class="answer">
 
-                x = ${f(x)}
+<b>✅ Kết quả</b><br><br>
 
-                <br>
+x = ${f(x)}<br>
 
-                y có thể nhận mọi giá trị thực.
+y = ${f(y)}
 
-                </div>
-                `;
+<br><br>
 
-            }
-            else{
+Nghiệm:
 
-                html += `
-                <div class="error">
+<br>
 
-                ❌ <b>Hệ vô nghiệm.</b>
+<b>(${f(x)} ; ${f(y)})</b>
 
-                </div>
-                `;
+</div>
+`;
 
-            }
+}else{
 
-        }
+if(Math.abs(a1*x-c1)<0.000000001){
 
-    }
+html+=`
+<div class="answer">
 
-    r.innerHTML = html;
+♾️ <b>Hệ có vô số nghiệm</b>
+
+<br><br>
+
+x = ${f(x)}
+
+<br>
+
+y có thể nhận mọi giá trị thực.
+
+</div>
+`;
+
+}else{
+
+html+=`
+<div class="error">
+
+❌ <b>Hệ vô nghiệm</b>
+
+</div>
+`;
+
+}
+
+}
+
+}
+
+r.innerHTML=html;
+
 }
 
 function xoa(){
 
-    document
-    .querySelectorAll("input")
-    .forEach(e => e.value = "");
+document.querySelectorAll("input")
+.forEach(e=>e.value="");
 
-    document
-    .getElementById("result")
-    .style.display = "none";
+document.getElementById("result").style.display="none";
+
 }
 
 </script>
