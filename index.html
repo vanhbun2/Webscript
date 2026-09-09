@@ -1,578 +1,219 @@
+```html
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solver 2 Ẩn | Toán 9</title>
+<meta charset="UTF-8">
+<title>Giải hệ phương trình</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            min-height: 100vh;
-            font-family: Arial, Helvetica, sans-serif;
-            background: linear-gradient(135deg, #0f172a, #1e3a8a, #312e81);
-            color: white;
-            padding: 40px 15px;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 850px;
-            margin: auto;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .header h1 {
-            font-size: 34px;
-            margin: 0 0 10px;
-        }
-
-        .header p {
-            color: #cbd5e1;
-            margin: 0;
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 20px;
-            padding: 25px;
-            margin-bottom: 20px;
-            backdrop-filter: blur(15px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
-        }
-
-        .system {
-            text-align: center;
-            font-size: 24px;
-            line-height: 1.8;
-            margin-bottom: 25px;
-        }
-
-        .title {
-            font-size: 20px;
-            margin-bottom: 15px;
-            color: #93c5fd;
-        }
-
-        .input-row {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .input-group label {
-            display: block;
-            margin-bottom: 7px;
-            color: #cbd5e1;
-            font-size: 14px;
-        }
-
-        input {
-            width: 100%;
-            padding: 13px;
-            border: 1px solid #475569;
-            border-radius: 10px;
-            background: rgba(15, 23, 42, 0.7);
-            color: white;
-            font-size: 17px;
-            text-align: center;
-            outline: none;
-        }
-
-        input:focus {
-            border-color: #60a5fa;
-            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
-        }
-
-        .buttons {
-            display: flex;
-            gap: 12px;
-        }
-
-        button {
-            flex: 1;
-            padding: 14px;
-            border: none;
-            border-radius: 11px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .solve {
-            background: #2563eb;
-            color: white;
-        }
-
-        .clear {
-            background: #475569;
-            color: white;
-        }
-
-        button:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.1);
-        }
-
-        #result {
-            display: none;
-        }
-
-        .step {
-            background: rgba(15, 23, 42, 0.55);
-            border-left: 4px solid #60a5fa;
-            border-radius: 12px;
-            padding: 18px;
-            margin: 15px 0;
-        }
-
-        .step h3 {
-            margin-top: 0;
-            color: #93c5fd;
-        }
-
-        .formula {
-            font-size: 19px;
-            line-height: 2;
-            margin: 8px 0;
-            overflow-x: auto;
-        }
-
-        .answer {
-            text-align: center;
-            background: rgba(34, 197, 94, 0.15);
-            border: 1px solid rgba(34, 197, 94, 0.4);
-            border-radius: 15px;
-            padding: 22px;
-            margin-top: 20px;
-        }
-
-        .answer h2 {
-            color: #86efac;
-            margin-top: 0;
-        }
-
-        .xy {
-            font-size: 26px;
-            font-weight: bold;
-        }
-
-        .error {
-            background: rgba(239, 68, 68, 0.15);
-            border: 1px solid rgba(239, 68, 68, 0.4);
-            color: #fca5a5;
-            padding: 18px;
-            border-radius: 12px;
-            margin-top: 20px;
-        }
-
-        .footer {
-            text-align: center;
-            color: #94a3b8;
-            font-size: 13px;
-            margin-top: 25px;
-        }
-
-        @media (max-width: 600px) {
-            .input-row {
-                grid-template-columns: 1fr;
-            }
-
-            .header h1 {
-                font-size: 27px;
-            }
-
-            .buttons {
-                flex-direction: column;
-            }
-        }
-    </style>
+<style>
+*{box-sizing:border-box}
+body{
+    margin:0;
+    min-height:100vh;
+    font-family:Arial;
+    background:linear-gradient(135deg,#0f172a,#1e3a8a);
+    color:white;
+    padding:40px 15px
+}
+.box{
+    max-width:700px;
+    margin:auto;
+    background:#ffffff12;
+    padding:25px;
+    border-radius:18px;
+    box-shadow:0 10px 35px #0005
+}
+h1,h2{text-align:center}
+.system{text-align:center;font-size:22px;line-height:1.8}
+.row{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+    margin:15px 0 25px
+}
+label{font-size:14px;color:#cbd5e1}
+input{
+    width:100%;
+    margin-top:6px;
+    padding:11px;
+    border:1px solid #64748b;
+    border-radius:9px;
+    background:#0f172acc;
+    color:white;
+    text-align:center;
+    font-size:16px
+}
+button{
+    width:48%;
+    padding:12px;
+    border:0;
+    border-radius:9px;
+    color:white;
+    font-weight:bold;
+    cursor:pointer
+}
+.solve{background:#2563eb}
+.clear{background:#475569}
+.buttons{display:flex;justify-content:space-between}
+#result{
+    display:none;
+    margin-top:20px;
+    background:#0f172acc;
+    padding:20px;
+    border-radius:14px;
+    line-height:2
+}
+.step{
+    padding:12px 15px;
+    margin:12px 0;
+    border-left:4px solid #60a5fa;
+    background:#ffffff08;
+    border-radius:8px
+}
+.answer{
+    text-align:center;
+    padding:15px;
+    margin-top:15px;
+    border-radius:10px;
+    background:#16a34a33
+}
+@media(max-width:550px){
+    .row{grid-template-columns:1fr}
+}
+</style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="box">
 
-    <div class="header">
-        <h1>🧮 Giải Hệ Phương Trình</h1>
-        <p>Hệ hai phương trình bậc nhất hai ẩn — Toán 9</p>
+<h1>🧮 Giải hệ phương trình</h1>
+
+<div class="system">
+    ax + by = c<br>
+    a'x + b'y = c'
+</div>
+
+<h3>Phương trình 1</h3>
+<div class="row">
+    <div>
+        <label>a</label>
+        <input id="a" type="number">
     </div>
-
-    <!-- HỆ PHƯƠNG TRÌNH -->
-    <div class="card">
-
-        <div class="system">
-            <div>ax + by = c</div>
-            <div>a'x + b'y = c'</div>
-        </div>
-
-        <div class="title">Phương trình thứ nhất</div>
-
-        <div class="input-row">
-
-            <div class="input-group">
-                <label>Hệ số a</label>
-                <input type="number" id="a" placeholder="a">
-            </div>
-
-            <div class="input-group">
-                <label>Hệ số b</label>
-                <input type="number" id="b" placeholder="b">
-            </div>
-
-            <div class="input-group">
-                <label>Hệ số c</label>
-                <input type="number" id="c" placeholder="c">
-            </div>
-
-        </div>
-
-        <div class="title">Phương trình thứ hai</div>
-
-        <div class="input-row">
-
-            <div class="input-group">
-                <label>Hệ số a'</label>
-                <input type="number" id="a1" placeholder="a'">
-            </div>
-
-            <div class="input-group">
-                <label>Hệ số b'</label>
-                <input type="number" id="b1" placeholder="b'">
-            </div>
-
-            <div class="input-group">
-                <label>Hệ số c'</label>
-                <input type="number" id="c1" placeholder="c'">
-            </div>
-
-        </div>
-
-        <div class="buttons">
-            <button class="solve" onclick="giaiHe()">
-                🔍 GIẢI HỆ
-            </button>
-
-            <button class="clear" onclick="xoa()">
-                🗑 XÓA
-            </button>
-        </div>
-
+    <div>
+        <label>b</label>
+        <input id="b" type="number">
     </div>
-
-
-    <!-- KẾT QUẢ -->
-    <div class="card" id="result">
-
-        <h2>📖 Lời giải chi tiết</h2>
-
-        <div id="noiDung"></div>
-
+    <div>
+        <label>c</label>
+        <input id="c" type="number">
     </div>
+</div>
 
-
-    <div class="footer">
-        Công cụ hỗ trợ học Toán 9
+<h3>Phương trình 2</h3>
+<div class="row">
+    <div>
+        <label>a'</label>
+        <input id="a1" type="number">
     </div>
+    <div>
+        <label>b'</label>
+        <input id="b1" type="number">
+    </div>
+    <div>
+        <label>c'</label>
+        <input id="c1" type="number">
+    </div>
+</div>
+
+<div class="buttons">
+    <button class="solve" onclick="giai()">🔍 Giải</button>
+    <button class="clear" onclick="xoa()">🗑 Xóa</button>
+</div>
+
+<div id="result"></div>
 
 </div>
 
-
 <script>
+function giai(){
 
-function so(n) {
-    if (Number.isInteger(n)) {
-        return n.toString();
-    }
+let a=+document.getElementById("a").value;
+let b=+document.getElementById("b").value;
+let c=+document.getElementById("c").value;
+let a1=+document.getElementById("a1").value;
+let b1=+document.getElementById("b1").value;
+let c1=+document.getElementById("c1").value;
 
-    return parseFloat(n.toFixed(6)).toString();
+let D=a*b1-a1*b;
+let Dx=c*b1-c1*b;
+let Dy=a*c1-a1*c;
+let r=document.getElementById("result");
+
+r.style.display="block";
+
+if(D==0){
+    r.innerHTML=Dx==0&&Dy==0
+    ?"<div class='answer'>♾️ Hệ có vô số nghiệm</div>"
+    :"<div class='answer'>❌ Hệ vô nghiệm</div>";
+    return;
 }
 
-
-function giaiHe() {
-
-    let a = Number(document.getElementById("a").value);
-    let b = Number(document.getElementById("b").value);
-    let c = Number(document.getElementById("c").value);
-
-    let a1 = Number(document.getElementById("a1").value);
-    let b1 = Number(document.getElementById("b1").value);
-    let c1 = Number(document.getElementById("c1").value);
-
-    let result = document.getElementById("result");
-    let noiDung = document.getElementById("noiDung");
-
-    result.style.display = "block";
-
-    /*
-        Kiểm tra xem người dùng đã nhập đủ chưa.
-    */
-    let inputs = [
-        document.getElementById("a"),
-        document.getElementById("b"),
-        document.getElementById("c"),
-        document.getElementById("a1"),
-        document.getElementById("b1"),
-        document.getElementById("c1")
-    ];
-
-    for (let input of inputs) {
-
-        if (input.value === "") {
-
-            noiDung.innerHTML =
-                '<div class="error">' +
-                '⚠️ Vui lòng nhập đầy đủ 6 hệ số!' +
-                '</div>';
-
-            return;
-        }
-    }
-
-
-    /*
-        Tính các định thức
-    */
-
-    let D = a * b1 - a1 * b;
-
-    let Dx = c * b1 - c1 * b;
-
-    let Dy = a * c1 - a1 * c;
-
-
-    /*
-        Bước 1: Tính D
-    */
-
-    let html = "";
-
-    html += `
-        <div class="step">
-
-            <h3>📌 Bước 1: Tính D</h3>
-
-            <div class="formula">
-                D = a × b' − a' × b
-            </div>
-
-            <div class="formula">
-                D = ${so(a)} × ${so(b1)} −
-                ${so(a1)} × ${so(b)}
-            </div>
-
-            <div class="formula">
-                <b>D = ${so(D)}</b>
-            </div>
-
-        </div>
-    `;
-
-
-    /*
-        Bước 2: Tính Dx
-    */
-
-    html += `
-        <div class="step">
-
-            <h3>📌 Bước 2: Tính Dₓ</h3>
-
-            <div class="formula">
-                Dₓ = c × b' − c' × b
-            </div>
-
-            <div class="formula">
-                Dₓ = ${so(c)} × ${so(b1)} −
-                ${so(c1)} × ${so(b)}
-            </div>
-
-            <div class="formula">
-                <b>Dₓ = ${so(Dx)}</b>
-            </div>
-
-        </div>
-    `;
-
-
-    /*
-        Bước 3: Tính Dy
-    */
-
-    html += `
-        <div class="step">
-
-            <h3>📌 Bước 3: Tính Dᵧ</h3>
-
-            <div class="formula">
-                Dᵧ = a × c' − a' × c
-            </div>
-
-            <div class="formula">
-                Dᵧ = ${so(a)} × ${so(c1)} −
-                ${so(a1)} × ${so(c)}
-            </div>
-
-            <div class="formula">
-                <b>Dᵧ = ${so(Dy)}</b>
-            </div>
-
-        </div>
-    `;
-
-
-    /*
-        Xét nghiệm
-    */
-
-    if (D === 0) {
-
-        if (Dx === 0 && Dy === 0) {
-
-            html += `
-                <div class="answer">
-
-                    <h2>♾️ Hệ có vô số nghiệm</h2>
-
-                    <p>
-                        Vì D = Dₓ = Dᵧ = 0
-                    </p>
-
-                </div>
-            `;
-
-        } else {
-
-            html += `
-                <div class="error">
-
-                    <h2>❌ Hệ vô nghiệm</h2>
-
-                    <p>
-                        Vì D = 0 nhưng Dₓ hoặc Dᵧ khác 0.
-                    </p>
-
-                </div>
-            `;
-        }
-
-    } else {
-
-        /*
-            Tính x
-        */
-
-        let x = Dx / D;
-
-        /*
-            Tính y
-        */
-
-        let y = Dy / D;
-
-
-        html += `
-            <div class="step">
-
-                <h3>📌 Bước 4: Tính x</h3>
-
-                <div class="formula">
-                    x = Dₓ / D
-                </div>
-
-                <div class="formula">
-                    x =
-                    ${so(Dx)} /
-                    ${so(D)}
-                </div>
-
-                <div class="formula">
-                    <b>x = ${so(x)}</b>
-                </div>
-
-            </div>
-        `;
-
-
-        html += `
-            <div class="step">
-
-                <h3>📌 Bước 5: Tính y</h3>
-
-                <div class="formula">
-                    y = Dᵧ / D
-                </div>
-
-                <div class="formula">
-                    y =
-                    ${so(Dy)} /
-                    ${so(D)}
-                </div>
-
-                <div class="formula">
-                    <b>y = ${so(y)}</b>
-                </div>
-
-            </div>
-        `;
-
-
-        /*
-            Kết luận
-        */
-
-        html += `
-            <div class="answer">
-
-                <h2>✅ Kết luận</h2>
-
-                <div class="xy">
-                    x = ${so(x)}
-                    &nbsp;&nbsp;&nbsp;
-                    y = ${so(y)}
-                </div>
-
-                <p>
-                    Vậy hệ phương trình có nghiệm
-                    <b>(${so(x)} ; ${so(y)})</b>.
-                </p>
-
-            </div>
-        `;
-    }
-
-
-    noiDung.innerHTML = html;
+let x=Dx/D;
+let y=Dy/D;
+
+r.innerHTML=`
+<h2>📖 Cách giải</h2>
+
+<div class="step">
+<b>Tính D:</b><br>
+D = a × b' − a' × b<br>
+D = ${a} × ${b1} − ${a1} × ${b}<br>
+D = <b>${D}</b>
+</div>
+
+<div class="step">
+<b>Tính Dₓ:</b><br>
+Dₓ = c × b' − c' × b<br>
+Dₓ = ${c} × ${b1} − ${c1} × ${b}<br>
+Dₓ = <b>${Dx}</b>
+</div>
+
+<div class="step">
+<b>Tính Dᵧ:</b><br>
+Dᵧ = a × c' − a' × c<br>
+Dᵧ = ${a} × ${c1} − ${a1} × ${c}<br>
+Dᵧ = <b>${Dy}</b>
+</div>
+
+<div class="step">
+<b>Tính x:</b><br>
+x = Dₓ / D<br>
+x = ${Dx} / ${D}<br>
+x = <b>${x}</b>
+</div>
+
+<div class="step">
+<b>Tính y:</b><br>
+y = Dᵧ / D<br>
+y = ${Dy} / ${D}<br>
+y = <b>${y}</b>
+</div>
+
+<div class="answer">
+<h2>✅ Kết quả</h2>
+x = <b>${x}</b> &nbsp;&nbsp; y = <b>${y}</b><br>
+Nghiệm: <b>(${x}; ${y})</b>
+</div>
+`;
 }
 
-
-function xoa() {
-
-    document.getElementById("a").value = "";
-    document.getElementById("b").value = "";
-    document.getElementById("c").value = "";
-
-    document.getElementById("a1").value = "";
-    document.getElementById("b1").value = "";
-    document.getElementById("c1").value = "";
-
-    document.getElementById("result").style.display = "none";
-
-    document.getElementById("noiDung").innerHTML = "";
+function xoa(){
+document.querySelectorAll("input").forEach(e=>e.value="");
+document.getElementById("result").style.display="none";
 }
-
 </script>
 
 </body>
 </html>
+```
