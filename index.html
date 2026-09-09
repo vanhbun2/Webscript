@@ -215,7 +215,7 @@ let q=c/b;
 
 html+=`
 <div class="step">
-<b>Bước 1: Biểu diễn y theo x</b><br><br>
+<b>Bước 1: </b><br><br>
 
 Từ phương trình thứ nhất:
 <br>
@@ -234,7 +234,7 @@ let B=a1*q-c1;
 
 html+=`
 <div class="step">
-<b>Bước 2: Thế y vào phương trình thứ hai</b><br><br>
+<b>Bước 2: </b><br><br>
 
 Thay
 y = ${frac(c,b)} ${p>=0?"+":"−"} ${f(Math.abs(p))}x
@@ -255,7 +255,7 @@ let y=q+p*x;
 
 html+=`
 <div class="step">
-<b>Giải phương trình tìm x</b><br><br>
+<b> Tìm x </b><br><br>
 
 ${f(A)}x = ${f(-B)}
 <br>
@@ -263,7 +263,7 @@ x = ${f(x)}
 </div>
 
 <div class="step">
-<b>Bước 3: Tìm y</b><br><br>
+<b> Tìm y </b><br><br>
 
 Thay x = ${f(x)} vào:
 <br>
@@ -278,18 +278,20 @@ y = <b>${f(y)}</b>
 <b>✅ Kết quả</b><br><br>
 x = ${f(x)}<br>
 y = ${f(y)}<br><br>
-Nghiệm của hệ:
+Nghiệm của hệ phương trình là :
 <b>(${f(x)} ; ${f(y)})</b>
 </div>
 `;
 
-}else{
+}
+else
+{
 
 let x=c/a;
 
 html+=`
 <div class="step">
-<b>Bước 1: Tìm x</b><br><br>
+<b>Bước 1: </b><br><br>
 
 Từ phương trình thứ nhất:
 <br>
@@ -305,7 +307,7 @@ let y=(c1-a1*x)/b1;
 
 html+=`
 <div class="step">
-<b>Bước 2: Thay x vào phương trình thứ hai</b><br><br>
+<b>Bước 2: </b><br><br>
 
 ${a1} × ${f(x)} + ${b1}y = ${c1}
 <br>
@@ -323,7 +325,9 @@ Nghiệm:
 </div>
 `;
 
-}else{
+}
+else
+{
 
 html+=`
 <div class="answer">
