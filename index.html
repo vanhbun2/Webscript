@@ -1,100 +1,305 @@
+```html
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Giải hệ phương trình 2 ẩn</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solver 2 Ẩn | Toán 9</title>
 
     <style>
-        body {
-            font-family: Arial;
-            background: #f2f2f2;
-            text-align: center;
-            padding-top: 50px;
+        * {
+            box-sizing: border-box;
         }
 
-        .box {
-            width: 400px;
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(135deg, #0f172a, #1e3a8a, #312e81);
+            color: white;
+            padding: 40px 15px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 850px;
             margin: auto;
-            background: white;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            font-size: 34px;
+            margin: 0 0 10px;
+        }
+
+        .header p {
+            color: #cbd5e1;
+            margin: 0;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
             padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 0 15px #aaa;
+            margin-bottom: 20px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        .system {
+            text-align: center;
+            font-size: 24px;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .title {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #93c5fd;
+        }
+
+        .input-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 7px;
+            color: #cbd5e1;
+            font-size: 14px;
         }
 
         input {
-            width: 70px;
-            padding: 10px;
-            margin: 5px;
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #475569;
+            border-radius: 10px;
+            background: rgba(15, 23, 42, 0.7);
+            color: white;
+            font-size: 17px;
             text-align: center;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #60a5fa;
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
+        }
+
+        .buttons {
+            display: flex;
+            gap: 12px;
         }
 
         button {
-            padding: 10px 20px;
-            margin: 15px 5px;
+            flex: 1;
+            padding: 14px;
             border: none;
-            border-radius: 8px;
-            cursor: pointer;
+            border-radius: 11px;
+            font-size: 16px;
             font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
         }
 
         .solve {
-            background: #2196f3;
+            background: #2563eb;
             color: white;
         }
 
         .clear {
-            background: #f44336;
+            background: #475569;
             color: white;
         }
 
-        #ketqua {
+        button:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.1);
+        }
+
+        #result {
+            display: none;
+        }
+
+        .step {
+            background: rgba(15, 23, 42, 0.55);
+            border-left: 4px solid #60a5fa;
+            border-radius: 12px;
+            padding: 18px;
+            margin: 15px 0;
+        }
+
+        .step h3 {
+            margin-top: 0;
+            color: #93c5fd;
+        }
+
+        .formula {
+            font-size: 19px;
+            line-height: 2;
+            margin: 8px 0;
+            overflow-x: auto;
+        }
+
+        .answer {
+            text-align: center;
+            background: rgba(34, 197, 94, 0.15);
+            border: 1px solid rgba(34, 197, 94, 0.4);
+            border-radius: 15px;
+            padding: 22px;
             margin-top: 20px;
-            padding: 15px;
-            background: #eee;
-            border-radius: 10px;
-            min-height: 30px;
+        }
+
+        .answer h2 {
+            color: #86efac;
+            margin-top: 0;
+        }
+
+        .xy {
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .error {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            color: #fca5a5;
+            padding: 18px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
+        .footer {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 13px;
+            margin-top: 25px;
+        }
+
+        @media (max-width: 600px) {
+            .input-row {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 27px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
 
 <body>
 
-<div class="box">
+<div class="container">
 
-    <h2>Giải hệ phương trình 2 ẩn</h2>
+    <div class="header">
+        <h1>🧮 Giải Hệ Phương Trình</h1>
+        <p>Hệ hai phương trình bậc nhất hai ẩn — Toán 9</p>
+    </div>
 
-    <p>
-        ax + by = c
-    </p>
+    <!-- HỆ PHƯƠNG TRÌNH -->
+    <div class="card">
 
-    <p>
-        a'x + b'y = c'
-    </p>
+        <div class="system">
+            <div>ax + by = c</div>
+            <div>a'x + b'y = c'</div>
+        </div>
 
-    <h3>Phương trình 1</h3>
+        <div class="title">Phương trình thứ nhất</div>
 
-    <input type="number" id="a" placeholder="a">
-    <input type="number" id="b" placeholder="b">
-    <input type="number" id="c" placeholder="c">
+        <div class="input-row">
 
-    <h3>Phương trình 2</h3>
+            <div class="input-group">
+                <label>Hệ số a</label>
+                <input type="number" id="a" placeholder="a">
+            </div>
 
-    <input type="number" id="a1" placeholder="a'">
-    <input type="number" id="b1" placeholder="b'">
-    <input type="number" id="c1" placeholder="c'">
+            <div class="input-group">
+                <label>Hệ số b</label>
+                <input type="number" id="b" placeholder="b">
+            </div>
 
-    <br>
+            <div class="input-group">
+                <label>Hệ số c</label>
+                <input type="number" id="c" placeholder="c">
+            </div>
 
-    <button class="solve" onclick="giaiHe()">Giải hệ</button>
-    <button class="clear" onclick="xoa()">Xóa</button>
+        </div>
 
-    <div id="ketqua">
-        Kết quả sẽ hiển thị ở đây
+        <div class="title">Phương trình thứ hai</div>
+
+        <div class="input-row">
+
+            <div class="input-group">
+                <label>Hệ số a'</label>
+                <input type="number" id="a1" placeholder="a'">
+            </div>
+
+            <div class="input-group">
+                <label>Hệ số b'</label>
+                <input type="number" id="b1" placeholder="b'">
+            </div>
+
+            <div class="input-group">
+                <label>Hệ số c'</label>
+                <input type="number" id="c1" placeholder="c'">
+            </div>
+
+        </div>
+
+        <div class="buttons">
+            <button class="solve" onclick="giaiHe()">
+                🔍 GIẢI HỆ
+            </button>
+
+            <button class="clear" onclick="xoa()">
+                🗑 XÓA
+            </button>
+        </div>
+
+    </div>
+
+
+    <!-- KẾT QUẢ -->
+    <div class="card" id="result">
+
+        <h2>📖 Lời giải chi tiết</h2>
+
+        <div id="noiDung"></div>
+
+    </div>
+
+
+    <div class="footer">
+        Công cụ hỗ trợ học Toán 9
     </div>
 
 </div>
 
+
 <script>
+
+function so(n) {
+    if (Number.isInteger(n)) {
+        return n.toString();
+    }
+
+    return parseFloat(n.toFixed(6)).toString();
+}
+
 
 function giaiHe() {
 
@@ -106,44 +311,250 @@ function giaiHe() {
     let b1 = Number(document.getElementById("b1").value);
     let c1 = Number(document.getElementById("c1").value);
 
+    let result = document.getElementById("result");
+    let noiDung = document.getElementById("noiDung");
+
+    result.style.display = "block";
+
+    /*
+        Kiểm tra xem người dùng đã nhập đủ chưa.
+    */
+    let inputs = [
+        document.getElementById("a"),
+        document.getElementById("b"),
+        document.getElementById("c"),
+        document.getElementById("a1"),
+        document.getElementById("b1"),
+        document.getElementById("c1")
+    ];
+
+    for (let input of inputs) {
+
+        if (input.value === "") {
+
+            noiDung.innerHTML =
+                '<div class="error">' +
+                '⚠️ Vui lòng nhập đầy đủ 6 hệ số!' +
+                '</div>';
+
+            return;
+        }
+    }
+
+
+    /*
+        Tính các định thức
+    */
+
     let D = a * b1 - a1 * b;
+
     let Dx = c * b1 - c1 * b;
+
     let Dy = a * c1 - a1 * c;
 
-    let kq = document.getElementById("ketqua");
 
-    if (D == 0) {
+    /*
+        Bước 1: Tính D
+    */
 
-        if (Dx == 0 && Dy == 0) {
+    let html = "";
 
-            kq.innerHTML =
-                "<b>Hệ có vô số nghiệm!</b><br><br>" +
-                "D = " + D + "<br>" +
-                "Dx = " + Dx + "<br>" +
-                "Dy = " + Dy;
+    html += `
+        <div class="step">
+
+            <h3>📌 Bước 1: Tính D</h3>
+
+            <div class="formula">
+                D = a × b' − a' × b
+            </div>
+
+            <div class="formula">
+                D = ${so(a)} × ${so(b1)} −
+                ${so(a1)} × ${so(b)}
+            </div>
+
+            <div class="formula">
+                <b>D = ${so(D)}</b>
+            </div>
+
+        </div>
+    `;
+
+
+    /*
+        Bước 2: Tính Dx
+    */
+
+    html += `
+        <div class="step">
+
+            <h3>📌 Bước 2: Tính Dₓ</h3>
+
+            <div class="formula">
+                Dₓ = c × b' − c' × b
+            </div>
+
+            <div class="formula">
+                Dₓ = ${so(c)} × ${so(b1)} −
+                ${so(c1)} × ${so(b)}
+            </div>
+
+            <div class="formula">
+                <b>Dₓ = ${so(Dx)}</b>
+            </div>
+
+        </div>
+    `;
+
+
+    /*
+        Bước 3: Tính Dy
+    */
+
+    html += `
+        <div class="step">
+
+            <h3>📌 Bước 3: Tính Dᵧ</h3>
+
+            <div class="formula">
+                Dᵧ = a × c' − a' × c
+            </div>
+
+            <div class="formula">
+                Dᵧ = ${so(a)} × ${so(c1)} −
+                ${so(a1)} × ${so(c)}
+            </div>
+
+            <div class="formula">
+                <b>Dᵧ = ${so(Dy)}</b>
+            </div>
+
+        </div>
+    `;
+
+
+    /*
+        Xét nghiệm
+    */
+
+    if (D === 0) {
+
+        if (Dx === 0 && Dy === 0) {
+
+            html += `
+                <div class="answer">
+
+                    <h2>♾️ Hệ có vô số nghiệm</h2>
+
+                    <p>
+                        Vì D = Dₓ = Dᵧ = 0
+                    </p>
+
+                </div>
+            `;
 
         } else {
 
-            kq.innerHTML =
-                "<b>Hệ vô nghiệm!</b><br><br>" +
-                "D = " + D + "<br>" +
-                "Dx = " + Dx + "<br>" +
-                "Dy = " + Dy;
+            html += `
+                <div class="error">
+
+                    <h2>❌ Hệ vô nghiệm</h2>
+
+                    <p>
+                        Vì D = 0 nhưng Dₓ hoặc Dᵧ khác 0.
+                    </p>
+
+                </div>
+            `;
         }
 
     } else {
 
+        /*
+            Tính x
+        */
+
         let x = Dx / D;
+
+        /*
+            Tính y
+        */
+
         let y = Dy / D;
 
-        kq.innerHTML =
-            "<b>Hệ có nghiệm duy nhất:</b><br><br>" +
-            "D = " + D + "<br>" +
-            "Dx = " + Dx + "<br>" +
-            "Dy = " + Dy + "<br><br>" +
-            "<b>x = " + x + "</b><br>" +
-            "<b>y = " + y + "</b>";
+
+        html += `
+            <div class="step">
+
+                <h3>📌 Bước 4: Tính x</h3>
+
+                <div class="formula">
+                    x = Dₓ / D
+                </div>
+
+                <div class="formula">
+                    x =
+                    ${so(Dx)} /
+                    ${so(D)}
+                </div>
+
+                <div class="formula">
+                    <b>x = ${so(x)}</b>
+                </div>
+
+            </div>
+        `;
+
+
+        html += `
+            <div class="step">
+
+                <h3>📌 Bước 5: Tính y</h3>
+
+                <div class="formula">
+                    y = Dᵧ / D
+                </div>
+
+                <div class="formula">
+                    y =
+                    ${so(Dy)} /
+                    ${so(D)}
+                </div>
+
+                <div class="formula">
+                    <b>y = ${so(y)}</b>
+                </div>
+
+            </div>
+        `;
+
+
+        /*
+            Kết luận
+        */
+
+        html += `
+            <div class="answer">
+
+                <h2>✅ Kết luận</h2>
+
+                <div class="xy">
+                    x = ${so(x)}
+                    &nbsp;&nbsp;&nbsp;
+                    y = ${so(y)}
+                </div>
+
+                <p>
+                    Vậy hệ phương trình có nghiệm
+                    <b>(${so(x)} ; ${so(y)})</b>.
+                </p>
+
+            </div>
+        `;
     }
+
+
+    noiDung.innerHTML = html;
 }
 
 
@@ -157,11 +568,13 @@ function xoa() {
     document.getElementById("b1").value = "";
     document.getElementById("c1").value = "";
 
-    document.getElementById("ketqua").innerHTML =
-        "Kết quả sẽ hiển thị ở đây";
+    document.getElementById("result").style.display = "none";
+
+    document.getElementById("noiDung").innerHTML = "";
 }
 
 </script>
 
 </body>
 </html>
+```
