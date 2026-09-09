@@ -2,50 +2,166 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Giải Hệ Hai Phương Trình 2 Ẩn</title>
-</head>
-<body>
-    <h2>Giải hệ phương trình:</h2>
-    <p>ax + by = c</p>
-    <p>a'x + b'y = c'</p>
-    
-    <label>Nhập a:</label> <input type="number" id="a"><br><br>
-    <label>Nhập b:</label> <input type="number" id="b"><br><br>
-    <label>Nhập c:</label> <input type="number" id="c"><br><br>
-    
-    <label>Nhập a':</label> <input type="number" id="a1"><br><br>
-    <label>Nhập b':</label> <input type="number" id="b1"><br><br>
-    <label>Nhập c':</label> <input type="number" id="c1"><br><br>
-    
-    <button onclick="giaiHePT()">Giải hệ</button>
-    <p id="ketqua"></p>
+    <title>Giải hệ phương trình 2 ẩn</title>
 
-    <script>
-        function giaiHePT() {
-            let a = parseFloat(document.getElementById('a').value);
-            let b = parseFloat(document.getElementById('b').value);
-            let c = parseFloat(document.getElementById('c').value);
-            let a1 = parseFloat(document.getElementById('a1').value);
-            let b1 = parseFloat(document.getElementById('b1').value);
-            let c1 = parseFloat(document.getElementById('c1').value);
-            let kq = document.getElementById('ketqua');
-            
-            let D = a * b1 - a1 * b;
-            let Dx = c * b1 - c1 * b;
-            let Dy = a * c1 - a1 * c;
-            
-            if (D === 0) {
-                if (Dx === 0 && Dy === 0) {
-                    kq.innerText = "Hệ phương trình có vô số nghiệm!";
-                } else {
-                    kq.innerText = "Hệ phương trình vô nghiệm!";
-                }
-            } else {
-                let x = Dx / D;
-                let y = Dy / D;
-                kq.innerText = "Nghiệm của hệ là: x = " + x + ", y = " + y;
-            }
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f2f2;
+            text-align: center;
+            padding-top: 50px;
         }
-    </script>
+
+        .box {
+            width: 400px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px #aaa;
+        }
+
+        input {
+            width: 70px;
+            padding: 10px;
+            margin: 5px;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 15px 5px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .solve {
+            background: #2196f3;
+            color: white;
+        }
+
+        .clear {
+            background: #f44336;
+            color: white;
+        }
+
+        #ketqua {
+            margin-top: 20px;
+            padding: 15px;
+            background: #eee;
+            border-radius: 10px;
+            min-height: 30px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="box">
+
+    <h2>Giải hệ phương trình 2 ẩn</h2>
+
+    <p>
+        ax + by = c
+    </p>
+
+    <p>
+        a'x + b'y = c'
+    </p>
+
+    <h3>Phương trình 1</h3>
+
+    <input type="number" id="a" placeholder="a">
+    <input type="number" id="b" placeholder="b">
+    <input type="number" id="c" placeholder="c">
+
+    <h3>Phương trình 2</h3>
+
+    <input type="number" id="a1" placeholder="a'">
+    <input type="number" id="b1" placeholder="b'">
+    <input type="number" id="c1" placeholder="c'">
+
+    <br>
+
+    <button class="solve" onclick="giaiHe()">Giải hệ</button>
+    <button class="clear" onclick="xoa()">Xóa</button>
+
+    <div id="ketqua">
+        Kết quả sẽ hiển thị ở đây
+    </div>
+
+</div>
+
+<script>
+
+function giaiHe() {
+
+    let a = Number(document.getElementById("a").value);
+    let b = Number(document.getElementById("b").value);
+    let c = Number(document.getElementById("c").value);
+
+    let a1 = Number(document.getElementById("a1").value);
+    let b1 = Number(document.getElementById("b1").value);
+    let c1 = Number(document.getElementById("c1").value);
+
+    let D = a * b1 - a1 * b;
+    let Dx = c * b1 - c1 * b;
+    let Dy = a * c1 - a1 * c;
+
+    let kq = document.getElementById("ketqua");
+
+    if (D == 0) {
+
+        if (Dx == 0 && Dy == 0) {
+
+            kq.innerHTML =
+                "<b>Hệ có vô số nghiệm!</b><br><br>" +
+                "D = " + D + "<br>" +
+                "Dx = " + Dx + "<br>" +
+                "Dy = " + Dy;
+
+        } else {
+
+            kq.innerHTML =
+                "<b>Hệ vô nghiệm!</b><br><br>" +
+                "D = " + D + "<br>" +
+                "Dx = " + Dx + "<br>" +
+                "Dy = " + Dy;
+        }
+
+    } else {
+
+        let x = Dx / D;
+        let y = Dy / D;
+
+        kq.innerHTML =
+            "<b>Hệ có nghiệm duy nhất:</b><br><br>" +
+            "D = " + D + "<br>" +
+            "Dx = " + Dx + "<br>" +
+            "Dy = " + Dy + "<br><br>" +
+            "<b>x = " + x + "</b><br>" +
+            "<b>y = " + y + "</b>";
+    }
+}
+
+
+function xoa() {
+
+    document.getElementById("a").value = "";
+    document.getElementById("b").value = "";
+    document.getElementById("c").value = "";
+
+    document.getElementById("a1").value = "";
+    document.getElementById("b1").value = "";
+    document.getElementById("c1").value = "";
+
+    document.getElementById("ketqua").innerHTML =
+        "Kết quả sẽ hiển thị ở đây";
+}
+
+</script>
+
 </body>
 </html>
