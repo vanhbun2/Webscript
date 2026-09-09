@@ -307,7 +307,7 @@ function giai(){
             html+="<div class='title'>Từ phương trình (2), ta có:</div>";
             html+="<div>"+b1+"y = "+c1+"</div>";
             html+="<div>y = "+frac(c1,b1)+"</div>";
-            html+="<div class='answer'>Vậy nghiệm của hệ phương trình là: (x ; y) = (x ; "+frac(c1,b1)+"), với x ∈ R.</div>";
+            html+="<div class='answer'>Vậy nghiệm của hệ phương trình là (x ; "+frac(c1,b1)+"), với x ∈ R.</div>";
 
         }else{
 
@@ -316,7 +316,7 @@ function giai(){
             html+="<div class='title'>Từ phương trình (2), ta có:</div>";
             html+="<div>"+a1+"x = "+c1+"</div>";
             html+="<div>x = "+frac(c1,a1)+"</div>";
-            html+="<div class='answer'>Vậy nghiệm của hệ phương trình là: (x ; y) = ("+frac(c1,a1)+" ; y), với y ∈ R.</div>";
+            html+="<div class='answer'>Vậy nghiệm của hệ phương trình là ("+frac(c1,a1)+" ; y), với y ∈ R.</div>";
         }
 
         result.innerHTML=html;
@@ -369,7 +369,7 @@ function giai(){
         html+="<div>"+b+"y = "+f(c-a*x)+"</div>";
         html+="<div>y = "+frac(c-a*x,b)+"</div>";
 
-        html+="<div class='answer'>Vậy nghiệm của hệ phương trình là: (x ; y) = ("+frac(-B,A)+" ; "+frac(c-a*x,b)+").</div>";
+        html+="<div class='answer'>Vậy nghiệm của hệ phương trình là ("+frac(-B,A)+" ; "+frac(c-a*x,b)+").</div>";
 
     }else{
 
@@ -403,7 +403,7 @@ function giai(){
         html+="<div>"+b1+"y = "+f(D)+"</div>";
         html+="<div>y = "+frac(D,b1)+"</div>";
 
-        html+="<div class='answer'>Vậy nghiệm của hệ phương trình là (" +frac(c,a)+ " ; " +frac(D,b1)+ ").</div>";
+        html+="<div class='answer'>Vậy nghiệm của hệ phương trình là ("+frac(c,a)+" ; "+frac(D,b1)+").</div>";
     }
 
     result.innerHTML=html;
