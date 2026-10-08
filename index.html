@@ -1,370 +1,843 @@
-
+```html
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Giải hệ phương trình — Pro</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUYẾT TÂM ĐỖ CẤP 3</title>
 
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{
-    padding:30px 15px;
-    font-family:'Segoe UI',Arial,sans-serif;
-    background:linear-gradient(135deg,#0f172a,#1e3a8a);
-    color:#fff;
-    min-height:100vh;
-    transition:background .5s,color .5s;
-}
-.box{
-    max-width:820px;margin:auto;padding:30px;
-    border-radius:20px;
-    background:rgba(255,255,255,.12);
-    backdrop-filter:blur(14px);
-    box-shadow:0 12px 40px rgba(0,0,0,.35);
-    animation:pop .5s ease;
-}
-@keyframes pop{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-h1{text-align:center;margin-bottom:8px;font-size:24px;letter-spacing:1px}
-.sub{text-align:center;opacity:.7;font-size:13px;margin-bottom:20px}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
 
-.topbar{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:22px}
-.theme,.demo{
-    padding:9px 16px;border:0;border-radius:10px;cursor:pointer;
-    font-weight:bold;transition:.25s;font-size:14px;
-}
-.theme{background:#facc15;color:#111}
-.demo{background:#8b5cf6;color:#fff}
-.theme:hover,.demo:hover{transform:scale(1.06)}
+        body {
+            background: #0f172a;
+            color: #f8fafc;
+            min-height: 100vh;
+        }
 
-.equation{
-    margin:16px 0;padding:18px;border-radius:14px;
-    background:rgba(255,255,255,.08);
-    border-left:4px solid #22c55e;
-}
-.equation h3{margin-bottom:12px;font-size:16px;color:#4ade80}
+        header {
+            height: 70px;
+            background: #111c35;
+            border-bottom: 1px solid #263552;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-.row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
-input{
-    width:100%;padding:12px;border:0;outline:none;
-    border-radius:9px;font-size:16px;
-    background:rgba(255,255,255,.9);color:#111;
-    transition:.25s;font-family:inherit;
-}
-input:focus{transform:translateY(-2px);box-shadow:0 0 0 3px rgba(59,130,246,.5)}
-input::placeholder{color:#888}
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #38bdf8;
+        }
 
-.hint{font-size:12px;opacity:.65;margin-top:8px}
+        nav {
+            display: flex;
+            gap: 10px;
+        }
 
-.buttons{display:flex;justify-content:center;gap:12px;margin-top:22px;flex-wrap:wrap}
-button.act{
-    padding:12px 26px;border:0;border-radius:10px;cursor:pointer;
-    font-size:15px;font-weight:bold;transition:.25s;
-}
-.solve{background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff}
-.clear{background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff}
-button.act:hover{transform:translateY(-3px);box-shadow:0 8px 18px rgba(0,0,0,.3)}
-button.act:active{transform:scale(.95)}
+        nav button {
+            background: transparent;
+            border: none;
+            color: #cbd5e1;
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
 
-#result{
-    margin-top:24px;padding:20px;border-radius:14px;
-    background:rgba(0,0,0,.22);line-height:1.9;
-    font-size:15px;display:none;
-}
-#result.show{display:block;animation:fade .5s ease}
-@keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+        nav button:hover,
+        nav button.active {
+            background: #1e3a8a;
+            color: white;
+        }
 
-.title{margin-top:16px;font-weight:bold;color:#60a5fa}
-.title:first-child{margin-top:0}
-.answer{
-    margin-top:16px;padding:14px;border-radius:10px;
-    background:linear-gradient(135deg,rgba(34,197,94,.35),rgba(34,197,94,.15));
-    font-weight:bold;border-left:4px solid #22c55e;
-}
-.answer.warn{background:linear-gradient(135deg,rgba(239,68,68,.35),rgba(239,68,68,.15));border-left-color:#ef4444}
-.frac{font-family:'Cambria Math',Georgia,serif;font-style:italic}
-.check{margin-top:12px;font-size:13px;opacity:.8;padding:10px;border-radius:8px;background:rgba(96,165,250,.15)}
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 35px 25px;
+        }
 
-canvas{display:block;margin:20px auto 0;max-width:100%;border-radius:12px;background:rgba(255,255,255,.05)}
+        .hero {
+            background: linear-gradient(135deg, #172554, #1e3a8a, #0f766e);
+            border-radius: 20px;
+            padding: 45px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 40px rgba(0,0,0,.25);
+        }
 
-/* Light theme */
-body.light{background:linear-gradient(135deg,#dbeafe,#f8fafc);color:#111827}
-body.light .box{background:rgba(255,255,255,.85);box-shadow:0 12px 40px rgba(0,0,0,.12)}
-body.light .equation{background:rgba(255,255,255,.7)}
-body.light #result{background:rgba(255,255,255,.75)}
-body.light input{background:#fff;border:1px solid #cbd5e1}
-body.light .title{color:#1d4ed8}
-body.light .check{background:rgba(59,130,246,.12)}
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 12px;
+        }
 
-@media(max-width:600px){
-    .row{grid-template-columns:1fr}
-    .box{padding:20px}
-    h1{font-size:20px}
-}
-</style>
+        .hero p {
+            color: #dbeafe;
+            font-size: 17px;
+            margin-bottom: 25px;
+        }
+
+        .hero button {
+            background: #38bdf8;
+            color: #082f49;
+            border: none;
+            padding: 13px 22px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .hero button:hover {
+            background: #7dd3fc;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .title {
+            margin-bottom: 20px;
+        }
+
+        .title h2 {
+            font-size: 28px;
+        }
+
+        .title p {
+            color: #94a3b8;
+            margin-top: 6px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 35px;
+        }
+
+        .stat {
+            background: #111c35;
+            border: 1px solid #263552;
+            padding: 22px;
+            border-radius: 15px;
+        }
+
+        .stat .icon {
+            font-size: 25px;
+        }
+
+        .stat h3 {
+            margin-top: 12px;
+            font-size: 27px;
+        }
+
+        .stat p {
+            color: #94a3b8;
+            margin-top: 4px;
+        }
+
+        .subjects {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .subject {
+            background: #111c35;
+            border: 1px solid #263552;
+            border-radius: 16px;
+            padding: 25px;
+            transition: .2s;
+        }
+
+        .subject:hover {
+            transform: translateY(-4px);
+            border-color: #38bdf8;
+        }
+
+        .subject .emoji {
+            font-size: 38px;
+        }
+
+        .subject h3 {
+            margin: 15px 0 8px;
+            font-size: 22px;
+        }
+
+        .subject p {
+            color: #94a3b8;
+            line-height: 1.5;
+        }
+
+        .subject button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 11px;
+            border: none;
+            border-radius: 8px;
+            background: #1d4ed8;
+            color: white;
+            cursor: pointer;
+        }
+
+        .subject.disabled {
+            opacity: .55;
+        }
+
+        .subject.disabled button {
+            background: #334155;
+            cursor: not-allowed;
+        }
+
+        .exam-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .exam {
+            background: #111c35;
+            border: 1px solid #263552;
+            border-radius: 15px;
+            padding: 22px;
+        }
+
+        .exam h3 {
+            margin-bottom: 10px;
+        }
+
+        .exam p {
+            color: #94a3b8;
+            margin-bottom: 15px;
+        }
+
+        .exam button {
+            border: none;
+            background: #2563eb;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .exam button:hover {
+            background: #3b82f6;
+        }
+
+        .progress-box {
+            background: #111c35;
+            border: 1px solid #263552;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .progress-row {
+            margin: 20px 0;
+        }
+
+        .progress-row div:first-child {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .bar {
+            height: 10px;
+            background: #1e293b;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .fill {
+            height: 100%;
+            background: #38bdf8;
+            border-radius: 20px;
+        }
+
+        #examPage {
+            display: none;
+        }
+
+        .question {
+            background: #111c35;
+            border: 1px solid #263552;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 18px;
+        }
+
+        .question h3 {
+            margin-bottom: 15px;
+        }
+
+        .answer {
+            display: block;
+            background: #172033;
+            border: 1px solid #334155;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 8px 0;
+            cursor: pointer;
+        }
+
+        .answer:hover {
+            border-color: #38bdf8;
+        }
+
+        .answer input {
+            margin-right: 10px;
+        }
+
+        .submit {
+            background: #16a34a;
+            border: none;
+            color: white;
+            padding: 13px 25px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .back {
+            background: #334155;
+            border: none;
+            color: white;
+            padding: 11px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        #result {
+            background: #172554;
+            border: 1px solid #2563eb;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            display: none;
+        }
+
+        #result h2 {
+            margin-bottom: 10px;
+        }
+
+        footer {
+            text-align: center;
+            color: #64748b;
+            padding: 35px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 800px) {
+            .stats,
+            .subjects,
+            .exam-list {
+                grid-template-columns: 1fr;
+            }
+
+            header {
+                padding: 0 15px;
+            }
+
+            nav button {
+                padding: 8px;
+            }
+
+            .hero h1 {
+                font-size: 30px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-<div class="box">
-    <h1>🧮 GIẢI HỆ PHƯƠNG TRÌNH</h1>
-    <p class="sub">Hỗ trợ phân số • Định thức Cramer • Đồ thị • Thử lại nghiệm</p>
 
-    <div class="topbar">
-        <button class="theme" onclick="doiTheme()">☀️ / 🌙</button>
-        <button class="demo" onclick="viDu()">📋 Ví dụ mẫu</button>
-    </div>
+<header>
+    <div class="logo">🎯 QUYẾT TÂM ĐỖ CẤP 3</div>
 
-    <div class="equation">
-        <h3>Phương trình (1)</h3>
-        <div class="row">
-            <input type="text" id="a" placeholder="a">
-            <input type="text" id="b" placeholder="b">
-            <input type="text" id="c" placeholder="c">
+    <nav>
+        <button class="active" onclick="showSection('home', this)">Trang chủ</button>
+        <button onclick="showSection('math', this)">📐 Toán</button>
+        <button onclick="showSection('english', this)">🇬🇧 Tiếng Anh</button>
+        <button onclick="showSection('progress', this)">📊 Tiến độ</button>
+    </nav>
+</header>
+
+<main class="container">
+
+    <section id="home" class="section active">
+
+        <div class="hero">
+            <h1>QUYẾT TÂM ĐỖ CẤP 3</h1>
+            <p>
+                Ôn tập chăm chỉ hôm nay — tự tin bước vào kỳ thi tuyển sinh lớp 10.
+            </p>
+            <button onclick="showSection('math', document.querySelectorAll('nav button')[1])">
+                Bắt đầu ôn tập →
+            </button>
         </div>
-        <p style="margin-top:10px;font-style:italic">ax + by = c</p>
-        <p class="hint">💡 Có thể nhập phân số dạng 1/2, -3/4</p>
-    </div>
 
-    <div class="equation">
-        <h3>Phương trình (2)</h3>
-        <div class="row">
-            <input type="text" id="a1" placeholder="a'">
-            <input type="text" id="b1" placeholder="b'">
-            <input type="text" id="c1" placeholder="c'">
+        <div class="stats">
+            <div class="stat">
+                <div class="icon">📝</div>
+                <h3 id="examCount">0</h3>
+                <p>Đề đã hoàn thành</p>
+            </div>
+
+            <div class="stat">
+                <div class="icon">🎯</div>
+                <h3 id="bestScore">0</h3>
+                <p>Điểm cao nhất</p>
+            </div>
+
+            <div class="stat">
+                <div class="icon">🔥</div>
+                <h3>0</h3>
+                <p>Ngày học liên tiếp</p>
+            </div>
+
+            <div class="stat">
+                <div class="icon">📚</div>
+                <h3>2</h3>
+                <p>Môn đang ôn</p>
+            </div>
         </div>
-        <p style="margin-top:10px;font-style:italic">a'x + b'y = c'</p>
-    </div>
 
-    <div class="buttons">
-        <button class="act solve" onclick="giai()">▶ GIẢI</button>
-        <button class="act clear" onclick="xoa()">✖ XÓA</button>
-    </div>
+        <div class="title">
+            <h2>Môn học</h2>
+            <p>Chọn môn để bắt đầu luyện tập.</p>
+        </div>
 
-    <div id="result"></div>
-    <canvas id="graph" width="700" height="420" style="display:none"></canvas>
-</div>
+        <div class="subjects">
+
+            <div class="subject">
+                <div class="emoji">📐</div>
+                <h3>Toán</h3>
+                <p>
+                    Luyện đề, đại số, hình học và các dạng bài thường gặp trong kỳ thi vào lớp 10.
+                </p>
+                <button onclick="showSection('math', document.querySelectorAll('nav button')[1])">
+                    Xem đề Toán
+                </button>
+            </div>
+
+            <div class="subject">
+                <div class="emoji">🇬🇧</div>
+                <h3>Tiếng Anh</h3>
+                <p>
+                    Luyện ngữ pháp, từ vựng, phát âm, đọc hiểu và các đề thi thử.
+                </p>
+                <button onclick="showSection('english', document.querySelectorAll('nav button')[2])">
+                    Xem đề Anh
+                </button>
+            </div>
+
+            <div class="subject disabled">
+                <div class="emoji">📖</div>
+                <h3>Ngữ Văn</h3>
+                <p>
+                    Nội dung đang được chuẩn bị và sẽ cập nhật trong thời gian tới.
+                </p>
+                <button disabled>
+                    Đang cập nhật
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+
+    <section id="math" class="section">
+
+        <div class="title">
+            <h2>📐 Đề Toán</h2>
+            <p>Luyện tập các đề thi tuyển sinh vào lớp 10.</p>
+        </div>
+
+        <div class="exam-list">
+
+            <div class="exam">
+                <h3>Đề Toán số 01</h3>
+                <p>10 câu hỏi • Đại số cơ bản</p>
+                <button onclick="startExam('math1')">Làm đề</button>
+            </div>
+
+            <div class="exam">
+                <h3>Đề Toán số 02</h3>
+                <p>10 câu hỏi • Đại số + Hình học</p>
+                <button onclick="startExam('math2')">Làm đề</button>
+            </div>
+
+            <div class="exam">
+                <h3>Đề thi thử Toán</h3>
+                <p>20 câu hỏi • Tổng hợp</p>
+                <button onclick="startExam('math3')">Làm đề</button>
+            </div>
+
+            <div class="exam">
+                <h3>Chuyên đề Hệ phương trình</h3>
+                <p>10 câu hỏi • Luyện chuyên đề</p>
+                <button onclick="startExam('math4')">Làm đề</button>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section id="english" class="section">
+
+        <div class="title">
+            <h2>🇬🇧 Đề Tiếng Anh</h2>
+            <p>Luyện tập các dạng thường xuất hiện trong kỳ thi vào lớp 10.</p>
+        </div>
+
+        <div class="exam-list">
+
+            <div class="exam">
+                <h3>English Test 01</h3>
+                <p>10 câu hỏi • Grammar + Vocabulary</p>
+                <button onclick="startExam('eng1')">Làm đề</button>
+            </div>
+
+            <div class="exam">
+                <h3>English Test 02</h3>
+                <p>10 câu hỏi • Grammar + Reading</p>
+                <button onclick="startExam('eng2')">Làm đề</button>
+            </div>
+
+            <div class="exam">
+                <h3>English Mock Test</h3>
+                <p>20 câu hỏi • Tổng hợp</p>
+                <button onclick="startExam('eng3')">Làm đề</button>
+            </div>
+
+            <div class="exam">
+                <h3>Grammar Practice</h3>
+                <p>10 câu hỏi • Ngữ pháp</p>
+                <button onclick="startExam('eng4')">Làm đề</button>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section id="progress" class="section">
+
+        <div class="title">
+            <h2>📊 Tiến độ học tập</h2>
+            <p>Theo dõi quá trình ôn thi của bạn.</p>
+        </div>
+
+        <div class="progress-box">
+
+            <div class="progress-row">
+                <div>
+                    <span>📐 Toán</span>
+                    <span>70%</span>
+                </div>
+                <div class="bar">
+                    <div class="fill" style="width:70%"></div>
+                </div>
+            </div>
+
+            <div class="progress-row">
+                <div>
+                    <span>🇬🇧 Tiếng Anh</span>
+                    <span>55%</span>
+                </div>
+                <div class="bar">
+                    <div class="fill" style="width:55%"></div>
+                </div>
+            </div>
+
+            <div class="progress-row">
+                <div>
+                    <span>📖 Ngữ Văn</span>
+                    <span>Chưa mở</span>
+                </div>
+                <div class="bar">
+                    <div class="fill" style="width:0%"></div>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section id="examPage" class="section">
+
+        <button class="back" onclick="backToSubjects()">← Quay lại danh sách đề</button>
+
+        <div id="examTitle" class="title"></div>
+
+        <div id="result">
+            <h2>🎉 Kết quả</h2>
+            <p id="resultText"></p>
+        </div>
+
+        <form id="examForm"></form>
+
+        <button class="submit" onclick="submitExam()" type="button">
+            Nộp bài
+        </button>
+
+    </section>
+
+</main>
+
+<footer>
+    © 2026 QUYẾT TÂM ĐỖ CẤP 3 • Cố gắng hôm nay, thành công ngày mai.
+</footer>
+
 
 <script>
-/* ============ TIỆN ÍCH PHÂN SỐ (dùng BigInt) ============ */
-function gcdBig(a, b){
-    a = a < 0n ? -a : a;
-    b = b < 0n ? -b : b;
-    while(b){ [a,b] = [b, a % b]; }
-    return a;
-}
-function makeFrac(n, d){
-    if(d === 0n) return null;
-    if(n === 0n) return {n:0n, d:1n};
-    if(d < 0n){ n = -n; d = -d; }
-    const g = gcdBig(n, d);
-    return {n: n/g, d: d/g};
-}
-function fracAdd(x, y){ return makeFrac(x.n*y.d + y.n*x.d, x.d*y.d); }
-function fracSub(x, y){ return makeFrac(x.n*y.d - y.n*x.d, x.d*y.d); }
-function fracMul(x, y){ return makeFrac(x.n*y.n, x.d*y.d); }
-function fracDiv(x, y){
-    if(y.n === 0n) return null;
-    return makeFrac(x.n*y.d, x.d*y.n);
-}
-function fracEq(x, y){ return x.n*y.d === y.n*x.d; }
-function fracStr(f){
-    if(!f) return "?";
-    if(f.d === 1n) return f.n.toString();
-    return f.n + "/" + f.d;
-}
-function fracDec(f){
-    if(!f) return "?";
-    const v = Number(f.n) / Number(f.d);
-    if(f.d === 1n) return f.n.toString();
-    return v.toFixed(6).replace(/\.?0+$/,'');
-}
-function fracShow(f){
-    if(!f) return "?";
-    if(f.d === 1n) return f.n.toString();
-    return fracStr(f) + " ≈ " + fracDec(f);
-}
-function numToFrac(str){
-    str = (str||"").trim();
-    if(str === "") return {n:0n, d:1n};
-    if(str.includes("/")){
-        const [a,b] = str.split("/");
-        const n = BigInt(Math.trunc(Number(a)));
-        const d = BigInt(Math.trunc(Number(b)));
-        if(d === 0n) return null;
-        return makeFrac(n, d);
-    }
-    // số thập phân
-    const v = Number(str);
-    if(isNaN(v)) return null;
-    if(Number.isInteger(v)) return {n: BigInt(v), d: 1n};
-    // chuyển thập phân -> phân số
-    const s = String(v);
-    const dec = s.split(".")[1] || "";
-    const pow = BigInt(10 ** dec.length);
-    return makeFrac(BigInt(Math.round(v * Number(pow))), pow);
-}
-const F0 = {n:0n, d:1n};
-const F1 = {n:1n, d:1n};
 
-/* ============ ĐỔI THEME ============ */
-function doiTheme(){ document.body.classList.toggle("light"); }
+const exams = {
 
-/* ============ VÍ DỤ MẪU ============ */
-function viDu(){
-    const ds = [
-        ["2","3","7","3","-1","5"],     // nghiệm duy nhất
-        ["1","1","2","2","2","4"],      // vô số nghiệm
-        ["1","1","1","1","1","3"],      // vô nghiệm
-        ["0","2","4","3","0","6"],      // nghiệm đặc biệt
-        ["1/2","-1/3","1","1/4","1/6","2"] // phân số
-    ];
-    const v = ds[Math.floor(Math.random()*ds.length)];
-    ["a","b","c","a1","b1","c1"].forEach((id,i)=>document.getElementById(id).value = v[i]);
-}
+    math1: {
+        title: "📐 Đề Toán số 01",
+        questions: [
+            ["1. Kết quả của 2 + 3 là?", ["4", "5", "6", "7"], "B"],
+            ["2. Kết quả của 5 × 6 là?", ["25", "30", "35", "40"], "B"],
+            ["3. Phương trình x + 5 = 10 có nghiệm là?", ["3", "4", "5", "6"], "C"],
+            ["4. √49 bằng?", ["5", "6", "7", "8"], "C"],
+            ["5. 2² + 3² bằng?", ["10", "11", "12", "13"], "D"]
+        ]
+    },
 
-/* ============ XÓA ============ */
-function xoa(){
-    ["a","b","c","a1","b1","c1"].forEach(id=>document.getElementById(id).value="");
-    const r = document.getElementById("result");
-    r.classList.remove("show"); r.innerHTML="";
-    document.getElementById("graph").style.display="none";
-}
+    math2: {
+        title: "📐 Đề Toán số 02",
+        questions: [
+            ["1. 3x = 12. Giá trị của x là?", ["2", "3", "4", "5"], "C"],
+            ["2. √81 bằng?", ["7", "8", "9", "10"], "C"],
+            ["3. 15% của 200 là?", ["20", "25", "30", "35"], "C"],
+            ["4. Tổng ba góc của một tam giác bằng?", ["90°", "180°", "270°", "360°"], "B"],
+            ["5. Diện tích hình vuông cạnh 5 cm là?", ["10", "20", "25", "30"], "C"]
+        ]
+    },
 
-/* ============ GIẢI HỆ ============ */
-function giai(){
-    const a  = numToFrac(document.getElementById("a").value);
-    const b  = numToFrac(document.getElementById("b").value);
-    const c  = numToFrac(document.getElementById("c").value);
-    const a1 = numToFrac(document.getElementById("a1").value);
-    const b1 = numToFrac(document.getElementById("b1").value);
-    const c1 = numToFrac(document.getElementById("c1").value);
+    math3: {
+        title: "📐 Đề thi thử Toán",
+        questions: [
+            ["1. 7² bằng?", ["14", "21", "42", "49"], "D"],
+            ["2. √100 bằng?", ["5", "10", "20", "100"], "B"],
+            ["3. x - 7 = 3. x bằng?", ["4", "7", "10", "14"], "C"],
+            ["4. 2x + 4 = 10. x bằng?", ["2", "3", "4", "5"], "B"],
+            ["5. 5 × 8 bằng?", ["35", "40", "45", "50"], "B"]
+        ]
+    },
 
-    if(!a||!b||!c||!a1||!b1||!c1){
-        alert("Vui lòng nhập số hoặc phân số hợp lệ (ví dụ: 2, -3, 1/2)");
-        return;
+    math4: {
+        title: "📐 Chuyên đề Hệ phương trình",
+        questions: [
+            ["1. Nếu x + y = 10 và x = 4 thì y bằng?", ["4", "5", "6", "7"], "C"],
+            ["2. Nếu x - y = 3 và y = 2 thì x bằng?", ["3", "4", "5", "6"], "C"],
+            ["3. x + y = 8, x = 5. y bằng?", ["2", "3", "4", "5"], "B"],
+            ["4. 2x = 14 thì x bằng?", ["5", "6", "7", "8"], "C"],
+            ["5. x + 2y = 10, x = 4. y bằng?", ["2", "3", "4", "5"], "B"]
+        ]
+    },
+
+    eng1: {
+        title: "🇬🇧 English Test 01",
+        questions: [
+            ["1. She ___ to school every day.", ["go", "goes", "going", "went"], "B"],
+            ["2. I ___ TV yesterday.", ["watch", "watches", "watched", "watching"], "C"],
+            ["3. They have lived here ___ 2020.", ["for", "since", "at", "on"], "B"],
+            ["4. He is ___ than his brother.", ["tall", "taller", "tallest", "more tall"], "B"],
+            ["5. I am interested ___ music.", ["on", "at", "in", "for"], "C"]
+        ]
+    },
+
+    eng2: {
+        title: "🇬🇧 English Test 02",
+        questions: [
+            ["1. My mother ___ dinner now.", ["cooks", "cooked", "is cooking", "cook"], "C"],
+            ["2. We ___ this movie before.", ["see", "saw", "have seen", "seeing"], "C"],
+            ["3. If it rains, we ___ at home.", ["stay", "will stay", "stayed", "staying"], "B"],
+            ["4. This book ___ by many students.", ["reads", "is read", "read", "reading"], "B"],
+            ["5. She is good ___ English.", ["in", "on", "at", "for"], "C"]
+        ]
+    },
+
+    eng3: {
+        title: "🇬🇧 English Mock Test",
+        questions: [
+            ["1. He ___ football every Sunday.", ["play", "plays", "played", "playing"], "B"],
+            ["2. They ___ to Hanoi last week.", ["go", "goes", "went", "gone"], "C"],
+            ["3. I have studied English ___ five years.", ["since", "for", "from", "at"], "B"],
+            ["4. She is the ___ student in the class.", ["good", "better", "best", "well"], "C"],
+            ["5. We should ___ more water.", ["drink", "drinks", "drank", "drinking"], "A"]
+        ]
+    },
+
+    eng4: {
+        title: "🇬🇧 Grammar Practice",
+        questions: [
+            ["1. He ___ TV at the moment.", ["watches", "watched", "is watching", "watch"], "C"],
+            ["2. She ___ her homework yesterday.", ["does", "did", "do", "doing"], "B"],
+            ["3. They ___ here since 2022.", ["live", "lived", "have lived", "living"], "C"],
+            ["4. If I have time, I ___ you.", ["help", "will help", "helped", "helping"], "B"],
+            ["5. This is ___ interesting book.", ["a", "an", "the", "some"], "B"]
+        ]
     }
 
-    const r = document.getElementById("result");
-    r.classList.remove("show"); void r.offsetWidth; r.classList.add("show");
+};
+
+let currentExam = null;
+
+function showSection(id, button) {
+
+    document.querySelectorAll(".section").forEach(section => {
+        section.classList.remove("active");
+    });
+
+    document.getElementById(id).classList.add("active");
+
+    document.querySelectorAll("nav button").forEach(btn => {
+        btn.classList.remove("active");
+    });
+
+    if (button) {
+        button.classList.add("active");
+    }
+
+    window.scrollTo(0, 0);
+}
+
+function startExam(id) {
+
+    currentExam = exams[id];
+
+    document.querySelectorAll(".section").forEach(section => {
+        section.classList.remove("active");
+    });
+
+    document.getElementById("examPage").classList.add("active");
+
+    document.getElementById("examTitle").innerHTML =
+        "<h2>" + currentExam.title + "</h2><p>Hãy chọn đáp án đúng cho từng câu.</p>";
+
+    document.getElementById("result").style.display = "none";
 
     let html = "";
 
-    /* === Tính định thức === */
-    const D  = fracSub(fracMul(a,b1), fracMul(b,a1));   // a*b' - b*a'
-    const Dx = fracSub(fracMul(c,b1), fracMul(b,c1));   // c*b' - b*c'
-    const Dy = fracSub(fracMul(a,c1), fracMul(c,a1));   // a*c' - c*a'
+    currentExam.questions.forEach((q, index) => {
 
-    html += "<div class='title'>📐 Định thức:</div>";
-    html += "<div>D = a·b' − b·a' = " + fracStr(D) + "</div>";
-    html += "<div>D<sub>x</sub> = c·b' − b·c' = " + fracStr(Dx) + "</div>";
-    html += "<div>D<sub>y</sub> = a·c' − c·a' = " + fracStr(Dy) + "</div>";
+        html += `
+            <div class="question">
+                <h3>${q[0]}</h3>
 
-    /* === Biện luận === */
-    if(D.n !== 0n){
-        const x = fracDiv(Dx, D);
-        const y = fracDiv(Dy, D);
+                <label class="answer">
+                    <input type="radio" name="q${index}" value="A">
+                    A. ${q[1][0]}
+                </label>
 
-        html += "<div class='title'>✅ Vì D ≠ 0 nên hệ có nghiệm duy nhất:</div>";
-        html += "<div>x = D<sub>x</sub>/D = " + fracShow(x) + "</div>";
-        html += "<div>y = D<sub>y</sub>/D = " + fracShow(y) + "</div>";
-        html += "<div class='answer'>Vậy hệ có nghiệm duy nhất: (x ; y) = (" + fracStr(x) + " ; " + fracStr(y) + ")</div>";
+                <label class="answer">
+                    <input type="radio" name="q${index}" value="B">
+                    B. ${q[1][1]}
+                </label>
 
-        html += kiemTra(a,b,c,a1,b1,c1,x,y);
+                <label class="answer">
+                    <input type="radio" name="q${index}" value="C">
+                    C. ${q[1][2]}
+                </label>
 
-        document.getElementById("graph").style.display = "block";
-        veDoThi(a,b,c,a1,b1,c1, Number(x.n)/Number(x.d), Number(y.n)/Number(y.d));
-    }
-    else if(D.n === 0n && Dx.n === 0n && Dy.n === 0n){
-        html += "<div class='title'>⚠️ D = D<sub>x</sub> = D<sub>y</sub> = 0</div>";
-        html += "<div>Hệ có vô số nghiệm (hai phương trình tương đương).</div>";
+                <label class="answer">
+                    <input type="radio" name="q${index}" value="D">
+                    D. ${q[1][3]}
+                </label>
+            </div>
+        `;
 
-        // Tìm nghiệm tổng quát
-        if(b.n !== 0n){
-            // y = (c - a x)/b
-            const k = fracDiv({n:-a.n, d:a.d}, b); // -a/b
-            const m = fracDiv(c, b);              // c/b
-            html += "<div class='title'>Nghiệm tổng quát:</div>";
-            html += "<div>y = " + fracStr(k) + "·x + " + fracStr(m) + ", với x ∈ ℝ</div>";
-        } else if(a.n !== 0n){
-            const x0 = fracDiv(c, a);
-            html += "<div class='title'>Nghiệm tổng quát:</div>";
-            html += "<div>x = " + fracStr(x0) + ", với y ∈ ℝ</div>";
-        } else {
-            html += "<div class='title'>Nghiệm tổng quát:</div>";
-            html += "<div>(x ; y) với x, y ∈ ℝ tùy ý</div>";
+    });
+
+    document.getElementById("examForm").innerHTML = html;
+
+    window.scrollTo(0, 0);
+}
+
+function submitExam() {
+
+    let score = 0;
+
+    currentExam.questions.forEach((q, index) => {
+
+        let answer = document.querySelector(
+            'input[name="q' + index + '"]:checked'
+        );
+
+        if (answer && answer.value === q[2]) {
+            score++;
         }
-        html += "<div class='answer'>Vậy hệ có vô số nghiệm.</div>";
-        document.getElementById("graph").style.display = "none";
+
+    });
+
+    let total = currentExam.questions.length;
+
+    let diem = (score / total * 10).toFixed(2);
+
+    document.getElementById("result").style.display = "block";
+
+    document.getElementById("resultText").innerHTML =
+        "Bạn trả lời đúng <b>" + score + "/" + total +
+        "</b> câu. Điểm: <b>" + diem + "/10</b>";
+
+    let count = Number(localStorage.getItem("examCount") || 0);
+    count++;
+
+    localStorage.setItem("examCount", count);
+
+    let best = Number(localStorage.getItem("bestScore") || 0);
+
+    if (Number(diem) > best) {
+        localStorage.setItem("bestScore", diem);
+    }
+
+    updateStats();
+
+    window.scrollTo(0, 0);
+}
+
+function updateStats() {
+
+    document.getElementById("examCount").textContent =
+        localStorage.getItem("examCount") || 0;
+
+    document.getElementById("bestScore").textContent =
+        localStorage.getItem("bestScore") || 0;
+}
+
+function backToSubjects() {
+
+    if (currentExam && currentExam.title.includes("Toán")) {
+        showSection("math", document.querySelectorAll("nav button")[1]);
     }
     else {
-        html += "<div class='title'>❌ Trường hợp D = 0 nhưng D<sub>x</sub> ≠ 0 hoặc D<sub>y</sub> ≠ 0</div>";
-        html += "<div>Hệ phương trình vô nghiệm.</div>";
-        html += "<div class='answer warn'>Vậy hệ phương trình vô nghiệm.</div>";
-        document.getElementById("graph").style.display = "none";
+        showSection("english", document.querySelectorAll("nav button")[2]);
     }
-
-    r.innerHTML = html;
 }
 
-/* ============ THỬ LẠI NGHIỆM ============ */
-function kiemTra(a,b,c,a1,b1,c1,x,y){
-    const v1 = fracAdd(fracMul(a,x), fracMul(b,y));
-    const v2 = fracAdd(fracMul(a1,x), fracMul(b1,y));
-    const ok1 = fracEq(v1, c);
-    const ok2 = fracEq(v2, c1);
-    const icon = ok1 && ok2 ? "✅" : "⚠️";
-    return "<div class='check'>" + icon +
-        " Thử lại: " + fracStr(a) + "·(" + fracStr(x) + ") + " + fracStr(b) + "·(" + fracStr(y) + ") = " + fracStr(v1) +
-        " | " + fracStr(a1) + "·(" + fracStr(x) + ") + " + fracStr(b1) + "·(" + fracStr(y) + ") = " + fracStr(v2) +
-        "</div>";
-}
+updateStats();
 
-/* ============ VẼ ĐỒ THỊ ============ */
-function veDoThi(a,b,c,a1,b1,c1,x0,y0){
-    const cv = document.getElementById("graph");
-    const ctx = cv.getContext("2d");
-    const W = cv.width, H = cv.height;
-    ctx.clearRect(0,0,W,H);
-
-    // scale
-    const range = Math.max(5, Math.abs(x0)*1.6, Math.abs(y0)*1.6);
-    const sx = v => W/2 + (v/range)*(W/2);
-    const sy = v => H/2 - (v/range)*(H/2);
-
-    // trục
-    ctx.strokeStyle = "rgba(150,150,150,.5)";
-    ctx.lineWidth = 1;
-    ctx.beginPath(); ctx.moveTo(0,sy(0)); ctx.lineTo(W,sy(0)); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(sx(0),0); ctx.lineTo(sx(0),H); ctx.stroke();
-
-    // hàm vẽ đường thẳng ax+by=c
-    function veDuong(a,b,c,color){
-        ctx.strokeStyle = color; ctx.lineWidth = 2.5;
-        ctx.beginPath();
-        let started = false;
-        for(let px = 0; px <= W; px++){
-            const xv = (px - W/2)/(W/2) * range;
-            let yv;
-            if(Math.abs(b) > 1e-9) yv = (c - a*xv)/b;
-            else continue;
-            const py = sy(yv);
-            if(!started){ ctx.moveTo(px,py); started = true; }
-            else ctx.lineTo(px,py);
-        }
-        ctx.stroke();
-    }
-    veDuong(a,b,c,"#22c55e");
-    veDuong(a1,b1,c1,"#f59e0b");
-
-    // giao điểm
-    ctx.fillStyle = "#ef4444";
-    ctx.beginPath();
-    ctx.arc(sx(x0), sy(y0), 6, 0, 2*Math.PI);
-    ctx.fill();
-    ctx.fillStyle = "#fff";
-    ctx.font = "13px Arial";
-    ctx.fillText("(" + x0.toFixed(2) + " ; " + y0.toFixed(2) + ")", sx(x0)+10, sy(y0)-8);
-}
 </script>
+
 </body>
 </html>
+```
