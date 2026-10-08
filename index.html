@@ -96,6 +96,17 @@ nav button.active{
 .username{
     color:#1e293b;
     font-weight:bold;
+    cursor:pointer;
+    padding:8px 14px;
+    border-radius:9px;
+    transition:.25s;
+    border:1px solid transparent;
+}
+
+.username:hover{
+    background:#eff6ff;
+    border-color:#bfdbfe;
+    color:#2563eb;
 }
 
 .logout{
@@ -114,12 +125,20 @@ nav button.active{
     transform:translateY(-2px);
 }
 
-/* MUSIC */
+/* MUSIC CONTROL */
 
-.music-button{
+.music-control{
     position:fixed;
     right:25px;
     bottom:25px;
+    z-index:2000;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    gap:10px;
+}
+
+.music-button{
     width:52px;
     height:52px;
     border-radius:50%;
@@ -127,7 +146,6 @@ nav button.active{
     background:#ffffff;
     color:#2563eb;
     cursor:pointer;
-    z-index:2000;
     font-size:21px;
     box-shadow:0 8px 25px rgba(15,23,42,.15);
     transition:.3s;
@@ -137,6 +155,57 @@ nav button.active{
     transform:scale(1.12);
     box-shadow:0 0 25px rgba(96,165,250,.5);
     background:#eff6ff;
+}
+
+.music-panel{
+    background:#ffffff;
+    border:1px solid #e2e8f0;
+    border-radius:14px;
+    padding:14px 16px;
+    box-shadow:0 10px 30px rgba(15,23,42,.15);
+    display:none;
+    flex-direction:column;
+    gap:8px;
+    min-width:220px;
+}
+
+.music-panel.show{
+    display:flex;
+    animation:panelIn .3s ease;
+}
+
+@keyframes panelIn{
+    from{opacity:0;transform:translateY(10px);}
+    to{opacity:1;transform:translateY(0);}
+}
+
+.music-panel label{
+    color:#475569;
+    font-size:12.5px;
+    font-weight:700;
+}
+
+.music-panel .vol-display{
+    color:#2563eb;
+    font-weight:800;
+    float:right;
+}
+
+.music-panel input[type="range"]{
+    width:100%;
+    accent-color:#2563eb;
+    cursor:pointer;
+}
+
+.music-panel .vol-row{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.music-panel .vol-icon{
+    font-size:16px;
+    color:#64748b;
 }
 
 /* MAIN */
@@ -382,7 +451,36 @@ nav button.active{
     box-shadow:0 4px 15px rgba(37,99,235,.4);
 }
 
-/* EXAMS */
+/* TERM TITLE */
+
+.term-title{
+    font-size:20px;
+    color:#1e293b;
+    margin:30px 0 15px;
+    padding-left:14px;
+    border-left:5px solid #2563eb;
+    font-weight:800;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.term-title:first-child{
+    margin-top:0;
+}
+
+.term-title .term-icon{
+    font-size:24px;
+}
+
+.term-title .term-count{
+    font-size:13px;
+    color:#64748b;
+    font-weight:500;
+    margin-left:auto;
+}
+
+/* EXAM */
 
 .exam-list{
     display:grid;
@@ -434,7 +532,22 @@ nav button.active{
     box-shadow:0 4px 15px rgba(37,99,235,.35);
 }
 
-/* STREAK BOX (thay cho progress) */
+.exam .difficulty{
+    display:inline-block;
+    padding:3px 10px;
+    border-radius:20px;
+    font-size:11px;
+    font-weight:700;
+    margin-bottom:10px;
+    letter-spacing:.3px;
+}
+
+.diff-easy{background:#dcfce7;color:#15803d;}
+.diff-mid{background:#fef3c7;color:#b45309;}
+.diff-hard{background:#fee2e2;color:#b91c1c;}
+.diff-super{background:#1e293b;color:#fbbf24;}
+
+/* STREAK BOX */
 
 .streak-box{
     background:#ffffff;
@@ -456,12 +569,6 @@ nav button.active{
 @keyframes flameFloat{
     0%,100%{transform:translateY(0) scale(1);}
     50%{transform:translateY(-8px) scale(1.08);}
-}
-
-.streak-flame.small{
-    font-size:60px;
-    filter:none;
-    animation:none;
 }
 
 .streak-number{
@@ -677,6 +784,54 @@ nav button.active{
     accent-color:#2563eb;
 }
 
+.answer.correct{
+    background:#dcfce7 !important;
+    border-color:#16a34a !important;
+    color:#15803d !important;
+    font-weight:600;
+}
+
+.answer.wrong{
+    background:#fee2e2 !important;
+    border-color:#dc2626 !important;
+    color:#b91c1c !important;
+    font-weight:600;
+}
+
+.explanation{
+    background:#fef3c7;
+    border-left:5px solid #f59e0b;
+    border-radius:8px;
+    padding:14px 18px;
+    margin-top:14px;
+    color:#78350f;
+    font-size:14px;
+    line-height:1.6;
+    animation:expIn .35s ease;
+}
+
+@keyframes expIn{
+    from{opacity:0;transform:translateY(-5px);}
+    to{opacity:1;transform:translateY(0);}
+}
+
+.explanation .exp-title{
+    font-weight:800;
+    display:block;
+    margin-bottom:5px;
+    color:#92400e;
+}
+
+.explanation.correct-exp{
+    background:#dcfce7;
+    border-left-color:#16a34a;
+    color:#14532d;
+}
+
+.explanation.correct-exp .exp-title{
+    color:#15803d;
+}
+
 .submit{
     background:#16a34a;
     border:0;
@@ -692,6 +847,13 @@ nav button.active{
 .submit:hover{
     transform:translateY(-2px);
     box-shadow:0 0 20px rgba(34,197,94,.4);
+}
+
+.submit:disabled{
+    background:#94a3b8;
+    cursor:not-allowed;
+    transform:none;
+    box-shadow:none;
 }
 
 .back{
@@ -741,75 +903,149 @@ nav button.active{
     align-items:center;
     justify-content:center;
     z-index:9999;
+    padding:20px;
+    overflow-y:auto;
 }
 
 .login-box{
-    width:420px;
-    max-width:90%;
+    width:460px;
+    max-width:100%;
     background:#ffffff;
     border:1px solid #e2e8f0;
-    border-radius:20px;
-    padding:40px 35px;
+    border-radius:24px;
+    padding:40px 38px;
     text-align:center;
     box-shadow:0 25px 70px rgba(37,99,235,.15);
+    margin:auto;
 }
 
 .login-logo{
-    font-size:44px;
-    margin-bottom:10px;
+    font-size:48px;
+    margin-bottom:8px;
 }
 
 .login-box h1{
     color:#1e293b;
     font-size:25px;
-    margin-bottom:10px;
+    margin-bottom:6px;
 }
 
-.login-box p{
+.login-box .subtitle{
     color:#64748b;
     line-height:1.6;
-    margin-bottom:25px;
+    margin-bottom:22px;
+    font-size:14px;
 }
 
-.login-box input{
+.auth-tabs{
+    display:flex;
+    background:#f1f5f9;
+    border-radius:12px;
+    padding:5px;
+    margin-bottom:22px;
+}
+
+.auth-tab{
+    flex:1;
+    padding:11px;
+    border:0;
+    background:transparent;
+    color:#64748b;
+    font-weight:700;
+    font-size:14px;
+    cursor:pointer;
+    border-radius:9px;
+    transition:.3s;
+}
+
+.auth-tab.active{
+    color:#ffffff;
+    background:#2563eb;
+    box-shadow:0 4px 12px rgba(37,99,235,.3);
+}
+
+.auth-form{
+    display:none;
+    text-align:left;
+}
+
+.auth-form.active{
+    display:block;
+    animation:fadeUp .35s ease;
+}
+
+@keyframes fadeUp{
+    from{opacity:0;transform:translateY(8px);}
+    to{opacity:1;transform:translateY(0);}
+}
+
+.form-group{
+    margin-bottom:14px;
+}
+
+.form-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.form-group label{
+    display:block;
+    color:#475569;
+    font-size:13px;
+    font-weight:600;
+    margin-bottom:6px;
+}
+
+.form-group input{
     width:100%;
-    padding:13px;
-    border-radius:8px;
+    padding:12px 14px;
+    border-radius:10px;
     border:1px solid #cbd5e1;
     background:#f8fafc;
     color:#1e293b;
     outline:none;
-    margin-bottom:12px;
     -webkit-user-select:text;
     -moz-user-select:text;
     -ms-user-select:text;
     user-select:text;
     font-size:14px;
+    transition:.2s;
 }
 
-.login-box input:focus{
+.form-group input:focus{
     border-color:#60a5fa;
     background:#ffffff;
     box-shadow:0 0 0 3px rgba(96,165,250,.15);
 }
 
-.login-box button{
+.auth-submit{
     width:100%;
     padding:13px;
     background:#2563eb;
     color:#ffffff;
     border:0;
-    border-radius:8px;
+    border-radius:10px;
     cursor:pointer;
     font-weight:bold;
     transition:.3s;
     font-size:15px;
+    margin-top:6px;
 }
 
-.login-box button:hover{
+.auth-submit:hover{
     background:#1d4ed8;
     transform:translateY(-2px);
-    box-shadow:0 4px 15px rgba(37,99,235,.35);
+    box-shadow:0 6px 20px rgba(37,99,235,.35);
+}
+
+.auth-submit.register{
+    background:#16a34a;
+}
+
+.auth-submit.register:hover{
+    background:#15803d;
+    box-shadow:0 6px 20px rgba(22,163,74,.35);
 }
 
 .login-hint{
@@ -817,106 +1053,174 @@ nav button.active{
     font-size:12px;
     margin-top:14px;
     line-height:1.5;
+    text-align:center;
 }
 
 .login-error{
     color:#dc2626;
     margin-top:12px;
     display:none;
-    font-size:14px;
+    font-size:13.5px;
+    background:#fee2e2;
+    padding:10px 14px;
+    border-radius:8px;
+    border-left:3px solid #dc2626;
+    text-align:left;
 }
 
-footer{
-    text-align:center;
-    color:#94a3b8;
-    padding:35px;
-    margin-top:40px;
-    font-size:14px;
+.login-error.show{
+    display:block;
 }
 
-/* WARNING OVERLAY */
+/* MODAL */
 
-#warnOverlay{
+.modal-bg{
     position:fixed;
     inset:0;
-    background:rgba(255,255,255,.96);
+    background:rgba(15,23,42,.55);
+    backdrop-filter:blur(4px);
     display:none;
     align-items:center;
     justify-content:center;
-    z-index:99999;
-    backdrop-filter:blur(8px);
+    z-index:9998;
+    padding:20px;
 }
 
-#warnOverlay .warn-box{
-    max-width:520px;
-    width:90%;
+.modal-bg.show{
+    display:flex;
+}
+
+.modal{
     background:#ffffff;
-    border:2px solid #ef4444;
     border-radius:20px;
-    padding:40px 32px;
+    width:420px;
+    max-width:100%;
+    padding:32px 30px;
     text-align:center;
-    box-shadow:0 20px 60px rgba(239,68,68,.25);
-    animation:warnIn .35s ease;
+    box-shadow:0 25px 70px rgba(15,23,42,.35);
+    animation:modalIn .35s cubic-bezier(.2,.8,.2,1);
+    position:relative;
 }
 
-@keyframes warnIn{
-    from{opacity:0;transform:scale(.85);}
+@keyframes modalIn{
+    from{opacity:0;transform:scale(.9);}
     to{opacity:1;transform:scale(1);}
 }
 
-#warnOverlay .warn-icon{
-    font-size:60px;
-    margin-bottom:14px;
-    animation:warnShake 1s infinite;
-}
-
-@keyframes warnShake{
-    0%,100%{transform:rotate(0);}
-    25%{transform:rotate(-8deg);}
-    75%{transform:rotate(8deg);}
-}
-
-#warnOverlay h2{
-    color:#dc2626;
-    font-size:26px;
-    margin-bottom:14px;
-    letter-spacing:.5px;
-}
-
-#warnOverlay p{
-    color:#334155;
-    line-height:1.7;
-    font-size:15px;
-    margin-bottom:10px;
-}
-
-#warnOverlay .warn-note{
-    color:#64748b;
-    font-size:13px;
-    font-style:italic;
-    margin-top:12px;
-}
-
-#warnOverlay button{
-    margin-top:22px;
-    padding:12px 28px;
-    background:#2563eb;
-    color:#ffffff;
+.modal-close{
+    position:absolute;
+    top:14px;
+    right:16px;
+    width:34px;
+    height:34px;
+    border-radius:50%;
     border:0;
-    border-radius:9px;
+    background:#f1f5f9;
+    color:#64748b;
+    font-size:20px;
     cursor:pointer;
-    font-weight:bold;
-    transition:.3s;
-    font-size:15px;
+    transition:.2s;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
-#warnOverlay button:hover{
-    background:#1d4ed8;
-    transform:translateY(-2px);
-    box-shadow:0 4px 15px rgba(37,99,235,.35);
+.modal-close:hover{
+    background:#e2e8f0;
+    color:#1e293b;
+    transform:rotate(90deg);
 }
 
-/* TOAST NOTIFICATION */
+.modal-avatar{
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#2563eb,#38bdf8);
+    color:#ffffff;
+    font-size:38px;
+    font-weight:900;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto 16px;
+    box-shadow:0 10px 30px rgba(37,99,235,.35);
+    text-transform:uppercase;
+}
+
+.modal h2{
+    color:#1e293b;
+    font-size:22px;
+    margin-bottom:4px;
+}
+
+.modal .modal-sub{
+    color:#64748b;
+    font-size:14px;
+    margin-bottom:22px;
+}
+
+.modal-stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin-bottom:18px;
+}
+
+.modal-stat{
+    background:#f8fafc;
+    border:1px solid #e2e8f0;
+    border-radius:12px;
+    padding:14px 8px;
+}
+
+.modal-stat .num{
+    font-size:22px;
+    font-weight:900;
+    color:#2563eb;
+}
+
+.modal-stat .num.fire{
+    color:#ea580c;
+}
+
+.modal-stat .lbl{
+    font-size:11.5px;
+    color:#64748b;
+    margin-top:4px;
+    font-weight:600;
+}
+
+.modal-info{
+    background:#f8fafc;
+    border-radius:12px;
+    padding:16px 18px;
+    text-align:left;
+    font-size:13.5px;
+}
+
+.modal-info .row{
+    display:flex;
+    justify-content:space-between;
+    padding:7px 0;
+    border-bottom:1px dashed #e2e8f0;
+}
+
+.modal-info .row:last-child{
+    border-bottom:0;
+}
+
+.modal-info .row .k{
+    color:#64748b;
+    font-weight:600;
+}
+
+.modal-info .row .v{
+    color:#1e293b;
+    font-weight:700;
+    text-align:right;
+}
+
+/* TOAST */
 
 #toastBox{
     position:fixed;
@@ -949,6 +1253,7 @@ footer{
 .toast.warning{border-left-color:#f59e0b;}
 .toast.info{border-left-color:#2563eb;}
 .toast.fire{border-left-color:#ea580c;}
+.toast.lock{border-left-color:#7c3aed;}
 
 @keyframes toastIn{
     from{opacity:0;transform:translateX(60px);}
@@ -984,6 +1289,14 @@ footer{
     color:#475569;
     font-size:13.5px;
     line-height:1.5;
+}
+
+footer{
+    text-align:center;
+    color:#94a3b8;
+    padding:35px;
+    margin-top:40px;
+    font-size:14px;
 }
 
 /* RESPONSIVE */
@@ -1037,6 +1350,10 @@ footer{
     .streak-number{
         font-size:60px;
     }
+
+    .form-row{
+        grid-template-columns:1fr;
+    }
 }
 </style>
 </head>
@@ -1047,27 +1364,53 @@ footer{
 
 <div id="toastBox"></div>
 
-<!-- CẢNH BÁO BẢO VỆ -->
+<!-- MODAL TÀI KHOẢN -->
 
-<div id="warnOverlay">
-    <div class="warn-box">
-        <div class="warn-icon">🔒</div>
-        <h2>XIN LỖI BẠN!</h2>
-        <p>
-            Để bảo vệ nội dung và công sức xây dựng,
-            chúng tôi không cho phép xem mã nguồn
-            hoặc sao chép nội dung trang web này.
-        </p>
-        <p class="warn-note">
-            Vui lòng tắt công cụ nhà phát triển (DevTools)
-            để tiếp tục sử dụng.
-        </p>
-        <button onclick="hideWarn()">Tôi đã hiểu</button>
+<div class="modal-bg" id="accountModal">
+    <div class="modal">
+        <button class="modal-close" onclick="closeAccountModal()">×</button>
+        <div class="modal-avatar" id="modalAvatar">?</div>
+        <h2 id="modalFullName">Người dùng</h2>
+        <div class="modal-sub" id="modalUsername">@username</div>
+
+        <div class="modal-stats">
+            <div class="modal-stat">
+                <div class="num fire" id="modalStreak">0</div>
+                <div class="lbl">🔥 Streak</div>
+            </div>
+            <div class="modal-stat">
+                <div class="num" id="modalExams">0</div>
+                <div class="lbl">📝 Đề đã làm</div>
+            </div>
+            <div class="modal-stat">
+                <div class="num" id="modalBest">0</div>
+                <div class="lbl">🎯 Điểm cao</div>
+            </div>
+        </div>
+
+        <div class="modal-info">
+            <div class="row">
+                <span class="k">Họ và tên</span>
+                <span class="v" id="infoFullName">—</span>
+            </div>
+            <div class="row">
+                <span class="k">Tên tài khoản</span>
+                <span class="v" id="infoUsername">—</span>
+            </div>
+            <div class="row">
+                <span class="k">Ngày tạo</span>
+                <span class="v" id="infoCreated">—</span>
+            </div>
+            <div class="row">
+                <span class="k">Trạng thái</span>
+                <span class="v">Đang hoạt động</span>
+            </div>
+        </div>
     </div>
 </div>
 
 
-<!-- LOGIN -->
+<!-- LOGIN PAGE -->
 
 <div id="loginPage">
 
@@ -1077,36 +1420,77 @@ footer{
 
         <h1>QUYẾT TÂM ĐỖ CẤP 3</h1>
 
-        <p>
-            Đăng nhập để lưu điểm, chuỗi ngày học
-            và tham gia đua top cùng mọi người.
+        <p class="subtitle">
+            Đăng nhập để lưu điểm, giữ streak 🔥 và đua top
         </p>
 
-        <input
-            type="text"
-            id="loginName"
-            maxlength="20"
-            placeholder="Tên đăng nhập..."
-        >
-
-        <input
-            type="password"
-            id="loginPass"
-            maxlength="30"
-            placeholder="Mật khẩu..."
-        >
-
-        <button onclick="login()">
-            Đăng nhập / Đăng ký
-        </button>
-
-        <div class="login-hint">
-            Lần đầu nhập tên + mật khẩu sẽ tự động tạo tài khoản.
-            Lần sau nhập đúng để đăng nhập.
+        <div class="auth-tabs">
+            <button class="auth-tab active" id="tabLogin" onclick="switchAuth('login')">
+                Đăng nhập
+            </button>
+            <button class="auth-tab" id="tabRegister" onclick="switchAuth('register')">
+                Đăng ký
+            </button>
         </div>
 
-        <div id="loginError" class="login-error">
-            Vui lòng nhập đầy đủ thông tin.
+        <div class="auth-form active" id="formLogin">
+
+            <div class="form-group">
+                <label>Tên tài khoản</label>
+                <input type="text" id="loginName" maxlength="20" placeholder="Nhập tên tài khoản...">
+            </div>
+
+            <div class="form-group">
+                <label>Mật khẩu</label>
+                <input type="password" id="loginPass" maxlength="30" placeholder="Nhập mật khẩu...">
+            </div>
+
+            <button class="auth-submit" onclick="doLogin()">Đăng nhập</button>
+
+            <div class="login-error" id="loginError"></div>
+
+            <div class="login-hint">
+                Chưa có tài khoản? Nhấn tab <b>Đăng ký</b> phía trên.
+            </div>
+
+        </div>
+
+        <div class="auth-form" id="formRegister">
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Họ</label>
+                    <input type="text" id="regHo" maxlength="20" placeholder="Nguyễn">
+                </div>
+                <div class="form-group">
+                    <label>Tên</label>
+                    <input type="text" id="regTen" maxlength="20" placeholder="An">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Tên tài khoản</label>
+                <input type="text" id="regUsername" maxlength="20" placeholder="VD: annguyen123">
+            </div>
+
+            <div class="form-group">
+                <label>Mật khẩu</label>
+                <input type="password" id="regPass" maxlength="30" placeholder="Từ 4 ký tự trở lên">
+            </div>
+
+            <div class="form-group">
+                <label>Nhập lại mật khẩu</label>
+                <input type="password" id="regPass2" maxlength="30" placeholder="Nhập lại mật khẩu">
+            </div>
+
+            <button class="auth-submit register" onclick="doRegister()">Tạo tài khoản</button>
+
+            <div class="login-error" id="registerError"></div>
+
+            <div class="login-hint">
+                Đã có tài khoản? Nhấn tab <b>Đăng nhập</b> phía trên.
+            </div>
+
         </div>
 
     </div>
@@ -1122,39 +1506,20 @@ footer{
 
     <nav>
 
-        <button class="active" onclick="showSection('home',this)">
-            Trang chủ
-        </button>
-
-        <button onclick="showSection('math',this)">
-            📐 Toán
-        </button>
-
-        <button onclick="showSection('english',this)">
-            🇬🇧 Anh
-        </button>
-
-        <button onclick="showSection('literature',this)">
-            📖 Văn
-        </button>
-
-        <button onclick="showSection('streakPage',this)">
-            🔥 Ngọn lửa
-        </button>
-
-        <button onclick="showSection('leaderboard',this)">
-            🏆 Đua Top
-        </button>
+        <button class="active" onclick="showSection('home',this)">Trang chủ</button>
+        <button onclick="showSection('math',this)">📐 Toán</button>
+        <button onclick="showSection('english',this)">🇬🇧 Anh</button>
+        <button onclick="showSection('literature',this)">📖 Văn</button>
+        <button onclick="showSection('streakPage',this)">🔥 Streak</button>
+        <button onclick="showSection('leaderboard',this)">🏆 Đua Top</button>
 
     </nav>
 
     <div class="account">
 
-        <span class="username" id="usernameDisplay"></span>
+        <span class="username" id="usernameDisplay" onclick="openAccountModal()"></span>
 
-        <button class="logout" onclick="logout()">
-            Đăng xuất
-        </button>
+        <button class="logout" onclick="logout()">Đăng xuất</button>
 
     </div>
 
@@ -1169,13 +1534,11 @@ footer{
 
     <div class="hero">
 
-        <h1 class="hero-title">
-            QUYẾT TÂM ĐỖ CẤP 3
-        </h1>
+        <h1 class="hero-title">QUYẾT TÂM ĐỖ CẤP 3</h1>
 
         <p>
             Học mỗi ngày một chút — tiến bộ mỗi ngày một chút.
-            Giữ ngọn lửa 🔥 cháy mãi nhé!
+            Giữ streak 🔥 cháy mãi nhé!
         </p>
 
         <button onclick="showSection('math',document.querySelectorAll('nav button')[1])">
@@ -1184,13 +1547,12 @@ footer{
 
     </div>
 
-
     <div class="stats">
 
         <div class="stat">
             <div class="icon">🔥</div>
             <h3 id="homeStreak">0</h3>
-            <p>Ngày liên tiếp</p>
+            <p>Streak (ngày)</p>
         </div>
 
         <div class="stat">
@@ -1207,74 +1569,38 @@ footer{
 
     </div>
 
-
     <div class="title">
-
         <h2>ÔN LUYỆN</h2>
-
-        <p>
-            Chọn môn học để bắt đầu.
-        </p>
-
+        <p>Chọn môn học để bắt đầu.</p>
     </div>
-
 
     <div class="subjects">
 
-        <div class="subject math-card"
-             onclick="showSection('math',document.querySelectorAll('nav button')[1])">
-
+        <div class="subject math-card" onclick="showSection('math',document.querySelectorAll('nav button')[1])">
             <div class="emoji">📐</div>
-
             <h3>Toán</h3>
-
-            <p>
-                Đại số, hình học, phương trình,
-                hệ phương trình và đề thi thử.
-            </p>
-
+            <p>Đại số, hình học, phương trình, hệ phương trình và đề thi thử.</p>
             <button onclick="event.stopPropagation();showSection('math',document.querySelectorAll('nav button')[1])">
                 Xem đề Toán
             </button>
-
         </div>
 
-
-        <div class="subject english-card"
-             onclick="showSection('english',document.querySelectorAll('nav button')[2])">
-
+        <div class="subject english-card" onclick="showSection('english',document.querySelectorAll('nav button')[2])">
             <div class="emoji">🇬🇧</div>
-
             <h3>Tiếng Anh</h3>
-
-            <p>
-                Ngữ pháp, từ vựng, phát âm,
-                trọng âm, đọc hiểu và đề tổng hợp.
-            </p>
-
+            <p>Ngữ pháp, từ vựng, phát âm, trọng âm, đọc hiểu và đề tổng hợp.</p>
             <button onclick="event.stopPropagation();showSection('english',document.querySelectorAll('nav button')[2])">
                 Xem đề Anh
             </button>
-
         </div>
 
-
-        <div class="subject literature-card"
-             onclick="showSection('literature',document.querySelectorAll('nav button')[3])">
-
+        <div class="subject literature-card" onclick="showSection('literature',document.querySelectorAll('nav button')[3])">
             <div class="emoji">📖</div>
-
             <h3>Ngữ Văn</h3>
-
-            <p>
-                Đọc hiểu, nghị luận xã hội,
-                nghị luận văn học và đề thi thử.
-            </p>
-
+            <p>Đọc hiểu, nghị luận xã hội, nghị luận văn học và đề thi thử.</p>
             <button onclick="event.stopPropagation();showSection('literature',document.querySelectorAll('nav button')[3])">
                 Xem đề Văn
             </button>
-
         </div>
 
     </div>
@@ -1288,69 +1614,127 @@ footer{
 
     <div class="title">
         <h2>📐 ĐỀ TOÁN</h2>
-        <p>Luyện tập từ cơ bản đến tổng hợp.</p>
+        <p>Phân theo kỳ thi — từ dễ đến khó.</p>
+    </div>
+
+    <div class="term-title">
+        <span class="term-icon">📘</span> Giữa kì 1
+        <span class="term-count">2 đề</span>
     </div>
 
     <div class="exam-list">
 
         <div class="exam">
-            <h3>Đề Toán số 01</h3>
-            <p>Đại số cơ bản • 5 câu</p>
-            <button onclick="startExam('math1')">Làm đề</button>
+            <span class="difficulty diff-easy">CƠ BẢN</span>
+            <h3>Toán — Giữa kì 1 (Đề 1)</h3>
+            <p>Căn bậc hai, rút gọn • 5 câu</p>
+            <button onclick="startExam('math_gk1_1')">Làm đề</button>
         </div>
 
         <div class="exam">
-            <h3>Đề Toán số 02</h3>
-            <p>Đại số + Hình học • 5 câu</p>
-            <button onclick="startExam('math2')">Làm đề</button>
+            <span class="difficulty diff-mid">TRUNG BÌNH</span>
+            <h3>Toán — Giữa kì 1 (Đề 2)</h3>
+            <p>Hệ thức lượng, căn thức • 5 câu</p>
+            <button onclick="startExam('math_gk1_2')">Làm đề</button>
+        </div>
+
+    </div>
+
+    <div class="term-title">
+        <span class="term-icon">📗</span> Cuối kì 1
+        <span class="term-count">2 đề</span>
+    </div>
+
+    <div class="exam-list">
+
+        <div class="exam">
+            <span class="difficulty diff-mid">TRUNG BÌNH</span>
+            <h3>Toán — Cuối kì 1 (Đề 1)</h3>
+            <p>Hàm số bậc nhất, hình học • 5 câu</p>
+            <button onclick="startExam('math_ck1_1')">Làm đề</button>
         </div>
 
         <div class="exam">
-            <h3>Đề Toán số 03</h3>
-            <p>Phương trình • 5 câu</p>
-            <button onclick="startExam('math3')">Làm đề</button>
+            <span class="difficulty diff-hard">KHÓ</span>
+            <h3>Toán — Cuối kì 1 (Đề 2)</h3>
+            <p>Tổng hợp HK1 nâng cao • 5 câu</p>
+            <button onclick="startExam('math_ck1_2')">Làm đề</button>
+        </div>
+
+    </div>
+
+    <div class="term-title">
+        <span class="term-icon">📙</span> Giữa kì 2
+        <span class="term-count">2 đề</span>
+    </div>
+
+    <div class="exam-list">
+
+        <div class="exam">
+            <span class="difficulty diff-mid">TRUNG BÌNH</span>
+            <h3>Toán — Giữa kì 2 (Đề 1)</h3>
+            <p>Phương trình bậc hai, Vi-ét • 5 câu</p>
+            <button onclick="startExam('math_gk2_1')">Làm đề</button>
         </div>
 
         <div class="exam">
-            <h3>Đề Toán số 04</h3>
-            <p>Hệ phương trình • 5 câu</p>
-            <button onclick="startExam('math4')">Làm đề</button>
+            <span class="difficulty diff-hard">KHÓ</span>
+            <h3>Toán — Giữa kì 2 (Đề 2)</h3>
+            <p>Bài toán thực tế, parabol • 5 câu</p>
+            <button onclick="startExam('math_gk2_2')">Làm đề</button>
+        </div>
+
+    </div>
+
+    <div class="term-title">
+        <span class="term-icon">📕</span> Cuối kì 2
+        <span class="term-count">2 đề</span>
+    </div>
+
+    <div class="exam-list">
+
+        <div class="exam">
+            <span class="difficulty diff-hard">KHÓ</span>
+            <h3>Toán — Cuối kì 2 (Đề 1)</h3>
+            <p>Tổng hợp HK2 • 5 câu</p>
+            <button onclick="startExam('math_ck2_1')">Làm đề</button>
         </div>
 
         <div class="exam">
-            <h3>Đề Toán số 05</h3>
-            <p>Căn thức • 5 câu</p>
-            <button onclick="startExam('math5')">Làm đề</button>
+            <span class="difficulty diff-super">CỰC KHÓ</span>
+            <h3>Toán — Cuối kì 2 (Đề 2)</h3>
+            <p>Đề chọn lọc, tư duy cao • 5 câu</p>
+            <button onclick="startExam('math_ck2_2')">Làm đề</button>
+        </div>
+
+    </div>
+
+    <div class="term-title">
+        <span class="term-icon">🎓</span> Thi vào lớp 10
+        <span class="term-count">3 đề</span>
+    </div>
+
+    <div class="exam-list">
+
+        <div class="exam">
+            <span class="difficulty diff-super">CỰC KHÓ</span>
+            <h3>Đề thi thử vào 10 — Số 1</h3>
+            <p>Cấu trúc chuẩn Bộ GD&ĐT • 5 câu</p>
+            <button onclick="startExam('math_10_1')">Làm đề</button>
         </div>
 
         <div class="exam">
-            <h3>Đề Toán số 06</h3>
-            <p>Hàm số • 5 câu</p>
-            <button onclick="startExam('math6')">Làm đề</button>
+            <span class="difficulty diff-super">CỰC KHÓ</span>
+            <h3>Đề thi thử vào 10 — Số 2</h3>
+            <p>Đại số + Hình học tổng hợp • 5 câu</p>
+            <button onclick="startExam('math_10_2')">Làm đề</button>
         </div>
 
         <div class="exam">
-            <h3>Đề Toán số 07</h3>
-            <p>Hình học • 5 câu</p>
-            <button onclick="startExam('math7')">Làm đề</button>
-        </div>
-
-        <div class="exam">
-            <h3>Đề Toán số 08</h3>
-            <p>Tổng hợp • 5 câu</p>
-            <button onclick="startExam('math8')">Làm đề</button>
-        </div>
-
-        <div class="exam">
-            <h3>Đề Toán số 09</h3>
-            <p>Nâng cao • 5 câu</p>
-            <button onclick="startExam('math9')">Làm đề</button>
-        </div>
-
-        <div class="exam">
-            <h3>Đề thi thử Toán số 01</h3>
-            <p>Tổng hợp • 5 câu</p>
-            <button onclick="startExam('math10')">Làm đề</button>
+            <span class="difficulty diff-super">CỰC KHÓ</span>
+            <h3>Đề thi thử vào 10 — Số 3</h3>
+            <p>Đề chọn lọc HS giỏi • 5 câu</p>
+            <button onclick="startExam('math_10_3')">Làm đề</button>
         </div>
 
     </div>
@@ -1364,45 +1748,92 @@ footer{
 
     <div class="title">
         <h2>🇬🇧 ĐỀ TIẾNG ANH</h2>
-        <p>Luyện các dạng bài thường gặp trong kỳ thi.</p>
+        <p>Phân theo kỳ thi — từ dễ đến khó.</p>
+    </div>
+
+    <div class="term-title">
+        <span class="term-icon">📘</span> Giữa kì 1
+        <span class="term-count">2 đề</span>
     </div>
 
     <div class="exam-list">
 
         <div class="exam">
-            <h3>English Test 01</h3>
+            <span class="difficulty diff-easy">CƠ BẢN</span>
+            <h3>English — Giữa kì 1 (Đề 1)</h3>
             <p>Grammar + Vocabulary • 5 câu</p>
-            <button onclick="startExam('eng1')">Làm đề</button>
+            <button onclick="startExam('eng_gk1_1')">Làm đề</button>
         </div>
 
         <div class="exam">
-            <h3>English Test 02</h3>
-            <p>Grammar + Reading • 5 câu</p>
-            <button onclick="startExam('eng2')">Làm đề</button>
+            <span class="difficulty diff-easy">CƠ BẢN</span>
+            <h3>English — Giữa kì 1 (Đề 2)</h3>
+            <p>Tenses + Word forms • 5 câu</p>
+            <button onclick="startExam('eng_gk1_2')">Làm đề</button>
         </div>
 
-        <div class="exam">
-            <h3>English Test 03</h3>
-            <p>Verb Forms • 5 câu</p>
-            <button onclick="startExam('eng3')">Làm đề</button>
-        </div>
+    </div>
+
+    <div class="term-title">
+        <span class="term-icon">📗</span> Cuối kì 1
+        <span class="term-count">1 đề</span>
+    </div>
+
+    <div class="exam-list">
 
         <div class="exam">
-            <h3>English Test 04</h3>
-            <p>Word Forms • 5 câu</p>
-            <button onclick="startExam('eng4')">Làm đề</button>
+            <span class="difficulty diff-mid">TRUNG BÌNH</span>
+            <h3>English — Cuối kì 1</h3>
+            <p>Reading + Grammar • 5 câu</p>
+            <button onclick="startExam('eng_ck1_1')">Làm đề</button>
         </div>
 
-        <div class="exam">
-            <h3>English Test 05</h3>
-            <p>Phonetics + Stress • 5 câu</p>
-            <button onclick="startExam('eng5')">Làm đề</button>
-        </div>
+    </div>
+
+    <div class="term-title">
+        <span class="term-icon">📙</span> Giữa kì 2
+        <span class="term-count">1 đề</span>
+    </div>
+
+    <div class="exam-list">
 
         <div class="exam">
-            <h3>English Test 06</h3>
-            <p>Tổng hợp • 5 câu</p>
-            <button onclick="startExam('eng6')">Làm đề</button>
+            <span class="difficulty diff-mid">TRUNG BÌNH</span>
+            <h3>English — Giữa kì 2</h3>
+            <p>Conditional + Reported speech • 5 câu</p>
+            <button onclick="startExam('eng_gk2_1')">Làm đề</button>
+        </div>
+
+    </div>
+
+    <div class="term-title">
+        <span class="term-icon">📕</span> Cuối kì 2
+        <span class="term-count">1 đề</span>
+    </div>
+
+    <div class="exam-list">
+
+        <div class="exam">
+            <span class="difficulty diff-hard">KHÓ</span>
+            <h3>English — Cuối kì 2</h3>
+            <p>Tổng hợp HK2 • 5 câu</p>
+            <button onclick="startExam('eng_ck2_1')">Làm đề</button>
+        </div>
+
+    </div>
+
+    <div class="term-title">
+        <span class="term-icon">🎓</span> Thi vào lớp 10
+        <span class="term-count">1 đề</span>
+    </div>
+
+    <div class="exam-list">
+
+        <div class="exam">
+            <span class="difficulty diff-super">CỰC KHÓ</span>
+            <h3>English — Thi vào 10</h3>
+            <p>Cấu trúc chuẩn Bộ GD&ĐT • 5 câu</p>
+            <button onclick="startExam('eng_10_1')">Làm đề</button>
         </div>
 
     </div>
@@ -1416,33 +1847,85 @@ footer{
 
     <div class="title">
         <h2>📖 ĐỀ NGỮ VĂN</h2>
-        <p>Luyện đọc hiểu và nghị luận.</p>
+        <p>Phân theo kỳ thi — từ dễ đến khó.</p>
+    </div>
+
+    <div class="term-title">
+        <span class="term-icon">📘</span> Giữa kì 1
+        <span class="term-count">1 đề</span>
     </div>
 
     <div class="exam-list">
 
         <div class="exam">
-            <h3>Đề Văn số 01</h3>
-            <p>Đọc hiểu + Nghị luận xã hội</p>
-            <button onclick="startExam('van1')">Làm đề</button>
+            <span class="difficulty diff-mid">TRUNG BÌNH</span>
+            <h3>Văn — Giữa kì 1</h3>
+            <p>Đọc hiểu + Nghị luận xã hội • 5 câu</p>
+            <button onclick="startExam('van_gk1')">Làm đề</button>
         </div>
 
-        <div class="exam">
-            <h3>Đề Văn số 02</h3>
-            <p>Đọc hiểu + Nghị luận văn học</p>
-            <button onclick="startExam('van2')">Làm đề</button>
-        </div>
+    </div>
+
+    <div class="term-title">
+        <span class="term-icon">📗</span> Cuối kì 1
+        <span class="term-count">1 đề</span>
+    </div>
+
+    <div class="exam-list">
 
         <div class="exam">
-            <h3>Đề Văn số 03</h3>
-            <p>Đề tổng hợp</p>
-            <button onclick="startExam('van3')">Làm đề</button>
+            <span class="difficulty diff-hard">KHÓ</span>
+            <h3>Văn — Cuối kì 1</h3>
+            <p>Đọc hiểu + Nghị luận văn học • 5 câu</p>
+            <button onclick="startExam('van_ck1')">Làm đề</button>
         </div>
 
+    </div>
+
+    <div class="term-title">
+        <span class="term-icon">📙</span> Giữa kì 2
+        <span class="term-count">1 đề</span>
+    </div>
+
+    <div class="exam-list">
+
         <div class="exam">
-            <h3>Đề thi thử Văn</h3>
-            <p>Tổng hợp vào lớp 10</p>
-            <button onclick="startExam('van4')">Làm đề</button>
+            <span class="difficulty diff-hard">KHÓ</span>
+            <h3>Văn — Giữa kì 2</h3>
+            <p>Đọc hiểu + Nghị luận xã hội • 5 câu</p>
+            <button onclick="startExam('van_gk2')">Làm đề</button>
+        </div>
+
+    </div>
+
+    <div class="term-title">
+        <span class="term-icon">📕</span> Cuối kì 2
+        <span class="term-count">1 đề</span>
+    </div>
+
+    <div class="exam-list">
+
+        <div class="exam">
+            <span class="difficulty diff-hard">KHÓ</span>
+            <h3>Văn — Cuối kì 2</h3>
+            <p>Nghị luận văn học + xã hội • 5 câu</p>
+            <button onclick="startExam('van_ck2')">Làm đề</button>
+        </div>
+
+    </div>
+
+    <div class="term-title">
+        <span class="term-icon">🎓</span> Thi vào lớp 10
+        <span class="term-count">1 đề</span>
+    </div>
+
+    <div class="exam-list">
+
+        <div class="exam">
+            <span class="difficulty diff-super">CỰC KHÓ</span>
+            <h3>Văn — Thi vào 10</h3>
+            <p>Đọc hiểu + Nghị luận văn học • 5 câu</p>
+            <button onclick="startExam('van_10_1')">Làm đề</button>
         </div>
 
     </div>
@@ -1450,34 +1933,32 @@ footer{
 </section>
 
 
-<!-- NGỌN LỬA (thay cho Tiến độ) -->
+<!-- STREAK -->
 
 <section id="streakPage" class="section">
 
     <div class="title">
-        <h2>🔥 NGỌN LỬA HỌC TẬP</h2>
+        <h2>🔥 STREAK HỌC TẬP</h2>
         <p>Tài khoản: <b id="streakUser"></b></p>
     </div>
 
     <div class="streak-box">
 
-        <div class="streak-flame" id="bigFlame">🔥</div>
+        <div class="streak-flame" id="bigFlame">🕯️</div>
 
         <div class="streak-number" id="streakNumber">0</div>
 
         <div class="streak-label">ngày liên tiếp</div>
 
         <div class="streak-msg" id="streakMsg">
-            Điểm danh mỗi ngày để giữ lửa cháy nhé!
+            Điểm danh mỗi ngày để giữ streak nhé!
         </div>
 
         <div class="daily">
 
             <h3>🔥 ĐIỂM DANH HÔM NAY</h3>
 
-            <p id="dailyText">
-                Điểm danh mỗi ngày để tăng ngọn lửa 🔥
-            </p>
+            <p id="dailyText">Điểm danh mỗi ngày để tăng streak 🔥</p>
 
             <button id="dailyButton" onclick="completeDaily()">
                 Điểm danh hôm nay
@@ -1492,7 +1973,7 @@ footer{
         <div class="stat">
             <div class="icon">🔥</div>
             <h3 id="streakPageStreak">0</h3>
-            <p>Ngày liên tiếp</p>
+            <p>Streak</p>
         </div>
 
         <div class="stat">
@@ -1518,7 +1999,7 @@ footer{
 
     <div class="title">
         <h2>🏆 BẢNG XẾP HẠNG</h2>
-        <p>Ai giữ lửa lâu nhất? Ai điểm cao nhất?</p>
+        <p>Ai giữ streak lâu nhất? Ai điểm cao nhất?</p>
     </div>
 
     <div class="leaderboard">
@@ -1533,23 +2014,18 @@ footer{
 
 <section id="examPage" class="section">
 
-    <button class="back" onclick="backToSubjects()">
-        ← Quay lại
-    </button>
+    <button class="back" onclick="backToSubjects()">← Quay lại</button>
 
     <div id="examTitle" class="title"></div>
 
     <div id="result">
-
         <h2>🎉 KẾT QUẢ</h2>
-
         <p id="resultText"></p>
-
     </div>
 
     <form id="examForm" onsubmit="return false;"></form>
 
-    <button class="submit" onclick="submitExam()" type="button">
+    <button class="submit" id="submitBtn" onclick="submitExam()" type="button">
         Nộp bài
     </button>
 
@@ -1563,27 +2039,42 @@ footer{
 </footer>
 
 
-<!-- MUSIC BUTTON -->
+<!-- MUSIC CONTROL -->
 
-<button class="music-button" id="musicButton" onclick="toggleMusic()">
-    🔇
-</button>
+<div class="music-control">
+
+    <div class="music-panel" id="musicPanel">
+
+        <label>
+            Âm lượng nhạc
+            <span class="vol-display" id="volDisplay">35%</span>
+        </label>
+
+        <div class="vol-row">
+            <span class="vol-icon">🔈</span>
+            <input type="range" id="volumeSlider" min="0" max="100" value="35">
+            <span class="vol-icon">🔊</span>
+        </div>
+
+    </div>
+
+    <button class="music-button" id="musicButton" onclick="toggleMusic()">🔇</button>
+
+</div>
 
 
 <script>
 
 /* =========================
-   XÓA SẠCH DỮ LIỆU CŨ (1 LẦN)
-   → Reset toàn bộ localStorage liên quan
+   RESET DỮ LIỆU CŨ
 ========================= */
 
 (function resetOldData(){
 
-    let version = "v2_streak_only";
+    let version = "v4_streak_volume";
 
     if(localStorage.getItem("appVersion") !== version){
 
-        /* Xóa tất cả key bắt đầu bằng quyetTam_ */
         let keysToRemove = [];
 
         for(let i = 0; i < localStorage.length; i++){
@@ -1594,19 +2085,17 @@ footer{
         }
 
         keysToRemove.forEach(k => localStorage.removeItem(k));
-
         localStorage.removeItem("currentUser");
-
         localStorage.setItem("appVersion", version);
 
-        console.log("Đã reset dữ liệu người dùng cũ.");
+        console.log("Đã reset dữ liệu.");
     }
 
 })();
 
 
 /* =========================
-   TOAST NOTIFICATION
+   TOAST
 ========================= */
 
 function showToast(title, message, type = "info", duration = 3500){
@@ -1614,11 +2103,8 @@ function showToast(title, message, type = "info", duration = 3500){
     let box = document.getElementById("toastBox");
 
     let icons = {
-        success: "✅",
-        error: "❌",
-        warning: "⚠️",
-        info: "ℹ️",
-        fire: "🔥"
+        success: "✅", error: "❌", warning: "⚠️",
+        info: "ℹ️", fire: "🔥", lock: "🔒"
     };
 
     let toast = document.createElement("div");
@@ -1641,44 +2127,44 @@ function showToast(title, message, type = "info", duration = 3500){
 
 
 /* =========================
-   BẢO VỆ NỘI DUNG
+   BẢO VỆ — CHỈ TOAST
 ========================= */
+
+let lastWarnTime = 0;
+
+function warnProtect(){
+    let now = Date.now();
+    if(now - lastWarnTime < 2000) return;
+    lastWarnTime = now;
+
+    showToast(
+        "🔒 Nội dung được bảo vệ",
+        "Xin lỗi bạn! Chúng tôi không cho phép xem mã nguồn hoặc sao chép.",
+        "lock",
+        2800
+    );
+}
 
 (function protectContent(){
 
-    document.addEventListener("contextmenu", function(e){
-        e.preventDefault();
-        showWarn();
-        return false;
+    document.addEventListener("contextmenu", e => {
+        e.preventDefault(); warnProtect(); return false;
     });
 
-    document.addEventListener("keydown", function(e){
+    document.addEventListener("keydown", e => {
 
         if(e.key === "F12"){
-            e.preventDefault();
-            showWarn();
-            return false;
+            e.preventDefault(); warnProtect(); return false;
         }
 
         if(e.ctrlKey && e.shiftKey &&
-           (e.key === "I" || e.key === "i" ||
-            e.key === "J" || e.key === "j" ||
-            e.key === "C" || e.key === "c")){
-            e.preventDefault();
-            showWarn();
-            return false;
+           "IJ Cijc".includes(e.key)){
+            e.preventDefault(); warnProtect(); return false;
         }
 
-        if(e.ctrlKey && (e.key === "U" || e.key === "u")){
-            e.preventDefault();
-            showWarn();
-            return false;
-        }
-
-        if(e.ctrlKey && (e.key === "S" || e.key === "s")){
-            e.preventDefault();
-            showWarn();
-            return false;
+        if(e.ctrlKey && (e.key === "U" || e.key === "u" ||
+                         e.key === "S" || e.key === "s")){
+            e.preventDefault(); warnProtect(); return false;
         }
 
         if(e.ctrlKey && (e.key === "A" || e.key === "a")){
@@ -1689,184 +2175,426 @@ function showToast(title, message, type = "info", duration = 3500){
         }
     });
 
-    document.addEventListener("copy", function(e){
+    document.addEventListener("copy", e => {
+        let tag = (e.target.tagName || "").toLowerCase();
+        if(tag !== "input" && tag !== "textarea"){
+            e.preventDefault(); warnProtect();
+        }
+    });
+
+    document.addEventListener("cut", e => {
         let tag = (e.target.tagName || "").toLowerCase();
         if(tag !== "input" && tag !== "textarea"){
             e.preventDefault();
         }
     });
 
-    document.addEventListener("cut", function(e){
-        let tag = (e.target.tagName || "").toLowerCase();
-        if(tag !== "input" && tag !== "textarea"){
-            e.preventDefault();
-        }
-    });
-
-    document.addEventListener("dragstart", function(e){
-        e.preventDefault();
-    });
+    document.addEventListener("dragstart", e => e.preventDefault());
 
     let devtoolsOpen = false;
 
-    function checkDevTools(){
+    setInterval(() => {
+        let wg = window.outerWidth - window.innerWidth;
+        let hg = window.outerHeight - window.innerHeight;
 
-        let widthGap = window.outerWidth - window.innerWidth;
-        let heightGap = window.outerHeight - window.innerHeight;
-
-        if(widthGap > 160 || heightGap > 160){
-
+        if(wg > 160 || hg > 160){
             if(!devtoolsOpen){
                 devtoolsOpen = true;
-                showWarn();
+                warnProtect();
             }
-
         }
         else{
             devtoolsOpen = false;
         }
-    }
-
-    setInterval(checkDevTools, 1000);
+    }, 1500);
 
 })();
 
 
-function showWarn(){
-    let overlay = document.getElementById("warnOverlay");
-    if(overlay) overlay.style.display = "flex";
-}
-
-
-function hideWarn(){
-    let overlay = document.getElementById("warnOverlay");
-    if(overlay) overlay.style.display = "none";
-}
-
-
 /* =========================
    DỮ LIỆU ĐỀ THI
+   Cấu trúc: [câu hỏi, [A,B,C,D], đáp án đúng, giải thích]
 ========================= */
 
 const exams = {
 
-    math1: {
-        title: "Đề Toán số 01 — Đại số cơ bản",
+    /* ===== TOÁN ===== */
+
+    math_gk1_1: {
+        title: "Toán — Giữa kì 1 (Đề 1)",
         subject: "math",
         questions: [
-            ["Giải phương trình: 2x + 6 = 0", ["x = 3", "x = -3", "x = 2", "x = -2"], "B"],
-            ["Tính: √49", ["5", "6", "7", "8"], "C"],
-            ["Giá trị của biểu thức 3x - 5 khi x = 4 là:", ["5", "6", "7", "8"], "C"],
-            ["Phương trình x² = 9 có nghiệm là:", ["x = 3", "x = -3", "x = ±3", "Vô nghiệm"], "C"],
-            ["Rút gọn: (x + 2)(x - 2)", ["x² - 4", "x² + 4", "x² - 2", "x² + 2"], "A"]
+            ["Rút gọn: √50 - √18 + √8", ["3√2","4√2","5√2","6√2"], "B",
+             "√50 = 5√2; √18 = 3√2; √8 = 2√2 → 5√2 - 3√2 + 2√2 = 4√2."],
+            ["Điều kiện xác định của √(3 - 2x):", ["x ≤ 3/2","x ≥ 3/2","x < 3/2","x > 3/2"], "A",
+             "Biểu thức trong căn ≥ 0 → 3 - 2x ≥ 0 → x ≤ 3/2."],
+            ["Giải phương trình: √(x + 1) = 3", ["x = 8","x = 9","x = 4","x = 2"], "A",
+             "Bình phương 2 vế: x + 1 = 9 → x = 8. Thử lại thỏa mãn."],
+            ["Tính: (√5 + √3)(√5 - √3)", ["2","8","√15","5"], "A",
+             "Hằng đẳng thức a² - b² = 5 - 3 = 2."],
+            ["So sánh: 2√3 và 3√2", ["2√3 > 3√2","2√3 < 3√2","2√3 = 3√2","Không so sánh được"], "B",
+             "2√3 = √12; 3√2 = √18. Vì 12 < 18 nên 2√3 < 3√2."]
         ]
     },
 
-    math2: {
-        title: "Đề Toán số 02 — Đại số + Hình học",
+    math_gk1_2: {
+        title: "Toán — Giữa kì 1 (Đề 2)",
         subject: "math",
         questions: [
-            ["Tính: 5² - 3²", ["4", "8", "16", "25"], "C"],
-            ["Tam giác vuông có 2 cạnh góc vuông 3cm và 4cm. Cạnh huyền bằng:", ["5cm", "6cm", "7cm", "8cm"], "A"],
-            ["Giải: x/2 = 5", ["x = 2", "x = 5", "x = 10", "x = 15"], "C"],
-            ["Diện tích hình tròn bán kính r = 3 là:", ["3π", "6π", "9π", "12π"], "C"],
-            ["Hệ số góc của đường thẳng y = 2x + 1 là:", ["1", "2", "-2", "-1"], "B"]
+            ["Rút gọn: (√7 - √3)² + 2√21", ["10","8","4","12"], "A",
+             "(√7 - √3)² = 7 - 2√21 + 3 = 10 - 2√21. Cộng 2√21 = 10."],
+            ["Tìm x: √(2x - 1) = √5", ["x = 3","x = 2","x = 5","x = 4"], "A",
+             "Bình phương: 2x - 1 = 5 → 2x = 6 → x = 3."],
+            ["Trục căn thức: 1/(√5 - 2)", ["√5 + 2","√5 - 2","5 - 2√5","1"], "A",
+             "Nhân tử và mẫu với (√5 + 2): (√5 + 2)/(5 - 4) = √5 + 2."],
+            ["Giá trị của √(9 - 4√5)", ["√5 - 2","2 - √5","√5 + 2","1"], "A",
+             "9 - 4√5 = (√5 - 2)² → căn = |√5 - 2| = √5 - 2."],
+            ["Phương trình √(x² - 4x + 4) = 3 có nghiệm:", ["x = 5 hoặc x = -1","x = 5","x = -1","Vô nghiệm"], "A",
+             "√((x-2)²) = |x - 2| = 3 → x = 5 hoặc x = -1."]
         ]
     },
 
-    math3: {
-        title: "Đề Toán số 03 — Phương trình",
+    math_ck1_1: {
+        title: "Toán — Cuối kì 1 (Đề 1)",
         subject: "math",
         questions: [
-            ["Phương trình x² - 5x + 6 = 0 có nghiệm là:", ["x = 1; x = 6", "x = 2; x = 3", "x = -2; x = -3", "Vô nghiệm"], "B"],
-            ["Tổng hai nghiệm của x² - 7x + 10 = 0 là:", ["5", "7", "-7", "10"], "B"],
-            ["Tích hai nghiệm của x² - 3x - 4 = 0 là:", ["3", "-3", "4", "-4"], "D"],
-            ["Phương trình x² + 1 = 0 có nghiệm:", ["x = 1", "x = -1", "x = ±1", "Vô nghiệm"], "D"],
-            ["Nghiệm của phương trình 3x - 9 = 0 là:", ["x = 1", "x = 2", "x = 3", "x = 4"], "C"]
+            ["Hàm số y = (m - 2)x + 3 đồng biến khi:", ["m > 2","m < 2","m = 2","m ≠ 2"], "A",
+             "Hàm bậc nhất đồng biến khi a > 0 → m - 2 > 0 → m > 2."],
+            ["Đường thẳng y = 2x + 1 song song với:", ["y = 2x - 5","y = -2x + 1","y = x + 1","y = 2x² + 1"], "A",
+             "Song song khi cùng hệ số góc a = 2 và b khác nhau."],
+            ["Tìm m để y = (m-1)x + 2 đi qua A(1; 3):", ["m = 2","m = 1","m = 3","m = 0"], "A",
+             "Thay x = 1, y = 3: 3 = (m-1).1 + 2 → m - 1 = 1 → m = 2."],
+            ["Giao điểm y = x + 2 và y = -x + 4:", ["(1; 3)","(2; 4)","(3; 5)","(0; 2)"], "A",
+             "x + 2 = -x + 4 → 2x = 2 → x = 1 → y = 3."],
+            ["Tam giác vuông AB = 3, AC = 4. Bán kính ngoại tiếp:", ["2.5","5","2","3.5"], "A",
+             "BC = 5. Bán kính ngoại tiếp tam giác vuông = BC/2 = 2.5."]
         ]
     },
 
-    math4: {
-        title: "Đề Toán số 04 — Hệ phương trình",
+    math_ck1_2: {
+        title: "Toán — Cuối kì 1 (Đề 2)",
         subject: "math",
         questions: [
-            ["Hệ: x + y = 5; x - y = 1 có nghiệm:", ["(3;2)", "(2;3)", "(4;1)", "(1;4)"], "A"],
-            ["Hệ: 2x + y = 7; x - y = 2 có nghiệm:", ["(3;1)", "(1;3)", "(2;3)", "(3;2)"], "A"],
-            ["Hệ phương trình có bao nhiêu nghiệm khi hai đường thẳng cắt nhau?", ["0", "1", "2", "Vô số"], "B"],
-            ["Hệ: x + y = 3; 2x + 2y = 6 có:", ["1 nghiệm", "2 nghiệm", "Vô số nghiệm", "Vô nghiệm"], "C"],
-            ["Hệ: x + y = 3; x + y = 5 có:", ["1 nghiệm", "2 nghiệm", "Vô số nghiệm", "Vô nghiệm"], "D"]
+            ["Hệ 2x + 3y = 7; x - y = 1 có nghiệm:", ["(2; 1)","(1; 2)","(3; 1)","(1; 3)"], "A",
+             "Từ x - y = 1 → x = y + 1. Thay: 2(y+1) + 3y = 7 → 5y = 5 → y = 1 → x = 2."],
+            ["(O; 5cm), dây AB = 8cm. Khoảng cách O đến AB:", ["3cm","4cm","5cm","6cm"], "A",
+             "Kẻ OH ⊥ AB → AH = 4. OH² = 25 - 16 = 9 → OH = 3."],
+            ["Tiếp tuyến tại 1 điểm thì:", ["Vuông góc với bán kính tại tiếp điểm","Song song với bán kính","Đi qua tâm","Cắt đường tròn tại 2 điểm"], "A",
+             "Tính chất cơ bản của tiếp tuyến."],
+            ["Hệ x + y = 3; 2x + my = 6 vô số nghiệm khi:", ["m = 2","m = 1","m = 3","m ≠ 2"], "A",
+             "Vô số nghiệm khi 2/1 = m/1 = 6/3 → m = 2."],
+            ["Điểm thuộc đồ thị y = -2x + 3:", ["(1; 1)","(2; 1)","(0; 3)","Cả A và C"], "D",
+             "(1;1): -2+3 = 1 ✓. (0;3): 3 = 3 ✓. Vậy cả A và C."]
         ]
     },
 
-    math5: {
-        title: "Đề Toán số 05 — Căn thức",
+    math_gk2_1: {
+        title: "Toán — Giữa kì 2 (Đề 1)",
         subject: "math",
         questions: [
-            ["Tính: √16 + √9", ["5", "6", "7", "8"], "C"],
-            ["√(x²) bằng:", ["x", "|x|", "-x", "x²"], "B"],
-            ["Rút gọn: √12", ["2√3", "3√2", "4√3", "6"], "A"],
-            ["Điều kiện xác định của √(x - 2) là:", ["x > 2", "x ≥ 2", "x < 2", "x ≤ 2"], "B"],
-            ["Tính: (√5)²", ["5", "10", "25", "√5"], "A"]
+            ["x² - 5x + 6 = 0 có nghiệm:", ["x = 2; x = 3","x = 1; x = 6","x = -2; x = -3","Vô nghiệm"], "A",
+             "Δ = 25 - 24 = 1 → x = (5±1)/2 → x = 3 hoặc x = 2."],
+            ["Tổng và tích nghiệm x² - 7x + 12 = 0:", ["S = 7; P = 12","S = -7; P = 12","S = 7; P = -12","S = 12; P = 7"], "A",
+             "Vi-ét: S = -b/a = 7; P = c/a = 12."],
+            ["x² + 2x + m = 0 có nghiệm kép khi:", ["m = 1","m > 1","m < 1","m = 0"], "A",
+             "Nghiệm kép khi Δ' = 1 - m = 0 → m = 1."],
+            ["Parabol y = ax² qua A(2; 8). a = ?", ["a = 2","a = 4","a = 1","a = 8"], "A",
+             "8 = a.4 → a = 2."],
+            ["x² - 2(m+1)x + m² = 0 có 2 nghiệm phân biệt khi:", ["m > -1/2","m < -1/2","m = -1/2","Mọi m"], "A",
+             "Δ' = (m+1)² - m² = 2m + 1 > 0 → m > -1/2."]
         ]
     },
 
-    math6: {
-        title: "Đề Toán số 06 — Hàm số",
+    math_gk2_2: {
+        title: "Toán — Giữa kì 2 (Đề 2)",
         subject: "math",
         questions: [
-            ["Hàm số y = 3x + 1. Khi x = 2 thì y bằng:", ["5", "6", "7", "8"], "C"],
-            ["Đồ thị hàm số y = ax + b là:", ["Parabol", "Đường thẳng", "Đường tròn", "Hyperbol"], "B"],
-            ["Hàm số y = -2x + 3 có hệ số góc:", ["2", "-2", "3", "-3"], "B"],
-            ["Hàm số y = x² có đồ thị là:", ["Đường thẳng", "Parabol", "Đường tròn", "Hyperbol"], "B"],
-            ["Tọa độ giao điểm của y = x + 1 với trục Oy là:", ["(0;1)", "(1;0)", "(0;-1)", "(-1;0)"], "A"]
+            ["Hai số tổng 7, tích 10:", ["2 và 5","3 và 4","1 và 10","-2 và -5"], "A",
+             "x² - 7x + 10 = 0 → x = 5 hoặc x = 2."],
+            ["Góc nội tiếp chắn nửa đường tròn:", ["90°","180°","60°","45°"], "A",
+             "Góc nội tiếp chắn nửa đường tròn = 90°."],
+            ["Tứ giác nội tiếp có tổng 2 góc đối:", ["180°","90°","360°","270°"], "A",
+             "Tính chất tứ giác nội tiếp."],
+            ["(O; R), dây AB = R√2. Cung nhỏ AB:", ["90°","60°","120°","45°"], "A",
+             "sin(AOB/2) = (R√2/2)/R = √2/2 → AOB = 90°."],
+            ["x² - 4x + m - 1 = 0 có x₁² + x₂² = 10. m = ?", ["m = 4","m = 2","m = 5","m = 1"], "A",
+             "S = 4, P = m-1. x₁² + x₂² = 16 - 2(m-1) = 10 → m = 4."]
         ]
     },
 
-    math7: {
-        title: "Đề Toán số 07 — Hình học",
+    math_ck2_1: {
+        title: "Toán — Cuối kì 2 (Đề 1)",
         subject: "math",
         questions: [
-            ["Tổng ba góc trong tam giác bằng:", ["90°", "180°", "270°", "360°"], "B"],
-            ["Tam giác đều có mỗi góc bằng:", ["45°", "60°", "90°", "120°"], "B"],
-            ["Đường kính gấp mấy lần bán kính?", ["1", "2", "3", "4"], "B"],
-            ["Chu vi hình tròn bán kính r là:", ["πr", "2πr", "πr²", "4πr"], "B"],
-            ["Trong tam giác vuông, cạnh huyền là cạnh:", ["Ngắn nhất", "Dài nhất", "Bằng cạnh góc vuông", "Không xác định"], "B"]
+            ["x² - 3x - 4 = 0, tính x₁³ + x₂³:", ["63","91","-19","37"], "A",
+             "S = 3; P = -4. x₁³ + x₂³ = S³ - 3PS = 27 + 36 = 63."],
+            ["Từ M ngoài (O) kẻ 2 tiếp tuyến MA, MB. OM = 2R. Góc AMB:", ["60°","90°","120°","45°"], "A",
+             "sin(OMA) = R/(2R) = 1/2 → OMA = 30° → AMB = 60°."],
+            ["x² - 2(m-1)x + m² - 3 = 0 có 2 nghiệm trái dấu:", ["-√3 < m < √3","m > √3","m < -√3","Mọi m"], "A",
+             "P < 0 → m² - 3 < 0 → -√3 < m < √3."],
+            ["Ca nô xuôi 30km + ngược 30km hết 4h, v nước 3km/h. V ca nô:", ["18 km/h","15 km/h","20 km/h","12 km/h"], "A",
+             "30/(v+3) + 30/(v-3) = 4 → v = 18."],
+            ["Tứ giác ABCD nội tiếp, A = 80°. C = ?", ["100°","80°","90°","160°"], "A",
+             "A + C = 180° → C = 100°."]
         ]
     },
 
-    math8: {
-        title: "Đề Toán số 08 — Tổng hợp",
+    math_ck2_2: {
+        title: "Toán — Cuối kì 2 (Đề 2)",
         subject: "math",
         questions: [
-            ["Tính: 2³ + 3²", ["15", "16", "17", "18"], "C"],
-            ["Giải: x² - 4 = 0", ["x = 2", "x = -2", "x = ±2", "Vô nghiệm"], "C"],
-            ["√25 - √16 = ?", ["1", "2", "3", "4"], "A"],
-            ["Nghiệm của 2x + 3 = 7 là:", ["x = 1", "x = 2", "x = 3", "x = 4"], "B"],
-            ["Diện tích hình vuông cạnh 5cm là:", ["10cm²", "20cm²", "25cm²", "30cm²"], "C"]
+            ["x² + y² = 25; x + y = 7. Nghiệm:", ["(3;4) và (4;3)","(1;6) và (6;1)","(2;5) và (5;2)","(0;5) và (5;0)"], "A",
+             "xy = (49-25)/2 = 12. Vậy x,y là nghiệm t² - 7t + 12 = 0 → 3 hoặc 4."],
+            ["Tam giác đều nội tiếp (O; R), cạnh AB = ?", ["R√3","R","R√2","2R"], "A",
+             "Tam giác đều cạnh a: R = a/√3 → a = R√3."],
+            ["x² + 2x + m = 0 có x₁² + x₂² = 6. m = ?", ["m = -1","m = 1","m = 2","m = 0"], "A",
+             "S = -2; P = m. 4 - 2m = 6 → m = -1."],
+            ["Hình nón r = 3, h = 4. Sxq = ?", ["15π","12π","20π","24π"], "A",
+             "l = 5. Sxq = πrl = 15π."],
+            ["Số nghiệm của x⁴ - 5x² + 4 = 0:", ["4","2","3","1"], "A",
+             "t = x²: t² - 5t + 4 = 0 → t = 1; t = 4 → x = ±1; ±2. Vậy 4 nghiệm."]
         ]
     },
 
-    math9: {
-        title: "Đề Toán số 09 — Nâng cao",
+    math_10_1: {
+        title: "Đề thi thử vào 10 — Số 1",
         subject: "math",
         questions: [
-            ["Cho x + y = 10, xy = 21. Tính x² + y²", ["58", "60", "62", "64"], "A"],
-            ["Phương trình x² - 2mx + m² - 1 = 0 có 2 nghiệm phân biệt khi:", ["m > 1", "m < 1", "Mọi m", "m = 1"], "C"],
-            ["Giá trị nhỏ nhất của x² - 4x + 5 là:", ["0", "1", "2", "3"], "B"],
-            ["Rút gọn: (√3 + 1)(√3 - 1)", ["1", "2", "3", "4"], "B"],
-            ["Biết a + b = 3, ab = 2. Giá trị a³ + b³ là:", ["9", "15", "18", "21"], "A"]
+            ["Rút gọn A = (1/(√x-1) - 1/(√x+1)) : 2/(x-1), x > 0, x ≠ 1", ["1","2","1/2","√x"], "A",
+             "1/(√x-1) - 1/(√x+1) = 2/(x-1). Nhân với (x-1)/2 → 1."],
+            ["x² - 2mx + m² - m + 1 = 0 có x₁² + x₂² = 3. m = ?", ["m = 1","m = 2","m = 0","m = -1"], "A",
+             "S = 2m; P = m² - m + 1. 4m² - 2P = 2m² + 2m - 2 = 3 → m = 1."],
+            ["BCEF nội tiếp (B, C, E, F là chân đường cao), tâm là:", ["Trung điểm BC","Điểm A","Điểm H","Điểm O"], "A",
+             "BCEF nội tiếp đường tròn đường kính BC."],
+            ["Mảnh đất chữ nhật dài hơn rộng 4m. Tăng rộng 2m, giảm dài 1m, S tăng 5m². Dài ban đầu:", ["7m","6m","8m","9m"], "A",
+             "(x+2)(x+3) - x(x+4) = 5 → x = 7."],
+            ["GTNN của P = x + 2/√(x-1), x > 1:", ["3","2√2","4","2"], "A",
+             "Đặt t = √(x-1), min ≈ 3 tại x = 2."]
         ]
     },
 
-    math10: {
-        title: "Đề thi thử Toán số 01",
+    math_10_2: {
+        title: "Đề thi thử vào 10 — Số 2",
         subject: "math",
         questions: [
-            ["Giải phương trình: x² - 6x + 9 = 0", ["x = 3 (nghiệm kép)", "x = -3", "x = ±3", "Vô nghiệm"], "A"],
-            ["Tính: √(3 + 2√2)", ["1 + √2", "√2 - 1", "2 + √2", "√3 + 1"], "A"],
-            ["Tam giác ABC vuông tại A, AB = 6, AC = 8. BC = ?", ["10", "12", "14", "16"], "A"],
-            ["Hệ: x + 2y = 4; 2x - y = 3 có nghiệm:", ["(2;1)", "(1;2)", "(3;1)", "(1;3)"], "A"],
-            ["Giá trị lớn nhất của -x² + 4x + 1 là:", ["3", "4", "5", "6"], "C"]
+            ["x + y + xy = 5; x² + y² = 5. Nghiệm:", ["(1;2) và (2;1)","(0;5) và (5;0)","(3;1) và (1;3)","(-1;2) và (2;-1)"], "A",
+             "S + P = 5; S² - 2P = 5 → S = 3, P = 2 → x,y = 1,2."],
+            ["(P): y = x² và (d): y = mx + 1 cắt tại 2 điểm x₁² + x₂² = 10. m = ?", ["m = ±2","m = 2","m = -2","m = 0"], "A",
+             "x² - mx - 1 = 0. S = m; P = -1. x₁² + x₂² = m² + 2 = 10 → m = ±2√2."],
+            ["MH² = AH.HB là hệ thức:", ["Hệ thức lượng","Pythagore","Thales","Vi-ét"], "A",
+             "Hệ thức đường cao trong tam giác vuông."],
+            ["Rút gọn P = (√x/(√x-1) - 1/(x-√x)) : (1/(√x+1) + 2/(x-1))", ["(√x+1)/(√x-1)","(√x-1)/(√x+1)","1","√x"], "A",
+             "Rút gọn từng phần → (√x+1)/(√x-1)."],
+            ["n nhỏ nhất để n² + n + 41 là hợp số:", ["40","41","39","42"], "A",
+             "n = 40: 40² + 40 + 41 = 1681 = 41²."]
+        ]
+    },
+
+    math_10_3: {
+        title: "Đề thi thử vào 10 — Số 3",
+        subject: "math",
+        questions: [
+            ["a + b + c = 3, CM a² + b² + c² ≥ 3. Đẳng thức khi:", ["a = b = c = 1","a = 3, b = c = 0","a = 2, b = 1, c = 0","Không xác định"], "A",
+             "Cauchy: a² + b² + c² ≥ (a+b+c)²/3 = 3. Đẳng thức khi a = b = c = 1."],
+            ["ADHE (D, E là hình chiếu H lên AB, AC) là:", ["Hình chữ nhật","Hình vuông","Hình thoi","Hình bình hành"], "A",
+             "3 góc vuông → hình chữ nhật."],
+            ["x² - 2x + m - 3 = 0 có x₁³ + x₂³ = 8. m = ?", ["m = 3","m = 5","m = 4","m = 2"], "A",
+             "S = 2; P = m-3. S³ - 3PS = 8 - 6(m-3) = 8 → m = 3."],
+            ["(O; R), dây AB = R. Trên tia đối AB lấy C: AC = R. Tiếp tuyến CD với (O). CD = ?", ["R√3","R√2","R","2R"], "A",
+             "Tính được CD² = 3R² → CD = R√3."],
+            ["GTLN của P = √(x-1) + √(5-x):", ["2√2","4","2","√6"], "A",
+             "Bunhiacopxki: P² ≤ 8 → P ≤ 2√2."]
+        ]
+    },
+
+    /* ===== ANH ===== */
+
+    eng_gk1_1: {
+        title: "English — Giữa kì 1 (Đề 1)",
+        subject: "english",
+        questions: [
+            ["She ___ to school every day.", ["go","goes","going","gone"], "B",
+             "Chủ ngữ số ít (She) + thì hiện tại đơn → động từ thêm -es."],
+            ["They ___ football now.", ["play","plays","are playing","played"], "C",
+             "'now' → thì hiện tại tiếp diễn: are + V-ing."],
+            ["This is ___ book.", ["my","I","me","mine"], "A",
+             "Trước danh từ cần tính từ sở hữu: my."],
+            ["He ___ in Hanoi since 2020.", ["live","lives","has lived","lived"], "C",
+             "'since + mốc thời gian' → thì hiện tại hoàn thành."],
+            ["Choose the word with different stress: happy, minute, correct, garden", ["happy","minute","correct","garden"], "C",
+             "Correct nhấn âm 2; còn lại nhấn âm 1."]
+        ]
+    },
+
+    eng_gk1_2: {
+        title: "English — Giữa kì 1 (Đề 2)",
+        subject: "english",
+        questions: [
+            ["I ___ my homework already.", ["do","did","have done","doing"], "C",
+             "'already' → thì hiện tại hoàn thành: have done."],
+            ["She is good ___ Math.", ["in","at","on","for"], "B",
+             "Cụm: be good at + môn học."],
+            ["This is the ___ film I've ever seen.", ["good","better","best","well"], "C",
+             "So sánh nhất: the best."],
+            ["If it ___ tomorrow, we'll stay home.", ["rains","will rain","rained","raining"], "A",
+             "Câu điều kiện loại 1: If + S + V(hiện tại đơn), S + will + V."],
+            ["Choose the word with different pronunciation: watched, played, cooked, stopped", ["watched","played","cooked","stopped"], "B",
+             "'played' đọc /d/; còn lại /t/."]
+        ]
+    },
+
+    eng_ck1_1: {
+        title: "English — Cuối kì 1",
+        subject: "english",
+        questions: [
+            ["He suggested ___ to the movies.", ["go","going","to go","gone"], "B",
+             "Suggest + V-ing."],
+            ["The man ___ is talking to Mai is my uncle.", ["which","who","whom","whose"], "B",
+             "Đại từ quan hệ thay cho người, làm chủ ngữ: who."],
+            ["I wish I ___ taller.", ["am","was","were","be"], "C",
+             "Câu ước ở hiện tại: wish + S + were (với to be)."],
+            ["This shirt is ___ than that one.", ["cheap","cheaper","cheapest","the cheap"], "B",
+             "So sánh hơn: cheaper."],
+            ["Choose different stress: teacher, student, machine, garden", ["teacher","student","machine","garden"], "C",
+             "Machine nhấn âm 2; còn lại nhấn âm 1."]
+        ]
+    },
+
+    eng_gk2_1: {
+        title: "English — Giữa kì 2",
+        subject: "english",
+        questions: [
+            ["If I ___ rich, I would travel the world.", ["am","was","were","be"], "C",
+             "Câu điều kiện loại 2: If + S + were, S + would + V."],
+            ["He asked me ___ I liked coffee.", ["that","if","what","which"], "B",
+             "Câu gián tiếp dạng Yes/No: asked + if/whether."],
+            ["The test was ___ than I expected.", ["hard","harder","hardest","more harder"], "B",
+             "So sánh hơn: harder."],
+            ["Would you mind ___ the window?", ["open","to open","opening","opened"], "C",
+             "Would you mind + V-ing."],
+            ["Choose different stress: begin, become, happy, allow", ["begin","become","happy","allow"], "C",
+             "Happy nhấn âm 1; còn lại âm 2."]
+        ]
+    },
+
+    eng_ck2_1: {
+        title: "English — Cuối kì 2",
+        subject: "english",
+        questions: [
+            ["I haven't seen him ___ 2020.", ["for","since","in","at"], "B",
+             "'since + mốc thời gian'."],
+            ["She used to ___ up late when she was young.", ["get","gets","getting","got"], "A",
+             "Used to + V (nguyên thể)."],
+            ["The book ___ I bought yesterday is interesting.", ["who","whom","which","whose"], "C",
+             "Đại từ quan hệ thay cho vật: which."],
+            ["I'd rather ___ at home tonight.", ["stay","to stay","staying","stayed"], "A",
+             "Would rather + V (nguyên thể)."],
+            ["He is the ___ intelligent student in my class.", ["more","most","much","many"], "B",
+             "So sánh nhất: the most + adj dài."]
+        ]
+    },
+
+    eng_10_1: {
+        title: "English — Thi vào 10",
+        subject: "english",
+        questions: [
+            ["Choose the correct sentence:", ["I look forward to hear from you.","I look forward to hearing from you.","I look forward hearing from you.","I look forward hear from you."], "B",
+             "Cụm: look forward to + V-ing."],
+            ["If she ___ harder, she would have passed.", ["studied","studies","had studied","would study"], "C",
+             "Câu điều kiện loại 3: If + S + had + V3/ed, S + would have + V3/ed."],
+            ["He denied ___ the money.", ["steal","stealing","to steal","stolen"], "B",
+             "Deny + V-ing."],
+            ["Choose different pronunciation: coughed, laughed, needed, danced", ["coughed","laughed","needed","danced"], "C",
+             "Needed đọc /ɪd/; còn lại /t/."],
+            ["This is the place ___ we met.", ["which","where","when","who"], "B",
+             "Đại từ quan hệ chỉ nơi chốn: where."]
+        ]
+    },
+
+    /* ===== VĂN ===== */
+
+    van_gk1: {
+        title: "Văn — Giữa kì 1",
+        subject: "literature",
+        questions: [
+            ["Tác phẩm 'Chuyện người con gái Nam Xương' của ai?", ["Nguyễn Du","Nguyễn Dữ","Nguyễn Trãi","Hồ Xuân Hương"], "B",
+             "Nguyễn Dữ viết 'Truyền kỳ mạn lục', trong đó có 'Chuyện người con gái Nam Xương'."],
+            ["Nhân vật chính trong 'Chuyện người con gái Nam Xương' là:", ["Thúy Kiều","Vũ Nương","Thị Kính","Mị Châu"], "B",
+             "Vũ Nương là nhân vật chính của tác phẩm."],
+            ["Phương thức biểu đạt chính của văn bản nghị luận là:", ["Tự sự","Miêu tả","Nghị luận","Biểu cảm"], "C",
+             "Văn nghị luận dùng phương thức nghị luận là chính."],
+            ["Câu tục ngữ 'Uống nước nhớ nguồn' nói về:", ["Tình yêu","Lòng biết ơn","Lòng dũng cảm","Sự trung thực"], "B",
+             "Câu tục ngữ nói về đạo lý uống nước nhớ nguồn, lòng biết ơn."],
+            ["Biện pháp tu từ trong 'Mặt trời của bắp thì nằm trên đồi' là:", ["So sánh","Nhân hóa","Ẩn dụ","Hoán dụ"], "C",
+             "'Mặt trời' ẩn dụ chỉ đứa con - ẩn dụ."]
+        ]
+    },
+
+    van_ck1: {
+        title: "Văn — Cuối kì 1",
+        subject: "literature",
+        questions: [
+            ["'Truyện Kiều' còn có tên gọi khác là:", ["Kim Vân Kiều truyện","Đoạn trường tân thanh","Truyện Hoa Tiên","Chinh phụ ngâm"], "B",
+             "Tên chữ Hán của Truyện Kiều là 'Đoạn trường tân thanh'."],
+            ["Tác giả 'Truyện Kiều' là:", ["Nguyễn Trãi","Nguyễn Du","Nguyễn Đình Chiểu","Cao Bá Quát"], "B",
+             "Nguyễn Du (1765-1820) là tác giả Truyện Kiều."],
+            ["'Đồng chí' của Chính Hữu được sáng tác năm:", ["1947","1948","1949","1950"], "B",
+             "Bài thơ 'Đồng chí' ra đời năm 1948."],
+            ["Hình ảnh 'đầu súng trăng treo' trong 'Đồng chí' thể hiện:", ["Tình yêu thiên nhiên","Vẻ đẹp lãng mạn của người lính","Nỗi nhớ nhà","Sự khắc nghiệt chiến tranh"], "B",
+             "Hình ảnh vừa hiện thực vừa lãng mạn, thể hiện tâm hồn thi sĩ của người lính."],
+            ["'Lặng lẽ Sa Pa' của tác giả nào?", ["Nguyễn Thành Long","Nguyễn Minh Châu","Kim Lân","Tô Hoài"], "A",
+             "Nguyễn Thành Long viết 'Lặng lẽ Sa Pa' (1970)."]
+        ]
+    },
+
+    van_gk2: {
+        title: "Văn — Giữa kì 2",
+        subject: "literature",
+        questions: [
+            ["'Mùa xuân nho nhỏ' của Thanh Hải thể hiện:", ["Tình yêu quê hương","Khát vọng cống hiến","Nỗi buồn chiến tranh","Tình mẫu tử"], "B",
+             "Bài thơ thể hiện khát vọng dâng hiến cho đời của tác giả."],
+            ["'Viếng lăng Bác' của tác giả:", ["Viễn Phương","Hữu Thỉnh","Bằng Việt","Y Phương"], "A",
+             "Viễn Phương viết 'Viếng lăng Bác' (1976)."],
+            ["Câu 'Con ở miền Nam ra thăm lăng Bác' - từ 'thăm' thể hiện:", ["Sự xa cách","Sự kính trọng, gần gũi","Sự sợ hãi","Sự lạnh nhạt"], "B",
+             "Dùng 'thăm' thay 'viếng' thể hiện sự kính trọng mà gần gũi."],
+            ["'Sang thu' của Hữu Thỉnh nói về:", ["Mùa xuân","Mùa hạ","Mùa thu","Mùa đông"], "C",
+             "Bài thơ nói về sự chuyển biến của đất trời sang thu."],
+            ["'Nói với con' của Y Phương thể hiện:", ["Tình yêu thiên nhiên","Tình cảm cha con, tình yêu quê hương","Tình bạn","Tình yêu đôi lứa"], "B",
+             "Bài thơ nói về tình cảm cha con và tình yêu quê hương đất nước."]
+        ]
+    },
+
+    van_ck2: {
+        title: "Văn — Cuối kì 2",
+        subject: "literature",
+        questions: [
+            ["Nhân vật Nhĩ trong 'Bến quê' của Nguyễn Minh Châu là:", ["Người lính","Người nghệ sĩ","Người bệnh nặng","Người nông dân"], "C",
+             "Nhĩ là người đang ốm nặng, nằm trên giường bệnh."],
+            ["'Những ngôi sao xa xôi' của Lê Minh Khuê viết về:", ["Người lính","Thanh niên xung phong","Nông dân","Công nhân"], "B",
+             "Truyện viết về ba cô gái thanh niên xung phong trên tuyến đường Trường Sơn."],
+            ["'Bố của Xi-mông' của tác giả:", ["Mô-pa-xăng","Huy-gô","Tôn-xtôi","Sê-khốp"], "A",
+             "Guy de Maupassant (Mô-pa-xăng) - nhà văn Pháp."],
+            ["'Rô-bin-xơn Cru-xô' của Đi-phô thuộc thể loại:", ["Truyện ngắn","Tiểu thuyết","Tùy bút","Ký"], "B",
+             "Đây là tiểu thuyết phiêu lưu nổi tiếng của Daniel Defoe."],
+            ["'Con chó Bấc' của Giắc Lân-đơn nói về:", ["Tình người","Tình cảm chó - người","Chiến tranh","Thiên nhiên"], "B",
+             "Đoạn trích nói về tình cảm gắn bó giữa con chó Bấc và chủ."]
+        ]
+    },
+
+    van_10_1: {
+        title: "Văn — Thi vào 10",
+        subject: "literature",
+        questions: [
+            ["'Đồng chí' của Chính Hữu viết theo thể thơ:", ["Lục bát","Tự do","Thất ngôn","Ngũ ngôn"], "B",
+             "Bài thơ viết theo thể thơ tự do."],
+            ["Câu 'Quê hương anh nước mặn đồng chua' - 'nước mặn đồng chua' chỉ:", ["Vùng biển","Vùng đồng bằng","Vùng đất nghèo, khó làm ăn","Vùng núi"], "C",
+             "Đây là thành ngữ chỉ vùng đất nhiễm mặn, chua phèn, nghèo khó."],
+            ["Trong 'Truyện Kiều', Thúy Kiều bán mình chuộc cha là biểu hiện của:", ["Sự yếu đuối","Lòng hiếu thảo","Sự mưu mô","Tính kiêu ngạo"], "B",
+             "Hành động bán mình chuộc cha thể hiện lòng hiếu thảo của Thúy Kiều."],
+            ["'Làng' của Kim Lân viết về nhân vật:", ["Ông Hai","Anh Thanh niên","Nhĩ","Vũ Nương"], "A",
+             "Nhân vật chính trong 'Làng' là ông Hai."],
+            ["Biện pháp tu từ 'Mặt trời của mẹ, em nằm trên lưng' là:", ["So sánh","Ẩn dụ","Nhân hóa","Điệp ngữ"], "B",
+             "'Mặt trời' ẩn dụ chỉ em bé - ẩn dụ."]
         ]
     }
 
@@ -1874,43 +2602,204 @@ const exams = {
 
 
 /* =========================
-   TÀI KHOẢN + MẬT KHẨU
+   TÀI KHOẢN
 ========================= */
 
 let currentUser = "";
 let currentExam = null;
 
-function getKey(){
-    return "quyetTam_" + currentUser;
-}
-
-function getUsersDB(){
-    return JSON.parse(localStorage.getItem("quyetTam_users") || "{}");
-}
-
-function saveUsersDB(db){
-    localStorage.setItem("quyetTam_users", JSON.stringify(db));
-}
+function getKey(){ return "quyetTam_" + currentUser; }
+function getUsersDB(){ return JSON.parse(localStorage.getItem("quyetTam_users") || "{}"); }
+function saveUsersDB(db){ localStorage.setItem("quyetTam_users", JSON.stringify(db)); }
 
 function getData(){
-
     let data = localStorage.getItem(getKey());
+    if(data) return JSON.parse(data);
+    return { streak:0, exams:0, best:0, lastDay:"" };
+}
 
-    if(data){
-        return JSON.parse(data);
+function saveData(data){ localStorage.setItem(getKey(), JSON.stringify(data)); }
+
+
+/* =========================
+   AUTH
+========================= */
+
+function switchAuth(tab){
+
+    document.getElementById("tabLogin").classList.toggle("active", tab === "login");
+    document.getElementById("tabRegister").classList.toggle("active", tab === "register");
+    document.getElementById("formLogin").classList.toggle("active", tab === "login");
+    document.getElementById("formRegister").classList.toggle("active", tab === "register");
+
+    document.getElementById("loginError").classList.remove("show");
+    document.getElementById("registerError").classList.remove("show");
+}
+
+
+function doLogin(){
+
+    let name = document.getElementById("loginName").value.trim();
+    let pass = document.getElementById("loginPass").value.trim();
+    let errBox = document.getElementById("loginError");
+
+    if(name === "" || pass === ""){
+        errBox.textContent = "Vui lòng nhập đầy đủ tên tài khoản và mật khẩu.";
+        errBox.classList.add("show");
+        return;
     }
 
-    return {
-        streak:0,
-        exams:0,
-        best:0,
-        lastDay:""
-    };
+    errBox.classList.remove("show");
+    let db = getUsersDB();
+
+    if(!db[name]){
+        errBox.textContent = "Tài khoản không tồn tại. Vui lòng đăng ký!";
+        errBox.classList.add("show");
+        showToast("Không tìm thấy tài khoản ❌", "Tên tài khoản này chưa được đăng ký.", "error", 3000);
+        return;
+    }
+
+    if(db[name].password !== pass){
+        errBox.textContent = "Mật khẩu không đúng. Vui lòng thử lại!";
+        errBox.classList.add("show");
+        showToast("Sai mật khẩu ❌", "Mật khẩu bạn nhập không chính xác.", "error", 3000);
+        return;
+    }
+
+    currentUser = name;
+    localStorage.setItem("currentUser", currentUser);
+    document.getElementById("loginPage").style.display = "none";
+    document.getElementById("usernameDisplay").textContent = "👤 " + (db[name].fullName || currentUser);
+    updateAll();
+
+    showToast("Chào mừng trở lại! 🔥", "Xin chào " + (db[name].fullName || currentUser), "success", 4000);
 }
 
-function saveData(data){
-    localStorage.setItem(getKey(), JSON.stringify(data));
+
+function doRegister(){
+
+    let ho = document.getElementById("regHo").value.trim();
+    let ten = document.getElementById("regTen").value.trim();
+    let username = document.getElementById("regUsername").value.trim();
+    let pass = document.getElementById("regPass").value.trim();
+    let pass2 = document.getElementById("regPass2").value.trim();
+    let errBox = document.getElementById("registerError");
+
+    if(ho === "" || ten === ""){
+        errBox.textContent = "Vui lòng nhập đầy đủ họ và tên.";
+        errBox.classList.add("show");
+        return;
+    }
+    if(username.length < 3){
+        errBox.textContent = "Tên tài khoản phải từ 3 ký tự trở lên.";
+        errBox.classList.add("show");
+        return;
+    }
+    if(pass.length < 4){
+        errBox.textContent = "Mật khẩu phải từ 4 ký tự trở lên.";
+        errBox.classList.add("show");
+        return;
+    }
+    if(pass !== pass2){
+        errBox.textContent = "Mật khẩu nhập lại không khớp.";
+        errBox.classList.add("show");
+        return;
+    }
+
+    let db = getUsersDB();
+
+    if(db[username]){
+        errBox.textContent = "Tên tài khoản đã tồn tại. Vui lòng chọn tên khác!";
+        errBox.classList.add("show");
+        showToast("Tên đã được dùng ❌", "Vui lòng chọn tên tài khoản khác.", "error", 3000);
+        return;
+    }
+
+    errBox.classList.remove("show");
+
+    db[username] = {
+        fullName: ho + " " + ten,
+        ho: ho,
+        ten: ten,
+        password: pass,
+        createdAt: Date.now()
+    };
+
+    saveUsersDB(db);
+
+    showToast("Đăng ký thành công! 🎉", "Chào mừng " + ho + " " + ten + ". Hãy đăng nhập!", "success", 4000);
+
+    setTimeout(() => {
+        document.getElementById("loginName").value = username;
+        document.getElementById("loginPass").value = "";
+        document.getElementById("regHo").value = "";
+        document.getElementById("regTen").value = "";
+        document.getElementById("regUsername").value = "";
+        document.getElementById("regPass").value = "";
+        document.getElementById("regPass2").value = "";
+        switchAuth("login");
+    }, 1200);
 }
+
+
+function logout(){
+    showToast("Đã đăng xuất", "Hẹn gặp lại bạn lần sau! 👋", "info", 2500);
+    setTimeout(() => {
+        localStorage.removeItem("currentUser");
+        currentUser = "";
+        document.getElementById("loginName").value = "";
+        document.getElementById("loginPass").value = "";
+        document.getElementById("loginPage").style.display = "flex";
+        switchAuth("login");
+    }, 800);
+}
+
+
+/* =========================
+   MODAL TÀI KHOẢN
+========================= */
+
+function openAccountModal(){
+
+    if(!currentUser) return;
+
+    let db = getUsersDB();
+    let info = db[currentUser] || {};
+    let data = getData();
+    let fullName = info.fullName || currentUser;
+
+    document.getElementById("modalAvatar").textContent = fullName.charAt(0).toUpperCase();
+    document.getElementById("modalFullName").textContent = fullName;
+    document.getElementById("modalUsername").textContent = "@" + currentUser;
+    document.getElementById("modalStreak").textContent = data.streak;
+    document.getElementById("modalExams").textContent = data.exams;
+    document.getElementById("modalBest").textContent = data.best;
+    document.getElementById("infoFullName").textContent = fullName;
+    document.getElementById("infoUsername").textContent = currentUser;
+
+    if(info.createdAt){
+        let d = new Date(info.createdAt);
+        let dateStr = String(d.getDate()).padStart(2,"0") + "/" +
+            String(d.getMonth()+1).padStart(2,"0") + "/" +
+            d.getFullYear();
+        document.getElementById("infoCreated").textContent = dateStr;
+    }
+    else{
+        document.getElementById("infoCreated").textContent = "—";
+    }
+
+    document.getElementById("accountModal").classList.add("show");
+}
+
+
+function closeAccountModal(){
+    document.getElementById("accountModal").classList.remove("show");
+}
+
+
+document.getElementById("accountModal").addEventListener("click", function(e){
+    if(e.target === this) closeAccountModal();
+});
 
 
 /* =========================
@@ -1922,11 +2811,13 @@ function saveToLeaderboard(){
     if(!currentUser) return;
 
     let data = getData();
-
+    let db = getUsersDB();
+    let info = db[currentUser] || {};
     let board = JSON.parse(localStorage.getItem("quyetTam_leaderboard") || "{}");
 
     board[currentUser] = {
         name: currentUser,
+        fullName: info.fullName || currentUser,
         best: data.best,
         exams: data.exams,
         streak: data.streak
@@ -1939,10 +2830,8 @@ function saveToLeaderboard(){
 function renderLeaderboard(){
 
     let board = JSON.parse(localStorage.getItem("quyetTam_leaderboard") || "{}");
-
     let list = Object.values(board);
 
-    /* Xếp theo LỬA trước, rồi điểm, rồi số đề */
     list.sort((a,b) => {
         if(b.streak !== a.streak) return b.streak - a.streak;
         if(b.best !== a.best) return b.best - a.best;
@@ -1952,15 +2841,13 @@ function renderLeaderboard(){
     let container = document.getElementById("boardList");
 
     if(list.length === 0){
-        container.innerHTML =
-            '<div class="board-empty">Chưa có ai trong bảng xếp hạng. Hãy điểm danh để ghi danh! 🚀</div>';
+        container.innerHTML = '<div class="board-empty">Chưa có ai. Hãy điểm danh để ghi danh! 🚀</div>';
         return;
     }
 
     let html = "";
 
     list.forEach((user, index) => {
-
         let rankClass = "";
         if(index === 0) rankClass = "gold";
         else if(index === 1) rankClass = "silver";
@@ -1968,26 +2855,19 @@ function renderLeaderboard(){
 
         let isMe = user.name === currentUser;
         let meTag = isMe ? '<span class="board-me-tag">BẠN</span>' : "";
-
         let medal = "";
         if(index === 0) medal = "🥇";
         else if(index === 1) medal = "🥈";
         else if(index === 2) medal = "🥉";
 
+        let displayName = user.fullName || user.name;
+
         html +=
             '<div class="board-row ' + (isMe ? "me" : "") + '">' +
-                '<div class="board-rank ' + rankClass + '">' +
-                    (medal || (index + 1)) +
-                '</div>' +
-                '<div class="board-name">' +
-                    user.name + meTag +
-                '</div>' +
-                '<div class="board-exams">' +
-                    user.exams + ' đề' +
-                '</div>' +
-                '<div class="board-streak">' +
-                    '🔥 ' + user.streak +
-                '</div>' +
+                '<div class="board-rank ' + rankClass + '">' + (medal || (index + 1)) + '</div>' +
+                '<div class="board-name">' + displayName + meTag + '</div>' +
+                '<div class="board-exams">' + user.exams + ' đề</div>' +
+                '<div class="board-streak">🔥 ' + user.streak + '</div>' +
             '</div>';
     });
 
@@ -1996,163 +2876,24 @@ function renderLeaderboard(){
 
 
 /* =========================
-   LOGIN / REGISTER
-========================= */
-
-function login(){
-
-    let name = document.getElementById("loginName").value.trim();
-    let pass = document.getElementById("loginPass").value.trim();
-
-    let errBox = document.getElementById("loginError");
-
-    if(name === "" || pass === ""){
-        errBox.textContent = "Vui lòng nhập đầy đủ tên và mật khẩu.";
-        errBox.style.display = "block";
-        return;
-    }
-
-    if(name.length < 2){
-        errBox.textContent = "Tên đăng nhập phải từ 2 ký tự trở lên.";
-        errBox.style.display = "block";
-        return;
-    }
-
-    if(pass.length < 4){
-        errBox.textContent = "Mật khẩu phải từ 4 ký tự trở lên.";
-        errBox.style.display = "block";
-        return;
-    }
-
-    errBox.style.display = "none";
-
-    let db = getUsersDB();
-
-    if(db[name]){
-
-        /* Tài khoản đã tồn tại → kiểm tra mật khẩu */
-        if(db[name].password !== pass){
-            errBox.textContent = "Mật khẩu không đúng. Vui lòng thử lại!";
-            errBox.style.display = "block";
-            showToast(
-                "Sai mật khẩu ❌",
-                "Tên đăng nhập đã tồn tại với mật khẩu khác.",
-                "error",
-                3500
-            );
-            return;
-        }
-
-        /* Đăng nhập thành công */
-        currentUser = name;
-
-        localStorage.setItem("currentUser", currentUser);
-
-        document.getElementById("loginPage").style.display = "none";
-
-        document.getElementById("usernameDisplay").textContent =
-            "👤 " + currentUser;
-
-        updateAll();
-
-        showToast(
-            "Chào mừng trở lại, " + currentUser + "! 🔥",
-            "Tiếp tục giữ lửa học tập nhé!",
-            "success",
-            4000
-        );
-    }
-    else{
-
-        /* Tạo tài khoản mới */
-        db[name] = {
-            password: pass,
-            createdAt: Date.now()
-        };
-
-        saveUsersDB(db);
-
-        currentUser = name;
-
-        localStorage.setItem("currentUser", currentUser);
-
-        document.getElementById("loginPage").style.display = "none";
-
-        document.getElementById("usernameDisplay").textContent =
-            "👤 " + currentUser;
-
-        updateAll();
-
-        showToast(
-            "Tạo tài khoản thành công! 🎉",
-            "Chào mừng " + currentUser + " đến với QUYẾT TÂM ĐỖ CẤP 3!",
-            "success",
-            4000
-        );
-    }
-}
-
-
-function logout(){
-
-    showToast(
-        "Đã đăng xuất",
-        "Hẹn gặp lại bạn lần sau! 👋",
-        "info",
-        2500
-    );
-
-    setTimeout(() => {
-        localStorage.removeItem("currentUser");
-        currentUser = "";
-        document.getElementById("loginName").value = "";
-        document.getElementById("loginPass").value = "";
-        document.getElementById("loginPage").style.display = "flex";
-    }, 800);
-}
-
-
-/* =========================
-   HOME
-========================= */
-
-function goHome(){
-    showSection("home", document.querySelector("nav button"));
-}
-
-
-/* =========================
    SECTION
 ========================= */
 
+function goHome(){ showSection("home", document.querySelector("nav button")); }
+
+
 function showSection(id, button){
 
-    document.querySelectorAll(".section").forEach(
-        section => section.classList.remove("active")
-    );
-
+    document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
     let target = document.getElementById(id);
+    if(target) target.classList.add("active");
 
-    if(target){
-        target.classList.add("active");
-    }
+    document.querySelectorAll("nav button").forEach(b => b.classList.remove("active"));
+    if(button) button.classList.add("active");
 
-    document.querySelectorAll("nav button").forEach(
-        btn => btn.classList.remove("active")
-    );
+    if(id === "leaderboard") renderLeaderboard();
 
-    if(button){
-        button.classList.add("active");
-    }
-
-    if(id === "leaderboard"){
-        renderLeaderboard();
-    }
-
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
+    window.scrollTo({ top:0, behavior:"smooth" });
 }
 
 
@@ -2165,175 +2906,126 @@ function startExam(id){
     let exam = exams[id];
 
     if(!exam){
-        showToast(
-            "Đề chưa có dữ liệu",
-            "Đề này đang được cập nhật. Vui lòng chọn đề khác nhé!",
-            "warning",
-            3000
-        );
+        showToast("Đề chưa có dữ liệu", "Đề này đang được cập nhật.", "warning", 3000);
         return;
     }
 
     currentExam = exam;
 
-    document.querySelectorAll(".section").forEach(
-        section => section.classList.remove("active")
-    );
-
-    let examPage = document.getElementById("examPage");
-    examPage.classList.add("active");
-
-    document.querySelectorAll("nav button").forEach(
-        btn => btn.classList.remove("active")
-    );
+    document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+    document.getElementById("examPage").classList.add("active");
+    document.querySelectorAll("nav button").forEach(b => b.classList.remove("active"));
 
     document.getElementById("examTitle").innerHTML =
-        "<h2>" + exam.title +
-        "</h2><p>Hãy chọn đáp án đúng cho từng câu.</p>";
+        "<h2>" + exam.title + "</h2><p>Chọn đáp án đúng cho từng câu.</p>";
 
     document.getElementById("result").style.display = "none";
+
+    let submitBtn = document.getElementById("submitBtn");
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Nộp bài";
 
     let html = "";
 
     exam.questions.forEach((q, index) => {
-
         html +=
-            '<div class="question">' +
+            '<div class="question" id="question-' + index + '">' +
                 '<h3>Câu ' + (index + 1) + ': ' + q[0] + '</h3>' +
-
-                '<label class="answer">' +
-                    '<input type="radio" name="q' + index + '" value="A">' +
-                    'A. ' + q[1][0] +
-                '</label>' +
-
-                '<label class="answer">' +
-                    '<input type="radio" name="q' + index + '" value="B">' +
-                    'B. ' + q[1][1] +
-                '</label>' +
-
-                '<label class="answer">' +
-                    '<input type="radio" name="q' + index + '" value="C">' +
-                    'C. ' + q[1][2] +
-                '</label>' +
-
-                '<label class="answer">' +
-                    '<input type="radio" name="q' + index + '" value="D">' +
-                    'D. ' + q[1][3] +
-                '</label>' +
+                '<label class="answer" id="ans-' + index + '-A"><input type="radio" name="q' + index + '" value="A">A. ' + q[1][0] + '</label>' +
+                '<label class="answer" id="ans-' + index + '-B"><input type="radio" name="q' + index + '" value="B">B. ' + q[1][1] + '</label>' +
+                '<label class="answer" id="ans-' + index + '-C"><input type="radio" name="q' + index + '" value="C">C. ' + q[1][2] + '</label>' +
+                '<label class="answer" id="ans-' + index + '-D"><input type="radio" name="q' + index + '" value="D">D. ' + q[1][3] + '</label>' +
+                '<div class="explanation" id="exp-' + index + '" style="display:none;"></div>' +
             '</div>';
     });
 
     document.getElementById("examForm").innerHTML = html;
 
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
+    window.scrollTo({ top:0, behavior:"smooth" });
 
-    showToast(
-        "Bắt đầu làm bài 📝",
-        exam.title + " — " + exam.questions.length + " câu hỏi",
-        "info",
-        2500
-    );
+    showToast("Bắt đầu làm bài 📝", exam.title + " — " + exam.questions.length + " câu", "info", 2500);
 }
 
 
 function submitExam(){
 
-    if(!currentExam){
-        return;
-    }
+    if(!currentExam) return;
 
     let score = 0;
 
     currentExam.questions.forEach((q, index) => {
 
-        let answer =
-            document.querySelector(
-                'input[name="q' + index + '"]:checked'
-            );
+        let correctAns = q[2];
+        let explanation = q[3] || "";
+        let selected = document.querySelector('input[name="q' + index + '"]:checked');
+        let userAns = selected ? selected.value : null;
 
-        if(answer && answer.value === q[2]){
-            score++;
+        let correctLabel = document.getElementById("ans-" + index + "-" + correctAns);
+        if(correctLabel) correctLabel.classList.add("correct");
+
+        if(userAns && userAns !== correctAns){
+            let wrongLabel = document.getElementById("ans-" + index + "-" + userAns);
+            if(wrongLabel) wrongLabel.classList.add("wrong");
         }
 
+        let expBox = document.getElementById("exp-" + index);
+
+        if(expBox){
+            if(userAns === correctAns){
+                expBox.classList.add("correct-exp");
+                expBox.innerHTML = '<span class="exp-title">✅ Chính xác!</span>' + (explanation || "Bạn đã chọn đáp án đúng.");
+                score++;
+            }
+            else{
+                expBox.classList.remove("correct-exp");
+                expBox.innerHTML = '<span class="exp-title">❌ Chưa đúng! Đáp án đúng là ' + correctAns + '.</span>' + (explanation || "Hãy xem lại kiến thức phần này nhé.");
+            }
+            expBox.style.display = "block";
+        }
+
+        document.querySelectorAll('input[name="q' + index + '"]').forEach(r => r.disabled = true);
     });
 
     let total = currentExam.questions.length;
-
     let diem = Number((score / total * 10).toFixed(2));
 
     let data = getData();
-
     data.exams++;
-
-    if(diem > data.best){
-        data.best = diem;
-    }
-
+    if(diem > data.best) data.best = diem;
     saveData(data);
     saveToLeaderboard();
 
     document.getElementById("result").style.display = "block";
-
     document.getElementById("resultText").innerHTML =
         "Bạn trả lời đúng <b>" + score + "/" + total + "</b> câu.<br>" +
-        "Điểm: <b>" + diem + "/10</b>";
+        "Điểm: <b>" + diem + "/10</b><br>" +
+        "<small style='color:#166534;'>Xem giải thích chi tiết bên dưới mỗi câu 👇</small>";
+
+    let submitBtn = document.getElementById("submitBtn");
+    submitBtn.disabled = true;
+    submitBtn.textContent = "✓ Đã nộp bài";
 
     updateAll();
 
-    if(diem >= 8){
-        showToast(
-            "Xuất sắc! 🎉",
-            "Bạn đạt " + diem + "/10. Tiếp tục phát huy nhé!",
-            "success",
-            4000
-        );
-    }
-    else if(diem >= 5){
-        showToast(
-            "Khá tốt! 👍",
-            "Bạn đạt " + diem + "/10. Cố gắng thêm chút nữa!",
-            "info",
-            4000
-        );
-    }
-    else{
-        showToast(
-            "Cần cố gắng thêm 💪",
-            "Bạn đạt " + diem + "/10. Ôn lại và thử lại nhé!",
-            "warning",
-            4000
-        );
-    }
+    if(diem >= 8) showToast("Xuất sắc! 🎉", "Bạn đạt " + diem + "/10!", "success", 4000);
+    else if(diem >= 5) showToast("Khá tốt! 👍", "Bạn đạt " + diem + "/10.", "info", 4000);
+    else showToast("Cần cố gắng 💪", "Bạn đạt " + diem + "/10. Xem giải thích nhé!", "warning", 4000);
 
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
+    window.scrollTo({ top:0, behavior:"smooth" });
 }
 
 
 function backToSubjects(){
 
-    if(!currentExam){
-        goHome();
-        return;
-    }
+    if(!currentExam){ goHome(); return; }
 
     let subject = currentExam.subject;
     let navIndex = 1;
-
     if(subject === "math") navIndex = 1;
     else if(subject === "english") navIndex = 2;
     else if(subject === "literature") navIndex = 3;
 
-    showSection(
-        subject,
-        document.querySelectorAll("nav button")[navIndex]
-    );
-
+    showSection(subject, document.querySelectorAll("nav button")[navIndex]);
     currentExam = null;
 }
 
@@ -2343,88 +3035,53 @@ function backToSubjects(){
 ========================= */
 
 function getToday(){
-
     let d = new Date();
-
-    return d.getFullYear() + "-" +
-        String(d.getMonth()+1).padStart(2,"0") + "-" +
-        String(d.getDate()).padStart(2,"0");
+    return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
 }
 
 function getYesterday(){
-
     let d = new Date();
-
     d.setDate(d.getDate()-1);
-
-    return d.getFullYear() + "-" +
-        String(d.getMonth()+1).padStart(2,"0") + "-" +
-        String(d.getDate()).padStart(2,"0");
+    return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
 }
 
 
 /* =========================
-   ĐIỂM DANH / LỬA
+   ĐIỂM DANH / STREAK
 ========================= */
 
 function completeDaily(){
 
     let data = getData();
-
     let today = getToday();
 
     if(data.lastDay === today){
-
-        showToast(
-            "Hôm nay điểm danh rồi! 🔥",
-            "Ngọn lửa đang cháy. Hẹn gặp lại bạn ngày mai!",
-            "warning",
-            3000
-        );
-
+        showToast("Hôm nay điểm danh rồi! 🔥", "Hẹn gặp lại bạn ngày mai!", "warning", 3000);
         return;
     }
 
-    /* Kiểm tra có phải hôm qua không → tăng chuỗi */
-    if(data.lastDay === getYesterday()){
-        data.streak++;
-    }
-    else{
-        data.streak = 1;
-    }
+    if(data.lastDay === getYesterday()) data.streak++;
+    else data.streak = 1;
 
     data.lastDay = today;
-
     saveData(data);
     saveToLeaderboard();
-
     updateAll();
 
-    /* Hiệu ứng lửa nhấp nháy */
     let flame = document.getElementById("bigFlame");
-
     if(flame){
         flame.style.transform = "scale(1.5)";
         flame.style.transition = "transform .35s ease";
-
-        setTimeout(() => {
-            flame.style.transform = "scale(1)";
-        }, 400);
+        setTimeout(() => { flame.style.transform = "scale(1)"; }, 400);
     }
 
-    showToast(
-        "Điểm danh thành công! 🔥",
-        "Ngọn lửa đã tăng lên " + data.streak + " ngày liên tiếp!",
-        "fire",
-        3500
-    );
+    showToast("Điểm danh thành công! 🔥", "Streak đã tăng lên " + data.streak + " ngày!", "fire", 3500);
 }
 
 
 function updateDaily(){
 
     let data = getData();
-
     let today = getToday();
 
     let button = document.getElementById("dailyButton");
@@ -2432,73 +3089,51 @@ function updateDaily(){
     let msg = document.getElementById("streakMsg");
 
     if(data.lastDay === today){
-
         button.disabled = true;
         button.textContent = "✓ Đã điểm danh hôm nay";
-
-        text.textContent =
-            "Bạn đã điểm danh hôm nay. Hẹn gặp lại ngày mai!";
-
-        msg.textContent =
-            "🔥 Ngọn lửa đang cháy! Quay lại vào ngày mai để giữ lửa nhé.";
+        text.textContent = "Bạn đã điểm danh hôm nay. Hẹn gặp lại ngày mai!";
     }
     else{
-
         button.disabled = false;
         button.textContent = "Điểm danh hôm nay";
-
-        text.textContent =
-            "Điểm danh mỗi ngày để tăng ngọn lửa 🔥";
-
-        msg.textContent =
-            "Điểm danh hôm nay để bắt đầu / giữ chuỗi lửa!";
+        text.textContent = "Điểm danh mỗi ngày để tăng streak 🔥";
     }
 
-    /* Cập nhật lời nhắn theo số ngày */
-    if(data.streak >= 30){
-        msg.textContent = "🔥🔥🔥 Bạn là huyền thoại! " + data.streak + " ngày liên tiếp!";
-    }
-    else if(data.streak >= 14){
-        msg.textContent = "🔥🔥 Tuyệt vời! Bạn đã giữ lửa " + data.streak + " ngày!";
-    }
-    else if(data.streak >= 7){
-        msg.textContent = "🔥 Một tuần liên tiếp! Cố lên bạn ơi!";
-    }
-    else if(data.streak >= 3){
-        msg.textContent = "🔥 Đang vào guồng rồi! Tiếp tục nào!";
-    }
+    if(data.streak >= 30) msg.textContent = "🔥🔥🔥 Huyền thoại! " + data.streak + " ngày liên tiếp!";
+    else if(data.streak >= 14) msg.textContent = "🔥🔥 Tuyệt vời! Bạn đã giữ streak " + data.streak + " ngày!";
+    else if(data.streak >= 7) msg.textContent = "🔥 Một tuần liên tiếp! Cố lên!";
+    else if(data.streak >= 3) msg.textContent = "🔥 Đang vào guồng rồi! Tiếp tục nào!";
+    else if(data.streak > 0) msg.textContent = "🔥 Khởi đầu tốt! Cố gắng duy trì nhé!";
+    else msg.textContent = "Điểm danh hôm nay để bắt đầu streak!";
 }
 
 
 /* =========================
-   UPDATE
+   UPDATE ALL
 ========================= */
 
 function updateAll(){
 
     let data = getData();
+    let db = getUsersDB();
+    let info = db[currentUser] || {};
+    let displayName = info.fullName || currentUser;
 
-    document.getElementById("usernameDisplay").textContent =
-        "👤 " + currentUser;
+    document.getElementById("usernameDisplay").textContent = "👤 " + displayName;
+    document.getElementById("streakUser").textContent = displayName;
 
-    document.getElementById("streakUser").textContent = currentUser;
-
-    /* Home */
     document.getElementById("homeStreak").textContent = data.streak;
     document.getElementById("homeExams").textContent = data.exams;
     document.getElementById("homeBest").textContent = data.best;
 
-    /* Streak page */
     document.getElementById("streakNumber").textContent = data.streak;
     document.getElementById("streakPageStreak").textContent = data.streak;
     document.getElementById("streakPageExams").textContent = data.exams;
     document.getElementById("streakPageBest").textContent = data.best;
 
-    /* Đổi icon lửa theo số ngày */
     let flame = document.getElementById("bigFlame");
 
     if(flame){
-
         if(data.streak === 0){
             flame.textContent = "🕯️";
             flame.style.filter = "drop-shadow(0 0 15px rgba(148,163,184,.5))";
@@ -2527,18 +3162,16 @@ function updateAll(){
 
 
 /* =========================
-   NHẠC NỀN
+   NHẠC NỀN + ÂM LƯỢNG
 ========================= */
 
 let audioContext = null;
 let musicPlaying = false;
 let musicTimer = null;
 let musicStep = 0;
+let musicVolume = 0.35;
 
-const melody = [
-    261.63, 329.63, 392.00, 329.63,
-    293.66, 349.23, 440.00, 349.23
-];
+const melody = [261.63, 329.63, 392.00, 329.63, 293.66, 349.23, 440.00, 349.23];
 
 function playNote(freq){
 
@@ -2551,16 +3184,11 @@ function playNote(freq){
     oscillator.frequency.value = freq;
 
     gain.gain.setValueAtTime(0.0001, audioContext.currentTime);
-
     gain.gain.exponentialRampToValueAtTime(
-        0.035,
+        Math.max(0.0001, musicVolume * 0.1),
         audioContext.currentTime + .03
     );
-
-    gain.gain.exponentialRampToValueAtTime(
-        0.0001,
-        audioContext.currentTime + .45
-    );
+    gain.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + .45);
 
     oscillator.connect(gain);
     gain.connect(audioContext.destination);
@@ -2571,22 +3199,19 @@ function playNote(freq){
 
 
 function musicLoop(){
-
     if(!musicPlaying) return;
-
     playNote(melody[musicStep % melody.length]);
-
     musicStep++;
-
     musicTimer = setTimeout(musicLoop, 500);
 }
 
 
 function toggleMusic(){
 
+    let panel = document.getElementById("musicPanel");
+
     if(!audioContext){
-        audioContext = new (window.AudioContext ||
-            window.webkitAudioContext)();
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
     }
 
     if(!musicPlaying){
@@ -2594,13 +3219,24 @@ function toggleMusic(){
         musicPlaying = true;
         document.getElementById("musicButton").textContent = "🎵";
         musicLoop();
+        panel.classList.add("show");
     }
     else{
         musicPlaying = false;
         clearTimeout(musicTimer);
         document.getElementById("musicButton").textContent = "🔇";
+        panel.classList.remove("show");
     }
 }
+
+
+/* Volume slider */
+document.getElementById("volumeSlider").addEventListener("input", function(){
+
+    musicVolume = this.value / 100;
+
+    document.getElementById("volDisplay").textContent = this.value + "%";
+});
 
 
 /* =========================
@@ -2612,13 +3248,12 @@ window.onload = function(){
     let savedUser = localStorage.getItem("currentUser");
 
     if(savedUser){
-
-        /* Kiểm tra user còn tồn tại trong DB không */
         let db = getUsersDB();
-
         if(db[savedUser]){
             currentUser = savedUser;
+            let info = db[currentUser];
             document.getElementById("loginPage").style.display = "none";
+            document.getElementById("usernameDisplay").textContent = "👤 " + (info.fullName || currentUser);
             updateAll();
         }
         else{
