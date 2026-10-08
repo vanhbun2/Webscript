@@ -1,788 +1,1461 @@
+```html
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QUYẾT TÂM ĐỖ CẤP 3</title>
+<meta charset="UTF-8">
+<title>QUYẾT TÂM ĐỖ CẤP 3</title>
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
 
-        body {
-            background: #0f172a;
-            color: #f8fafc;
-            min-height: 100vh;
-        }
+body{
+    background:
+        radial-gradient(circle at 15% 20%,rgba(37,99,235,.12),transparent 30%),
+        radial-gradient(circle at 85% 70%,rgba(14,165,233,.10),transparent 30%),
+        #0b1120;
+    color:#fff;
+    min-height:100vh;
+}
 
-        header {
-            height: 70px;
-            background: #111c35;
-            border-bottom: 1px solid #263552;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 40px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+/* HEADER */
 
-        .logo {
-            font-size: 22px;
-            font-weight: bold;
-            color: #38bdf8;
-        }
+header{
+    height:72px;
+    background:rgba(10,17,32,.94);
+    border-bottom:1px solid rgba(255,255,255,.08);
+    display:flex;
+    align-items:center;
+    padding:0 32px;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    backdrop-filter:blur(15px);
+}
 
-        nav {
-            display: flex;
-            gap: 10px;
-        }
+.logo{
+    color:#fff;
+    font-size:20px;
+    font-weight:800;
+    cursor:pointer;
+    transition:.3s;
+    white-space:nowrap;
+}
 
-        nav button {
-            background: transparent;
-            border: none;
-            color: #cbd5e1;
-            padding: 10px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-        }
+.logo:hover{
+    color:#60a5fa;
+    text-shadow:0 0 15px rgba(96,165,250,.7);
+    transform:scale(1.03);
+}
 
-        nav button:hover,
-        nav button.active {
-            background: #1e3a8a;
-            color: white;
-        }
+nav{
+    display:flex;
+    gap:4px;
+    margin-left:45px;
+}
 
-        .container {
-            max-width: 1200px;
-            margin: auto;
-            padding: 35px 25px;
-        }
+nav button{
+    color:#dbe4f0;
+    background:transparent;
+    border:0;
+    padding:10px 13px;
+    border-radius:9px;
+    cursor:pointer;
+    transition:.25s;
+    font-size:14px;
+}
 
-        .hero {
-            background: linear-gradient(135deg, #172554, #1e3a8a, #0f766e);
-            border-radius: 20px;
-            padding: 45px;
-            margin-bottom: 30px;
-            box-shadow: 0 15px 40px rgba(0,0,0,.25);
-        }
+nav button:hover{
+    background:rgba(255,255,255,.08);
+    color:#fff;
+}
 
-        .hero h1 {
-            font-size: 42px;
-            margin-bottom: 12px;
-        }
+nav button.active{
+    background:#2563eb;
+    color:#fff;
+    box-shadow:0 0 18px rgba(37,99,235,.35);
+}
 
-        .hero p {
-            color: #dbeafe;
-            font-size: 17px;
-            margin-bottom: 25px;
-        }
+.account{
+    margin-left:auto;
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
 
-        .hero button {
-            background: #38bdf8;
-            color: #082f49;
-            border: none;
-            padding: 13px 22px;
-            border-radius: 10px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+.username{
+    color:#fff;
+    font-weight:bold;
+}
 
-        .hero button:hover {
-            background: #7dd3fc;
-        }
+.logout{
+    background:#1e293b;
+    color:#fff;
+    border:1px solid #334155;
+    padding:8px 13px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:.25s;
+}
 
-        .section {
-            display: none;
-        }
+.logout:hover{
+    background:#334155;
+    transform:translateY(-2px);
+}
 
-        .section.active {
-            display: block;
-        }
+/* MUSIC */
 
-        .title {
-            margin-bottom: 20px;
-        }
+.music-button{
+    position:fixed;
+    right:25px;
+    bottom:25px;
+    width:52px;
+    height:52px;
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,.15);
+    background:#172033;
+    color:#fff;
+    cursor:pointer;
+    z-index:2000;
+    font-size:21px;
+    box-shadow:0 8px 25px rgba(0,0,0,.35);
+    transition:.3s;
+}
 
-        .title h2 {
-            font-size: 28px;
-        }
+.music-button:hover{
+    transform:scale(1.12);
+    box-shadow:0 0 25px rgba(96,165,250,.5);
+}
 
-        .title p {
-            color: #94a3b8;
-            margin-top: 6px;
-        }
+/* MAIN */
 
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 18px;
-            margin-bottom: 35px;
-        }
+.container{
+    max-width:1200px;
+    margin:auto;
+    padding:35px 25px;
+}
 
-        .stat {
-            background: #111c35;
-            border: 1px solid #263552;
-            padding: 22px;
-            border-radius: 15px;
-        }
+.section{
+    display:none;
+    animation:pageIn .45s ease;
+}
 
-        .stat .icon {
-            font-size: 25px;
-        }
+.section.active{
+    display:block;
+}
 
-        .stat h3 {
-            margin-top: 12px;
-            font-size: 27px;
-        }
+@keyframes pageIn{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
 
-        .stat p {
-            color: #94a3b8;
-            margin-top: 4px;
-        }
+/* HERO */
 
-        .subjects {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
+.hero{
+    min-height:330px;
+    background:
+        linear-gradient(135deg,
+        rgba(30,64,175,.8),
+        rgba(15,23,42,.88)),
+        radial-gradient(circle at right,#38bdf8,transparent 35%);
+    border:1px solid rgba(255,255,255,.09);
+    border-radius:22px;
+    padding:55px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    overflow:hidden;
+    position:relative;
+    box-shadow:0 20px 60px rgba(0,0,0,.25);
+}
 
-        .subject {
-            background: #111c35;
-            border: 1px solid #263552;
-            border-radius: 16px;
-            padding: 25px;
-            transition: .2s;
-        }
+.hero:after{
+    content:"";
+    position:absolute;
+    width:350px;
+    height:350px;
+    right:-100px;
+    top:-120px;
+    border-radius:50%;
+    background:rgba(59,130,246,.12);
+    filter:blur(10px);
+}
 
-        .subject:hover {
-            transform: translateY(-4px);
-            border-color: #38bdf8;
-        }
+.hero h1{
+    font-size:46px;
+    color:#fff;
+    letter-spacing:1px;
+    position:relative;
+    z-index:2;
+}
 
-        .subject .emoji {
-            font-size: 38px;
-        }
+.hero p{
+    color:#e2e8f0;
+    font-size:17px;
+    margin-top:12px;
+    max-width:650px;
+    line-height:1.7;
+    position:relative;
+    z-index:2;
+}
 
-        .subject h3 {
-            margin: 15px 0 8px;
-            font-size: 22px;
-        }
+/* LOGO FLASH */
 
-        .subject p {
-            color: #94a3b8;
-            line-height: 1.5;
-        }
+.hero-title{
+    animation:titleFlash 5s infinite;
+}
 
-        .subject button {
-            margin-top: 20px;
-            width: 100%;
-            padding: 11px;
-            border: none;
-            border-radius: 8px;
-            background: #1d4ed8;
-            color: white;
-            cursor: pointer;
-        }
+@keyframes titleFlash{
+    0%,72%,100%{
+        opacity:1;
+        text-shadow:0 0 0 transparent;
+    }
 
-        .subject.disabled {
-            opacity: .55;
-        }
+    75%{
+        opacity:.15;
+        text-shadow:none;
+    }
 
-        .subject.disabled button {
-            background: #334155;
-            cursor: not-allowed;
-        }
+    78%{
+        opacity:1;
+        text-shadow:0 0 18px #fff;
+    }
 
-        .exam-list {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 18px;
-        }
+    81%{
+        opacity:.25;
+    }
 
-        .exam {
-            background: #111c35;
-            border: 1px solid #263552;
-            border-radius: 15px;
-            padding: 22px;
-        }
+    84%{
+        opacity:1;
+        text-shadow:0 0 28px rgba(96,165,250,.9);
+    }
+}
 
-        .exam h3 {
-            margin-bottom: 10px;
-        }
+.hero button{
+    width:max-content;
+    margin-top:27px;
+    padding:13px 22px;
+    border:0;
+    border-radius:10px;
+    background:#fff;
+    color:#0f172a;
+    font-weight:bold;
+    cursor:pointer;
+    position:relative;
+    z-index:2;
+    transition:.3s;
+}
 
-        .exam p {
-            color: #94a3b8;
-            margin-bottom: 15px;
-        }
+.hero button:hover{
+    transform:translateY(-3px) scale(1.03);
+    box-shadow:0 0 25px rgba(255,255,255,.3);
+}
 
-        .exam button {
-            border: none;
-            background: #2563eb;
-            color: white;
-            padding: 10px 18px;
-            border-radius: 8px;
-            cursor: pointer;
-        }
+/* STATS */
 
-        .exam button:hover {
-            background: #3b82f6;
-        }
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+    margin:30px 0 38px;
+}
 
-        .progress-box {
-            background: #111c35;
-            border: 1px solid #263552;
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 20px;
-        }
+.stat{
+    background:rgba(17,28,53,.8);
+    border:1px solid rgba(255,255,255,.08);
+    padding:22px;
+    border-radius:15px;
+    transition:.3s;
+}
 
-        .progress-row {
-            margin: 20px 0;
-        }
+.stat:hover{
+    transform:translateY(-5px);
+    border-color:rgba(96,165,250,.5);
+    box-shadow:0 10px 30px rgba(0,0,0,.2);
+}
 
-        .progress-row div:first-child {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-        }
+.stat .icon{
+    font-size:25px;
+}
 
-        .bar {
-            height: 10px;
-            background: #1e293b;
-            border-radius: 20px;
-            overflow: hidden;
-        }
+.stat h3{
+    margin-top:10px;
+    font-size:27px;
+    color:#fff;
+}
 
-        .fill {
-            height: 100%;
-            background: #38bdf8;
-            border-radius: 20px;
-        }
+.stat p{
+    margin-top:4px;
+    color:#cbd5e1;
+}
 
-        #examPage {
-            display: none;
-        }
+/* TITLES */
 
-        .question {
-            background: #111c35;
-            border: 1px solid #263552;
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 18px;
-        }
+.title{
+    margin-bottom:22px;
+}
 
-        .question h3 {
-            margin-bottom: 15px;
-        }
+.title h2{
+    color:#fff;
+    font-size:29px;
+}
 
-        .answer {
-            display: block;
-            background: #172033;
-            border: 1px solid #334155;
-            padding: 12px;
-            border-radius: 8px;
-            margin: 8px 0;
-            cursor: pointer;
-        }
+.title p{
+    color:#cbd5e1;
+    margin-top:6px;
+}
 
-        .answer:hover {
-            border-color: #38bdf8;
-        }
+/* SUBJECT */
 
-        .answer input {
-            margin-right: 10px;
-        }
+.subjects{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+}
 
-        .submit {
-            background: #16a34a;
-            border: none;
-            color: white;
-            padding: 13px 25px;
-            border-radius: 9px;
-            cursor: pointer;
-            font-weight: bold;
-        }
+.subject{
+    min-height:280px;
+    background:
+        linear-gradient(145deg,
+        rgba(17,28,53,.95),
+        rgba(15,23,42,.95));
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:18px;
+    padding:27px;
+    position:relative;
+    overflow:hidden;
+    cursor:pointer;
+    transition:.4s;
+}
 
-        .back {
-            background: #334155;
-            border: none;
-            color: white;
-            padding: 11px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-bottom: 20px;
-        }
+.subject:before{
+    content:"";
+    position:absolute;
+    inset:-100%;
+    background:radial-gradient(circle,rgba(59,130,246,.18),transparent 45%);
+    opacity:0;
+    transition:.4s;
+}
 
-        #result {
-            background: #172554;
-            border: 1px solid #2563eb;
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 25px;
-            display: none;
-        }
+.subject:hover{
+    transform:translateY(-10px) scale(1.025);
+    border-color:rgba(96,165,250,.7);
+    box-shadow:
+        0 15px 45px rgba(0,0,0,.35),
+        0 0 30px rgba(59,130,246,.15);
+}
 
-        #result h2 {
-            margin-bottom: 10px;
-        }
+.subject:hover:before{
+    opacity:1;
+}
 
-        footer {
-            text-align: center;
-            color: #64748b;
-            padding: 35px;
-            margin-top: 40px;
-        }
+.subject .emoji{
+    width:65px;
+    height:65px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:38px;
+    position:relative;
+    transition:.5s cubic-bezier(.2,.8,.2,1);
+}
 
-        @media (max-width: 800px) {
-            .stats,
-            .subjects,
-            .exam-list {
-                grid-template-columns: 1fr;
-            }
+.subject:hover .emoji{
+    transform:
+        scale(1.35)
+        rotate(-5deg);
+    filter:
+        drop-shadow(0 0 10px rgba(255,255,255,.8))
+        drop-shadow(0 0 22px rgba(59,130,246,.8));
+}
 
-            header {
-                padding: 0 15px;
-            }
+.subject h3{
+    margin:18px 0 9px;
+    font-size:23px;
+    color:#fff;
+    position:relative;
+}
 
-            nav button {
-                padding: 8px;
-            }
+.subject p{
+    color:#cbd5e1;
+    line-height:1.6;
+    position:relative;
+}
 
-            .hero h1 {
-                font-size: 30px;
-            }
-        }
-    </style>
+.subject button{
+    margin-top:20px;
+    width:100%;
+    padding:11px;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:9px;
+    background:#1d4ed8;
+    color:#fff;
+    cursor:pointer;
+    position:relative;
+    transition:.3s;
+}
+
+.subject button:hover{
+    background:#2563eb;
+    box-shadow:0 0 18px rgba(37,99,235,.45);
+}
+
+/* EXTRA SUBJECT ANIMATION */
+
+.subject.math-card:hover .emoji{
+    transform:
+        scale(1.45)
+        rotate(-12deg);
+}
+
+.subject.english-card:hover .emoji{
+    transform:
+        scale(1.35)
+        rotate(8deg);
+}
+
+.subject.literature-card:hover .emoji{
+    transform:
+        scale(1.4)
+        rotate(-6deg);
+}
+
+/* EXAMS */
+
+.exam-list{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+}
+
+.exam{
+    background:rgba(17,28,53,.9);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:15px;
+    padding:23px;
+    transition:.3s;
+}
+
+.exam:hover{
+    transform:translateY(-5px);
+    border-color:#3b82f6;
+    box-shadow:0 10px 30px rgba(0,0,0,.25);
+}
+
+.exam h3{
+    color:#fff;
+    margin-bottom:10px;
+}
+
+.exam p{
+    color:#cbd5e1;
+    line-height:1.5;
+}
+
+.exam button{
+    margin-top:16px;
+    width:100%;
+    padding:11px;
+    border:0;
+    border-radius:8px;
+    background:#2563eb;
+    color:#fff;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.exam button:hover{
+    background:#3b82f6;
+    transform:translateY(-2px);
+}
+
+/* PROGRESS */
+
+.progress-box{
+    background:rgba(17,28,53,.9);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:16px;
+    padding:28px;
+}
+
+.big-progress{
+    text-align:center;
+}
+
+.big-progress h1{
+    font-size:65px;
+    color:#fff;
+}
+
+.big-progress p{
+    color:#cbd5e1;
+}
+
+.bar{
+    height:14px;
+    background:#1e293b;
+    border-radius:20px;
+    overflow:hidden;
+    margin-top:16px;
+}
+
+.fill{
+    height:100%;
+    background:linear-gradient(90deg,#2563eb,#38bdf8);
+    border-radius:20px;
+    transition:width .7s;
+    box-shadow:0 0 15px rgba(56,189,248,.4);
+}
+
+.daily{
+    margin-top:25px;
+    padding:20px;
+    border-radius:12px;
+    background:#172554;
+    border:1px solid rgba(59,130,246,.45);
+}
+
+.daily h3{
+    color:#fff;
+}
+
+.daily p{
+    color:#dbeafe;
+    margin-top:8px;
+}
+
+.daily button{
+    background:#16a34a;
+    color:#fff;
+    border:0;
+    padding:11px 18px;
+    border-radius:8px;
+    margin-top:13px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.daily button:hover{
+    transform:scale(1.04);
+    box-shadow:0 0 20px rgba(34,197,94,.35);
+}
+
+.daily button:disabled{
+    background:#475569;
+    cursor:not-allowed;
+    box-shadow:none;
+}
+
+/* EXAM PAGE */
+
+#examPage{
+    display:none;
+}
+
+.question{
+    background:rgba(17,28,53,.9);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:15px;
+    padding:25px;
+    margin-bottom:18px;
+}
+
+.question h3{
+    color:#fff;
+    line-height:1.5;
+    margin-bottom:15px;
+}
+
+.answer{
+    display:block;
+    background:#172033;
+    border:1px solid #334155;
+    color:#e2e8f0;
+    padding:12px;
+    border-radius:8px;
+    margin:8px 0;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.answer:hover{
+    border-color:#60a5fa;
+    background:#1e293b;
+    transform:translateX(4px);
+}
+
+.answer input{
+    margin-right:10px;
+}
+
+.submit{
+    background:#16a34a;
+    border:0;
+    color:#fff;
+    padding:13px 25px;
+    border-radius:9px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.submit:hover{
+    transform:translateY(-2px);
+    box-shadow:0 0 20px rgba(34,197,94,.35);
+}
+
+.back{
+    background:#334155;
+    border:0;
+    color:#fff;
+    padding:11px 20px;
+    border-radius:8px;
+    cursor:pointer;
+    margin-bottom:20px;
+}
+
+#result{
+    background:#172554;
+    border:1px solid #2563eb;
+    border-radius:15px;
+    padding:25px;
+    margin-bottom:25px;
+    display:none;
+}
+
+#result h2{
+    color:#fff;
+    margin-bottom:10px;
+}
+
+/* LOGIN */
+
+#loginPage{
+    position:fixed;
+    inset:0;
+    background:
+        radial-gradient(circle at 20% 20%,rgba(37,99,235,.15),transparent 35%),
+        radial-gradient(circle at 80% 80%,rgba(14,165,233,.12),transparent 35%),
+        #0b1120;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+}
+
+.login-box{
+    width:420px;
+    max-width:90%;
+    background:rgba(17,28,53,.95);
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:20px;
+    padding:35px;
+    text-align:center;
+    box-shadow:0 25px 70px rgba(0,0,0,.45);
+}
+
+.login-logo{
+    font-size:40px;
+    margin-bottom:10px;
+}
+
+.login-box h1{
+    color:#fff;
+    font-size:25px;
+    margin-bottom:10px;
+}
+
+.login-box p{
+    color:#cbd5e1;
+    line-height:1.6;
+    margin-bottom:25px;
+}
+
+.login-box input{
+    width:100%;
+    padding:13px;
+    border-radius:8px;
+    border:1px solid #334155;
+    background:#172033;
+    color:#fff;
+    outline:none;
+    margin-bottom:12px;
+}
+
+.login-box input:focus{
+    border-color:#60a5fa;
+    box-shadow:0 0 15px rgba(96,165,250,.15);
+}
+
+.login-box button{
+    width:100%;
+    padding:13px;
+    background:#2563eb;
+    color:#fff;
+    border:0;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.login-box button:hover{
+    background:#3b82f6;
+    transform:translateY(-2px);
+}
+
+.login-error{
+    color:#f87171;
+    margin-top:12px;
+    display:none;
+}
+
+footer{
+    text-align:center;
+    color:#94a3b8;
+    padding:35px;
+    margin-top:40px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1000px){
+
+    header{
+        padding:15px;
+        height:auto;
+        flex-wrap:wrap;
+        gap:10px;
+    }
+
+    nav{
+        margin-left:0;
+        order:3;
+        width:100%;
+        justify-content:center;
+        flex-wrap:wrap;
+    }
+
+    .stats,
+    .subjects,
+    .exam-list{
+        grid-template-columns:1fr;
+    }
+
+    .hero{
+        padding:35px;
+    }
+
+    .hero h1{
+        font-size:34px;
+    }
+}
+</style>
 </head>
 
 <body>
 
+<!-- LOGIN -->
+
+<div id="loginPage">
+
+    <div class="login-box">
+
+        <div class="login-logo">🎯</div>
+
+        <h1>QUYẾT TÂM ĐỖ CẤP 3</h1>
+
+        <p>
+            Tạo tên đăng nhập để lưu tiến độ,
+            điểm số và chuỗi học tập.
+        </p>
+
+        <input
+            type="text"
+            id="loginName"
+            maxlength="20"
+            placeholder="Nhập tên đăng nhập..."
+        >
+
+        <button onclick="login()">
+            Bắt đầu học
+        </button>
+
+        <div id="loginError" class="login-error">
+            Vui lòng nhập tên đăng nhập.
+        </div>
+
+    </div>
+
+</div>
+
+
 <header>
-    <div class="logo">🎯 QUYẾT TÂM ĐỖ CẤP 3</div>
+
+    <div class="logo" onclick="goHome()">
+        🎯 QUYẾT TÂM ĐỖ CẤP 3
+    </div>
 
     <nav>
-        <button class="active" onclick="showSection('home', this)">Trang chủ</button>
-        <button onclick="showSection('math', this)">📐 Toán</button>
-        <button onclick="showSection('english', this)">🇬🇧 Tiếng Anh</button>
-        <button onclick="showSection('progress', this)">📊 Tiến độ</button>
+
+        <button class="active" onclick="showSection('home',this)">
+            Trang chủ
+        </button>
+
+        <button onclick="showSection('math',this)">
+            📐 Toán
+        </button>
+
+        <button onclick="showSection('english',this)">
+            🇬🇧 Anh
+        </button>
+
+        <button onclick="showSection('literature',this)">
+            📖 Văn
+        </button>
+
+        <button onclick="showSection('progress',this)">
+            📊 Tiến độ
+        </button>
+
     </nav>
+
+    <div class="account">
+
+        <span class="username" id="usernameDisplay"></span>
+
+        <button class="logout" onclick="logout()">
+            Đăng xuất
+        </button>
+
+    </div>
+
 </header>
+
 
 <main class="container">
 
-    <section id="home" class="section active">
+<!-- HOME -->
 
-        <div class="hero">
-            <h1>QUYẾT TÂM ĐỖ CẤP 3</h1>
-            <p>
-                Ôn tập chăm chỉ hôm nay — tự tin bước vào kỳ thi tuyển sinh lớp 10.
-            </p>
-            <button onclick="showSection('math', document.querySelectorAll('nav button')[1])">
-                Bắt đầu ôn tập →
-            </button>
-        </div>
+<section id="home" class="section active">
 
-        <div class="stats">
-            <div class="stat">
-                <div class="icon">📝</div>
-                <h3 id="examCount">0</h3>
-                <p>Đề đã hoàn thành</p>
-            </div>
+    <div class="hero">
 
-            <div class="stat">
-                <div class="icon">🎯</div>
-                <h3 id="bestScore">0</h3>
-                <p>Điểm cao nhất</p>
-            </div>
+        <h1 class="hero-title">
+            QUYẾT TÂM ĐỖ CẤP 3
+        </h1>
 
-            <div class="stat">
-                <div class="icon">🔥</div>
-                <h3>0</h3>
-                <p>Ngày học liên tiếp</p>
-            </div>
+        <p>
+            Học mỗi ngày một chút — tiến bộ mỗi ngày một chút.
+            Mục tiêu là đỗ vào trường cấp 3 bạn mong muốn.
+        </p>
 
-            <div class="stat">
-                <div class="icon">📚</div>
-                <h3>2</h3>
-                <p>Môn đang ôn</p>
-            </div>
-        </div>
-
-        <div class="title">
-            <h2>Môn học</h2>
-            <p>Chọn môn để bắt đầu luyện tập.</p>
-        </div>
-
-        <div class="subjects">
-
-            <div class="subject">
-                <div class="emoji">📐</div>
-                <h3>Toán</h3>
-                <p>
-                    Luyện đề, đại số, hình học và các dạng bài thường gặp trong kỳ thi vào lớp 10.
-                </p>
-                <button onclick="showSection('math', document.querySelectorAll('nav button')[1])">
-                    Xem đề Toán
-                </button>
-            </div>
-
-            <div class="subject">
-                <div class="emoji">🇬🇧</div>
-                <h3>Tiếng Anh</h3>
-                <p>
-                    Luyện ngữ pháp, từ vựng, phát âm, đọc hiểu và các đề thi thử.
-                </p>
-                <button onclick="showSection('english', document.querySelectorAll('nav button')[2])">
-                    Xem đề Anh
-                </button>
-            </div>
-
-            <div class="subject disabled">
-                <div class="emoji">📖</div>
-                <h3>Ngữ Văn</h3>
-                <p>
-                    Nội dung đang được chuẩn bị và sẽ cập nhật trong thời gian tới.
-                </p>
-                <button disabled>
-                    Đang cập nhật
-                </button>
-            </div>
-
-        </div>
-    </section>
-
-
-    <section id="math" class="section">
-
-        <div class="title">
-            <h2>📐 Đề Toán</h2>
-            <p>Luyện tập các đề thi tuyển sinh vào lớp 10.</p>
-        </div>
-
-        <div class="exam-list">
-
-            <div class="exam">
-                <h3>Đề Toán số 01</h3>
-                <p>10 câu hỏi • Đại số cơ bản</p>
-                <button onclick="startExam('math1')">Làm đề</button>
-            </div>
-
-            <div class="exam">
-                <h3>Đề Toán số 02</h3>
-                <p>10 câu hỏi • Đại số + Hình học</p>
-                <button onclick="startExam('math2')">Làm đề</button>
-            </div>
-
-            <div class="exam">
-                <h3>Đề thi thử Toán</h3>
-                <p>20 câu hỏi • Tổng hợp</p>
-                <button onclick="startExam('math3')">Làm đề</button>
-            </div>
-
-            <div class="exam">
-                <h3>Chuyên đề Hệ phương trình</h3>
-                <p>10 câu hỏi • Luyện chuyên đề</p>
-                <button onclick="startExam('math4')">Làm đề</button>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <section id="english" class="section">
-
-        <div class="title">
-            <h2>🇬🇧 Đề Tiếng Anh</h2>
-            <p>Luyện tập các dạng thường xuất hiện trong kỳ thi vào lớp 10.</p>
-        </div>
-
-        <div class="exam-list">
-
-            <div class="exam">
-                <h3>English Test 01</h3>
-                <p>10 câu hỏi • Grammar + Vocabulary</p>
-                <button onclick="startExam('eng1')">Làm đề</button>
-            </div>
-
-            <div class="exam">
-                <h3>English Test 02</h3>
-                <p>10 câu hỏi • Grammar + Reading</p>
-                <button onclick="startExam('eng2')">Làm đề</button>
-            </div>
-
-            <div class="exam">
-                <h3>English Mock Test</h3>
-                <p>20 câu hỏi • Tổng hợp</p>
-                <button onclick="startExam('eng3')">Làm đề</button>
-            </div>
-
-            <div class="exam">
-                <h3>Grammar Practice</h3>
-                <p>10 câu hỏi • Ngữ pháp</p>
-                <button onclick="startExam('eng4')">Làm đề</button>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <section id="progress" class="section">
-
-        <div class="title">
-            <h2>📊 Tiến độ học tập</h2>
-            <p>Theo dõi quá trình ôn thi của bạn.</p>
-        </div>
-
-        <div class="progress-box">
-
-            <div class="progress-row">
-                <div>
-                    <span>📐 Toán</span>
-                    <span>70%</span>
-                </div>
-                <div class="bar">
-                    <div class="fill" style="width:70%"></div>
-                </div>
-            </div>
-
-            <div class="progress-row">
-                <div>
-                    <span>🇬🇧 Tiếng Anh</span>
-                    <span>55%</span>
-                </div>
-                <div class="bar">
-                    <div class="fill" style="width:55%"></div>
-                </div>
-            </div>
-
-            <div class="progress-row">
-                <div>
-                    <span>📖 Ngữ Văn</span>
-                    <span>Chưa mở</span>
-                </div>
-                <div class="bar">
-                    <div class="fill" style="width:0%"></div>
-                </div>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <section id="examPage" class="section">
-
-        <button class="back" onclick="backToSubjects()">← Quay lại danh sách đề</button>
-
-        <div id="examTitle" class="title"></div>
-
-        <div id="result">
-            <h2>🎉 Kết quả</h2>
-            <p id="resultText"></p>
-        </div>
-
-        <form id="examForm"></form>
-
-        <button class="submit" onclick="submitExam()" type="button">
-            Nộp bài
+        <button onclick="showSection('math',document.querySelectorAll('nav button')[1])">
+            Bắt đầu ôn tập →
         </button>
 
-    </section>
+    </div>
+
+
+    <div class="stats">
+
+        <div class="stat">
+            <div class="icon">📝</div>
+            <h3 id="examCount">0</h3>
+            <p>Đề đã hoàn thành</p>
+        </div>
+
+        <div class="stat">
+            <div class="icon">🎯</div>
+            <h3 id="bestScore">0</h3>
+            <p>Điểm cao nhất</p>
+        </div>
+
+        <div class="stat">
+            <div class="icon">🔥</div>
+            <h3 id="streak">0</h3>
+            <p>Ngày liên tiếp</p>
+        </div>
+
+        <div class="stat">
+            <div class="icon">📈</div>
+            <h3 id="progressHome">1%</h3>
+            <p>Tiến độ</p>
+        </div>
+
+    </div>
+
+
+    <div class="title">
+
+        <h2>ÔN LUYỆN</h2>
+
+        <p>
+            Chọn môn học để bắt đầu.
+        </p>
+
+    </div>
+
+
+    <div class="subjects">
+
+        <div class="subject math-card"
+             onclick="showSection('math',document.querySelectorAll('nav button')[1])">
+
+            <div class="emoji">📐</div>
+
+            <h3>Toán</h3>
+
+            <p>
+                Đại số, hình học, phương trình,
+                hệ phương trình và đề thi thử.
+            </p>
+
+            <button onclick="event.stopPropagation();showSection('math',document.querySelectorAll('nav button')[1])">
+                Xem đề Toán
+            </button>
+
+        </div>
+
+
+        <div class="subject english-card"
+             onclick="showSection('english',document.querySelectorAll('nav button')[2])">
+
+            <div class="emoji">🇬🇧</div>
+
+            <h3>Tiếng Anh</h3>
+
+            <p>
+                Ngữ pháp, từ vựng, phát âm,
+                trọng âm, đọc hiểu và đề tổng hợp.
+            </p>
+
+            <button onclick="event.stopPropagation();showSection('english',document.querySelectorAll('nav button')[2])">
+                Xem đề Anh
+            </button>
+
+        </div>
+
+
+        <div class="subject literature-card"
+             onclick="showSection('literature',document.querySelectorAll('nav button')[3])">
+
+            <div class="emoji">📖</div>
+
+            <h3>Ngữ Văn</h3>
+
+            <p>
+                Đọc hiểu, nghị luận xã hội,
+                nghị luận văn học và đề thi thử.
+            </p>
+
+            <button onclick="event.stopPropagation();showSection('literature',document.querySelectorAll('nav button')[3])">
+                Xem đề Văn
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- TOÁN -->
+
+<section id="math" class="section">
+
+    <div class="title">
+        <h2>📐 ĐỀ TOÁN</h2>
+        <p>Luyện tập từ cơ bản đến tổng hợp.</p>
+    </div>
+
+    <div class="exam-list">
+
+        <div class="exam">
+            <h3>Đề Toán số 01</h3>
+            <p>Đại số cơ bản • 5 câu</p>
+            <button onclick="startExam('math1')">Làm đề</button>
+        </div>
+
+        <div class="exam">
+            <h3>Đề Toán số 02</h3>
+            <p>Đại số + Hình học • 5 câu</p>
+            <button onclick="startExam('math2')">Làm đề</button>
+        </div>
+
+        <div class="exam">
+            <h3>Đề Toán số 03</h3>
+            <p>Phương trình • 5 câu</p>
+            <button onclick="startExam('math3')">Làm đề</button>
+        </div>
+
+        <div class="exam">
+            <h3>Đề Toán số 04</h3>
+            <p>Hệ phương trình • 5 câu</p>
+            <button onclick="startExam('math4')">Làm đề</button>
+        </div>
+
+        <div class="exam">
+            <h3>Đề Toán số 05</h3>
+            <p>Căn thức • 5 câu</p>
+            <button onclick="startExam('math5')">Làm đề</button>
+        </div>
+
+        <div class="exam">
+            <h3>Đề Toán số 06</h3>
+            <p>Hàm số • 5 câu</p>
+            <button onclick="startExam('math6')">Làm đề</button>
+        </div>
+
+        <div class="exam">
+            <h3>Đề Toán số 07</h3>
+            <p>Hình học • 5 câu</p>
+            <button onclick="startExam('math7')">Làm đề</button>
+        </div>
+
+        <div class="exam">
+            <h3>Đề Toán số 08</h3>
+            <p>Tổng hợp • 5 câu</p>
+            <button onclick="startExam('math8')">Làm đề</button>
+        </div>
+
+        <div class="exam">
+            <h3>Đề Toán số 09</h3>
+            <p>Nâng cao • 5 câu</p>
+            <button onclick="startExam('math9')">Làm đề</button>
+        </div>
+
+        <div class="exam">
+            <h3>Đề thi thử Toán số 01</h3>
+            <p>Tổng hợp • 5 câu</p>
+            <button onclick="startExam('math10')">Làm đề</button>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ANH -->
+
+<section id="english" class="section">
+
+    <div class="title">
+        <h2>🇬🇧 ĐỀ TIẾNG ANH</h2>
+        <p>Luyện các dạng bài thường gặp trong kỳ thi.</p>
+    </div>
+
+    <div class="exam-list">
+
+        <div class="exam">
+            <h3>English Test 01</h3>
+            <p>Grammar + Vocabulary • 5 câu</p>
+            <button onclick="startExam('eng1')">Làm đề</button>
+        </div>
+
+        <div class="exam">
+            <h3>English Test 02</h3>
+            <p>Grammar + Reading • 5 câu</p>
+            <button onclick="startExam('eng2')">Làm đề</button>
+        </div>
+
+        <div class="exam">
+            <h3>English Test 03</h3>
+            <p>Verb Forms • 5 câu</p>
+            <button onclick="startExam('eng3')">Làm đề</button>
+        </div>
+
+        <div class="exam">
+            <h3>English Test 04</h3>
+            <p>Word Forms • 5 câu</p>
+            <button onclick="startExam('eng4')">Làm đề</button>
+        </div>
+
+        <div class="exam">
+            <h3>English Test 05</h3>
+            <p>Phonetics + Stress • 5 câu</p>
+            <button onclick="startExam('eng5')">Làm đề</button>
+        </div>
+
+        <div class="exam">
+            <h3>English Test 06</h3>
+            <p>Tổng hợp • 5 câu</p>
+            <button onclick="startExam('eng6')">Làm đề</button>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- VĂN -->
+
+<section id="literature" class="section">
+
+    <div class="title">
+        <h2>📖 ĐỀ NGỮ VĂN</h2>
+        <p>Luyện đọc hiểu và nghị luận.</p>
+    </div>
+
+    <div class="exam-list">
+
+        <div class="exam">
+            <h3>Đề Văn số 01</h3>
+            <p>Đọc hiểu + Nghị luận xã hội</p>
+            <button onclick="startExam('van1')">Làm đề</button>
+        </div>
+
+        <div class="exam">
+            <h3>Đề Văn số 02</h3>
+            <p>Đọc hiểu + Nghị luận văn học</p>
+            <button onclick="startExam('van2')">Làm đề</button>
+        </div>
+
+        <div class="exam">
+            <h3>Đề Văn số 03</h3>
+            <p>Đề tổng hợp</p>
+            <button onclick="startExam('van3')">Làm đề</button>
+        </div>
+
+        <div class="exam">
+            <h3>Đề thi thử Văn</h3>
+            <p>Tổng hợp vào lớp 10</p>
+            <button onclick="startExam('van4')">Làm đề</button>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- TIẾN ĐỘ -->
+
+<section id="progress" class="section">
+
+    <div class="title">
+        <h2>📊 TIẾN ĐỘ</h2>
+        <p>Tài khoản: <b id="progressUser"></b></p>
+    </div>
+
+    <div class="progress-box">
+
+        <div class="big-progress">
+
+            <h1 id="progressNumber">1%</h1>
+
+            <p>
+                Mục tiêu: 100% sẵn sàng cho kỳ thi
+            </p>
+
+            <div class="bar">
+                <div class="fill" id="progressBar" style="width:1%"></div>
+            </div>
+
+        </div>
+
+        <div class="daily">
+
+            <h3>🔥 NHIỆM VỤ HÔM NAY</h3>
+
+            <p id="dailyText">
+                Hoàn thành mục tiêu hôm nay để nhận +1%.
+            </p>
+
+            <button id="dailyButton" onclick="completeDaily()">
+                Hoàn thành hôm nay
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="stats">
+
+        <div class="stat">
+            <div class="icon">🔥</div>
+            <h3 id="progressStreak">0</h3>
+            <p>Ngày liên tiếp</p>
+        </div>
+
+        <div class="stat">
+            <div class="icon">📈</div>
+            <h3 id="progressPercent">1%</h3>
+            <p>Tiến độ</p>
+        </div>
+
+        <div class="stat">
+            <div class="icon">📝</div>
+            <h3 id="progressExams">0</h3>
+            <p>Đề đã làm</p>
+        </div>
+
+        <div class="stat">
+            <div class="icon">🎯</div>
+            <h3 id="progressBest">0</h3>
+            <p>Điểm cao nhất</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- LÀM ĐỀ -->
+
+<section id="examPage" class="section">
+
+    <button class="back" onclick="backToSubjects()">
+        ← Quay lại
+    </button>
+
+    <div id="examTitle" class="title"></div>
+
+    <div id="result">
+
+        <h2>🎉 KẾT QUẢ</h2>
+
+        <p id="resultText"></p>
+
+    </div>
+
+    <form id="examForm"></form>
+
+    <button class="submit" onclick="submitExam()" type="button">
+        Nộp bài
+    </button>
+
+</section>
 
 </main>
 
+
 <footer>
-    © 2026 QUYẾT TÂM ĐỖ CẤP 3 • Cố gắng hôm nay, thành công ngày mai.
+    © 2026 QUYẾT TÂM ĐỖ CẤP 3
 </footer>
+
+
+<!-- MUSIC BUTTON -->
+
+<button class="music-button" id="musicButton" onclick="toggleMusic()">
+    🔇
+</button>
 
 
 <script>
 
-const exams = {
+/* =========================
+   TÀI KHOẢN
+========================= */
 
-    math1: {
-        title: "📐 Đề Toán số 01",
-        questions: [
-            ["1. Kết quả của 2 + 3 là?", ["4", "5", "6", "7"], "B"],
-            ["2. Kết quả của 5 × 6 là?", ["25", "30", "35", "40"], "B"],
-            ["3. Phương trình x + 5 = 10 có nghiệm là?", ["3", "4", "5", "6"], "C"],
-            ["4. √49 bằng?", ["5", "6", "7", "8"], "C"],
-            ["5. 2² + 3² bằng?", ["10", "11", "12", "13"], "D"]
-        ]
-    },
-
-    math2: {
-        title: "📐 Đề Toán số 02",
-        questions: [
-            ["1. 3x = 12. Giá trị của x là?", ["2", "3", "4", "5"], "C"],
-            ["2. √81 bằng?", ["7", "8", "9", "10"], "C"],
-            ["3. 15% của 200 là?", ["20", "25", "30", "35"], "C"],
-            ["4. Tổng ba góc của một tam giác bằng?", ["90°", "180°", "270°", "360°"], "B"],
-            ["5. Diện tích hình vuông cạnh 5 cm là?", ["10", "20", "25", "30"], "C"]
-        ]
-    },
-
-    math3: {
-        title: "📐 Đề thi thử Toán",
-        questions: [
-            ["1. 7² bằng?", ["14", "21", "42", "49"], "D"],
-            ["2. √100 bằng?", ["5", "10", "20", "100"], "B"],
-            ["3. x - 7 = 3. x bằng?", ["4", "7", "10", "14"], "C"],
-            ["4. 2x + 4 = 10. x bằng?", ["2", "3", "4", "5"], "B"],
-            ["5. 5 × 8 bằng?", ["35", "40", "45", "50"], "B"]
-        ]
-    },
-
-    math4: {
-        title: "📐 Chuyên đề Hệ phương trình",
-        questions: [
-            ["1. Nếu x + y = 10 và x = 4 thì y bằng?", ["4", "5", "6", "7"], "C"],
-            ["2. Nếu x - y = 3 và y = 2 thì x bằng?", ["3", "4", "5", "6"], "C"],
-            ["3. x + y = 8, x = 5. y bằng?", ["2", "3", "4", "5"], "B"],
-            ["4. 2x = 14 thì x bằng?", ["5", "6", "7", "8"], "C"],
-            ["5. x + 2y = 10, x = 4. y bằng?", ["2", "3", "4", "5"], "B"]
-        ]
-    },
-
-    eng1: {
-        title: "🇬🇧 English Test 01",
-        questions: [
-            ["1. She ___ to school every day.", ["go", "goes", "going", "went"], "B"],
-            ["2. I ___ TV yesterday.", ["watch", "watches", "watched", "watching"], "C"],
-            ["3. They have lived here ___ 2020.", ["for", "since", "at", "on"], "B"],
-            ["4. He is ___ than his brother.", ["tall", "taller", "tallest", "more tall"], "B"],
-            ["5. I am interested ___ music.", ["on", "at", "in", "for"], "C"]
-        ]
-    },
-
-    eng2: {
-        title: "🇬🇧 English Test 02",
-        questions: [
-            ["1. My mother ___ dinner now.", ["cooks", "cooked", "is cooking", "cook"], "C"],
-            ["2. We ___ this movie before.", ["see", "saw", "have seen", "seeing"], "C"],
-            ["3. If it rains, we ___ at home.", ["stay", "will stay", "stayed", "staying"], "B"],
-            ["4. This book ___ by many students.", ["reads", "is read", "read", "reading"], "B"],
-            ["5. She is good ___ English.", ["in", "on", "at", "for"], "C"]
-        ]
-    },
-
-    eng3: {
-        title: "🇬🇧 English Mock Test",
-        questions: [
-            ["1. He ___ football every Sunday.", ["play", "plays", "played", "playing"], "B"],
-            ["2. They ___ to Hanoi last week.", ["go", "goes", "went", "gone"], "C"],
-            ["3. I have studied English ___ five years.", ["since", "for", "from", "at"], "B"],
-            ["4. She is the ___ student in the class.", ["good", "better", "best", "well"], "C"],
-            ["5. We should ___ more water.", ["drink", "drinks", "drank", "drinking"], "A"]
-        ]
-    },
-
-    eng4: {
-        title: "🇬🇧 Grammar Practice",
-        questions: [
-            ["1. He ___ TV at the moment.", ["watches", "watched", "is watching", "watch"], "C"],
-            ["2. She ___ her homework yesterday.", ["does", "did", "do", "doing"], "B"],
-            ["3. They ___ here since 2022.", ["live", "lived", "have lived", "living"], "C"],
-            ["4. If I have time, I ___ you.", ["help", "will help", "helped", "helping"], "B"],
-            ["5. This is ___ interesting book.", ["a", "an", "the", "some"], "B"]
-        ]
-    }
-
-};
-
+let currentUser = "";
 let currentExam = null;
 
-function showSection(id, button) {
+function getKey(){
+    return "quyetTam_" + currentUser;
+}
 
-    document.querySelectorAll(".section").forEach(section => {
-        section.classList.remove("active");
-    });
+function getData(){
+
+    let data = localStorage.getItem(getKey());
+
+    if(data){
+        return JSON.parse(data);
+    }
+
+    return {
+        progress:1,
+        streak:0,
+        exams:0,
+        best:0,
+        lastDay:""
+    };
+}
+
+function saveData(data){
+    localStorage.setItem(getKey(),JSON.stringify(data));
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+function login(){
+
+    let name =
+        document.getElementById("loginName").value.trim();
+
+    if(name === ""){
+
+        document.getElementById("loginError").style.display =
+            "block";
+
+        return;
+    }
+
+    currentUser = name;
+
+    localStorage.setItem("currentUser",currentUser);
+
+    document.getElementById("loginPage").style.display =
+        "none";
+
+    document.getElementById("usernameDisplay").textContent =
+        "👤 " + currentUser;
+
+    updateAll();
+}
+
+
+function logout(){
+
+    localStorage.removeItem("currentUser");
+
+    currentUser = "";
+
+    document.getElementById("loginPage").style.display =
+        "flex";
+}
+
+
+/* =========================
+   HOME
+========================= */
+
+function goHome(){
+
+    showSection(
+        "home",
+        document.querySelector("nav button")
+    );
+
+}
+
+
+/* =========================
+   SECTION
+========================= */
+
+function showSection(id,button){
+
+    document.querySelectorAll(".section").forEach(
+        section => section.classList.remove("active")
+    );
 
     document.getElementById(id).classList.add("active");
 
-    document.querySelectorAll("nav button").forEach(btn => {
-        btn.classList.remove("active");
-    });
+    document.querySelectorAll("nav button").forEach(
+        btn => btn.classList.remove("active")
+    );
 
-    if (button) {
+    if(button){
         button.classList.add("active");
     }
 
-    window.scrollTo(0, 0);
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
 }
 
-function startExam(id) {
+
+/* =========================
+   EXAM
+========================= */
+
+function startExam(id){
 
     currentExam = exams[id];
 
-    document.querySelectorAll(".section").forEach(section => {
-        section.classList.remove("active");
-    });
+    document.querySelectorAll(".section").forEach(
+        section => section.classList.remove("active")
+    );
 
     document.getElementById("examPage").classList.add("active");
 
     document.getElementById("examTitle").innerHTML =
-        "<h2>" + currentExam.title + "</h2><p>Hãy chọn đáp án đúng cho từng câu.</p>";
+        "<h2>" + currentExam.title +
+        "</h2><p>Hãy chọn đáp án đúng cho từng câu.</p>";
 
-    document.getElementById("result").style.display = "none";
+    document.getElementById("result").style.display =
+        "none";
 
     let html = "";
 
-    currentExam.questions.forEach((q, index) => {
+    currentExam.questions.forEach((q,index)=>{
 
         html += `
-            <div class="question">
-                <h3>${q[0]}</h3>
+        <div class="question">
 
-                <label class="answer">
-                    <input type="radio" name="q${index}" value="A">
-                    A. ${q[1][0]}
-                </label>
+            <h3>${q[0]}</h3>
 
-                <label class="answer">
-                    <input type="radio" name="q${index}" value="B">
-                    B. ${q[1][1]}
-                </label>
+            <label class="answer">
+                <input type="radio"
+                       name="q${index}"
+                       value="A">
+                A. ${q[1][0]}
+            </label>
 
-                <label class="answer">
-                    <input type="radio" name="q${index}" value="C">
-                    C. ${q[1][2]}
-                </label>
+            <label class="answer">
+                <input type="radio"
+                       name="q${index}"
+                       value="B">
+                B. ${q[1][1]}
+            </label>
 
-                <label class="answer">
-                    <input type="radio" name="q${index}" value="D">
-                    D. ${q[1][3]}
-                </label>
-            </div>
-        `;
+            <label class="answer">
+                <input type="radio"
+                       name="q${index}"
+                       value="C">
+                C. ${q[1][2]}
+            </label>
 
+            <label class="answer">
+                <input type="radio"
+                       name="q${index}"
+                       value="D">
+                D. ${q[1][3]}
+            </label>
+
+        </div>`;
     });
 
-    document.getElementById("examForm").innerHTML = html;
+    document.getElementById("examForm").innerHTML =
+        html;
 
-    window.scrollTo(0, 0);
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
 }
 
-function submitExam() {
+
+function submitExam(){
+
+    if(!currentExam){
+        return;
+    }
 
     let score = 0;
 
-    currentExam.questions.forEach((q, index) => {
+    currentExam.questions.forEach((q,index)=>{
 
-        let answer = document.querySelector(
-            'input[name="q' + index + '"]:checked'
-        );
+        let answer =
+            document.querySelector(
+                'input[name="q'+index+'"]:checked'
+            );
 
-        if (answer && answer.value === q[2]) {
+        if(answer && answer.value === q[2]){
             score++;
         }
 
@@ -790,52 +1463,363 @@ function submitExam() {
 
     let total = currentExam.questions.length;
 
-    let diem = (score / total * 10).toFixed(2);
+    let diem =
+        Number((score / total * 10).toFixed(2));
 
-    document.getElementById("result").style.display = "block";
+    let data = getData();
+
+    data.exams++;
+
+    if(diem > data.best){
+        data.best = diem;
+    }
+
+    saveData(data);
+
+    document.getElementById("result").style.display =
+        "block";
 
     document.getElementById("resultText").innerHTML =
-        "Bạn trả lời đúng <b>" + score + "/" + total +
-        "</b> câu. Điểm: <b>" + diem + "/10</b>";
+        "Bạn trả lời đúng <b>" +
+        score + "/" + total +
+        "</b> câu.<br>" +
+        "Điểm: <b>" + diem + "/10</b>";
 
-    let count = Number(localStorage.getItem("examCount") || 0);
-    count++;
+    updateAll();
 
-    localStorage.setItem("examCount", count);
-
-    let best = Number(localStorage.getItem("bestScore") || 0);
-
-    if (Number(diem) > best) {
-        localStorage.setItem("bestScore", diem);
-    }
-
-    updateStats();
-
-    window.scrollTo(0, 0);
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
 }
 
-function updateStats() {
+
+function backToSubjects(){
+
+    if(currentExam.subject === "math"){
+
+        showSection(
+            "math",
+            document.querySelectorAll("nav button")[1]
+        );
+
+    }
+    else if(currentExam.subject === "english"){
+
+        showSection(
+            "english",
+            document.querySelectorAll("nav button")[2]
+        );
+
+    }
+    else{
+
+        showSection(
+            "literature",
+            document.querySelectorAll("nav button")[3]
+        );
+
+    }
+}
+
+
+/* =========================
+   NGÀY
+========================= */
+
+function getToday(){
+
+    let d = new Date();
+
+    return d.getFullYear() + "-" +
+        String(d.getMonth()+1).padStart(2,"0") + "-" +
+        String(d.getDate()).padStart(2,"0");
+}
+
+function getYesterday(){
+
+    let d = new Date();
+
+    d.setDate(d.getDate()-1);
+
+    return d.getFullYear() + "-" +
+        String(d.getMonth()+1).padStart(2,"0") + "-" +
+        String(d.getDate()).padStart(2,"0");
+}
+
+
+/* =========================
+   DAILY
+========================= */
+
+function completeDaily(){
+
+    let data = getData();
+
+    let today = getToday();
+
+    if(data.lastDay === today){
+
+        alert(
+            "Hôm nay bạn đã hoàn thành rồi! 🔥"
+        );
+
+        return;
+    }
+
+    if(data.lastDay === getYesterday()){
+        data.streak++;
+    }
+    else{
+        data.streak = 1;
+    }
+
+    if(data.progress < 100){
+        data.progress++;
+    }
+
+    data.lastDay = today;
+
+    saveData(data);
+
+    updateAll();
+
+    alert(
+        "🎉 HOÀN THÀNH!\n\n" +
+        "+1% tiến độ\n" +
+        "+1 ngày chuỗi 🔥"
+    );
+}
+
+
+function updateDaily(){
+
+    let data = getData();
+
+    let today = getToday();
+
+    let button =
+        document.getElementById("dailyButton");
+
+    let text =
+        document.getElementById("dailyText");
+
+    if(data.lastDay === today){
+
+        button.disabled = true;
+
+        button.textContent =
+            "✓ Đã hoàn thành hôm nay";
+
+        text.textContent =
+            "Bạn đã hoàn thành mục tiêu hôm nay. Hẹn gặp lại ngày mai!";
+
+    }
+    else{
+
+        button.disabled = false;
+
+        button.textContent =
+            "Hoàn thành hôm nay";
+
+        text.textContent =
+            "Hoàn thành mục tiêu hôm nay để nhận +1% tiến độ và +1 ngày chuỗi.";
+
+    }
+}
+
+
+/* =========================
+   UPDATE
+========================= */
+
+function updateAll(){
+
+    let data = getData();
+
+    document.getElementById("usernameDisplay").textContent =
+        "👤 " + currentUser;
+
+    document.getElementById("progressUser").textContent =
+        currentUser;
 
     document.getElementById("examCount").textContent =
-        localStorage.getItem("examCount") || 0;
+        data.exams;
 
     document.getElementById("bestScore").textContent =
-        localStorage.getItem("bestScore") || 0;
+        data.best;
+
+    document.getElementById("streak").textContent =
+        data.streak;
+
+    document.getElementById("progressHome").textContent =
+        data.progress + "%";
+
+    document.getElementById("progressNumber").textContent =
+        data.progress + "%";
+
+    document.getElementById("progressPercent").textContent =
+        data.progress + "%";
+
+    document.getElementById("progressStreak").textContent =
+        data.streak;
+
+    document.getElementById("progressExams").textContent =
+        data.exams;
+
+    document.getElementById("progressBest").textContent =
+        data.best;
+
+    document.getElementById("progressBar").style.width =
+        data.progress + "%";
+
+    updateDaily();
 }
 
-function backToSubjects() {
 
-    if (currentExam && currentExam.title.includes("Toán")) {
-        showSection("math", document.querySelectorAll("nav button")[1]);
+/* =========================
+   NHẠC NỀN
+   ========================= */
+
+let audioContext = null;
+let musicPlaying = false;
+let musicTimer = null;
+let musicStep = 0;
+
+const melody = [
+    261.63,
+    329.63,
+    392.00,
+    329.63,
+    293.66,
+    349.23,
+    440.00,
+    349.23
+];
+
+function playNote(freq){
+
+    if(!audioContext){
+        return;
     }
-    else {
-        showSection("english", document.querySelectorAll("nav button")[2]);
+
+    let oscillator =
+        audioContext.createOscillator();
+
+    let gain =
+        audioContext.createGain();
+
+    oscillator.type = "sine";
+
+    oscillator.frequency.value =
+        freq;
+
+    gain.gain.setValueAtTime(
+        0.0001,
+        audioContext.currentTime
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+        0.035,
+        audioContext.currentTime + .03
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+        0.0001,
+        audioContext.currentTime + .45
+    );
+
+    oscillator.connect(gain);
+
+    gain.connect(audioContext.destination);
+
+    oscillator.start();
+
+    oscillator.stop(
+        audioContext.currentTime + .5
+    );
+}
+
+
+function musicLoop(){
+
+    if(!musicPlaying){
+        return;
+    }
+
+    playNote(
+        melody[musicStep % melody.length]
+    );
+
+    musicStep++;
+
+    musicTimer =
+        setTimeout(musicLoop,500);
+}
+
+
+function toggleMusic(){
+
+    if(!audioContext){
+
+        audioContext =
+            new (window.AudioContext ||
+            window.webkitAudioContext)();
+    }
+
+    if(!musicPlaying){
+
+        audioContext.resume();
+
+        musicPlaying = true;
+
+        document.getElementById("musicButton")
+            .textContent = "🎵";
+
+        musicLoop();
+
+    }
+    else{
+
+        musicPlaying = false;
+
+        clearTimeout(musicTimer);
+
+        document.getElementById("musicButton")
+            .textContent = "🔇";
     }
 }
 
-updateStats();
+
+/* =========================
+   LOAD
+========================= */
+
+window.onload = function(){
+
+    let savedUser =
+        localStorage.getItem("currentUser");
+
+    if(savedUser){
+
+        currentUser = savedUser;
+
+        document.getElementById("loginPage")
+            .style.display = "none";
+
+        updateAll();
+
+    }
+    else{
+
+        document.getElementById("loginPage")
+            .style.display = "flex";
+
+    }
+};
 
 </script>
 
 </body>
 </html>
+```
