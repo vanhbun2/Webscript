@@ -164,9 +164,7 @@ nav button.active{
 
 .hero{
     min-height:330px;
-    background:
-        linear-gradient(135deg,#2563eb,#1d4ed8),
-        radial-gradient(circle at right,#38bdf8,transparent 35%);
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
     border-radius:22px;
     padding:55px;
     display:flex;
@@ -213,25 +211,11 @@ nav button.active{
 }
 
 @keyframes titleFlash{
-    0%,72%,100%{
-        opacity:1;
-        text-shadow:0 0 0 transparent;
-    }
-    75%{
-        opacity:.3;
-        text-shadow:none;
-    }
-    78%{
-        opacity:1;
-        text-shadow:0 0 18px #fff;
-    }
-    81%{
-        opacity:.4;
-    }
-    84%{
-        opacity:1;
-        text-shadow:0 0 28px rgba(255,255,255,.9);
-    }
+    0%,72%,100%{opacity:1;text-shadow:0 0 0 transparent;}
+    75%{opacity:.3;text-shadow:none;}
+    78%{opacity:1;text-shadow:0 0 18px #fff;}
+    81%{opacity:.4;}
+    84%{opacity:1;text-shadow:0 0 28px rgba(255,255,255,.9);}
 }
 
 .hero button{
@@ -344,14 +328,10 @@ nav button.active{
 .subject:hover{
     transform:translateY(-10px) scale(1.025);
     border-color:#93c5fd;
-    box-shadow:
-        0 15px 45px rgba(37,99,235,.15),
-        0 0 30px rgba(59,130,246,.08);
+    box-shadow:0 15px 45px rgba(37,99,235,.15);
 }
 
-.subject:hover:before{
-    opacity:1;
-}
+.subject:hover:before{opacity:1;}
 
 .subject .emoji{
     width:65px;
@@ -533,10 +513,112 @@ nav button.active{
     transform:none;
 }
 
+/* LEADERBOARD */
+
+.leaderboard{
+    background:#ffffff;
+    border:1px solid #e2e8f0;
+    border-radius:16px;
+    padding:28px;
+    box-shadow:0 2px 8px rgba(15,23,42,.04);
+    margin-top:25px;
+}
+
+.leaderboard h2{
+    color:#1e293b;
+    margin-bottom:18px;
+    font-size:22px;
+}
+
+.board-row{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    padding:14px 18px;
+    border-radius:12px;
+    background:#f8fafc;
+    border:1px solid #e2e8f0;
+    margin-bottom:10px;
+    transition:.25s;
+}
+
+.board-row:hover{
+    background:#eff6ff;
+    border-color:#93c5fd;
+    transform:translateX(4px);
+}
+
+.board-row.me{
+    background:#fef3c7;
+    border-color:#fbbf24;
+    box-shadow:0 4px 15px rgba(251,191,36,.25);
+}
+
+.board-rank{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+    font-size:17px;
+    color:#ffffff;
+    background:#94a3b8;
+    flex-shrink:0;
+}
+
+.board-rank.gold{background:linear-gradient(135deg,#fbbf24,#f59e0b);box-shadow:0 0 15px rgba(251,191,36,.5);}
+.board-rank.silver{background:linear-gradient(135deg,#cbd5e1,#94a3b8);}
+.board-rank.bronze{background:linear-gradient(135deg,#fb923c,#ea580c);}
+
+.board-name{
+    flex:1;
+    font-weight:600;
+    color:#1e293b;
+    font-size:15px;
+}
+
+.board-me-tag{
+    background:#fbbf24;
+    color:#78350f;
+    padding:2px 8px;
+    border-radius:6px;
+    font-size:11px;
+    font-weight:bold;
+    margin-left:8px;
+}
+
+.board-score{
+    font-weight:bold;
+    color:#2563eb;
+    font-size:16px;
+    min-width:70px;
+    text-align:right;
+}
+
+.board-exams{
+    color:#64748b;
+    font-size:13px;
+    min-width:80px;
+    text-align:right;
+}
+
+.board-empty{
+    text-align:center;
+    color:#94a3b8;
+    padding:25px;
+    font-style:italic;
+}
+
 /* EXAM PAGE */
 
 #examPage{
     display:none;
+}
+
+#examPage.active{
+    display:block;
 }
 
 .question{
@@ -809,6 +891,75 @@ footer{
     box-shadow:0 4px 15px rgba(37,99,235,.35);
 }
 
+/* TOAST NOTIFICATION */
+
+#toastBox{
+    position:fixed;
+    top:90px;
+    right:25px;
+    z-index:99998;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    pointer-events:none;
+}
+
+.toast{
+    min-width:280px;
+    max-width:400px;
+    background:#ffffff;
+    border-left:5px solid #2563eb;
+    border-radius:12px;
+    padding:16px 20px;
+    box-shadow:0 10px 35px rgba(15,23,42,.18);
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    animation:toastIn .4s cubic-bezier(.2,.8,.2,1);
+    pointer-events:auto;
+}
+
+.toast.success{border-left-color:#16a34a;}
+.toast.error{border-left-color:#dc2626;}
+.toast.warning{border-left-color:#f59e0b;}
+.toast.info{border-left-color:#2563eb;}
+
+@keyframes toastIn{
+    from{opacity:0;transform:translateX(60px);}
+    to{opacity:1;transform:translateX(0);}
+}
+
+@keyframes toastOut{
+    from{opacity:1;transform:translateX(0);}
+    to{opacity:0;transform:translateX(60px);}
+}
+
+.toast.hide{
+    animation:toastOut .35s ease forwards;
+}
+
+.toast-icon{
+    font-size:22px;
+    flex-shrink:0;
+}
+
+.toast-content{
+    flex:1;
+}
+
+.toast-title{
+    font-weight:bold;
+    color:#1e293b;
+    font-size:15px;
+    margin-bottom:3px;
+}
+
+.toast-msg{
+    color:#475569;
+    font-size:13.5px;
+    line-height:1.5;
+}
+
 /* RESPONSIVE */
 
 @media(max-width:1000px){
@@ -841,11 +992,27 @@ footer{
     .hero h1{
         font-size:34px;
     }
+
+    #toastBox{
+        top:auto;
+        bottom:90px;
+        right:15px;
+        left:15px;
+    }
+
+    .toast{
+        min-width:auto;
+        width:100%;
+    }
 }
 </style>
 </head>
 
 <body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+
+<!-- TOAST BOX -->
+
+<div id="toastBox"></div>
 
 <!-- CẢNH BÁO BẢO VỆ -->
 
@@ -928,6 +1095,10 @@ footer{
 
         <button onclick="showSection('progress',this)">
             📊 Tiến độ
+        </button>
+
+        <button onclick="showSection('leaderboard',this)">
+            🏆 Đua Top
         </button>
 
     </nav>
@@ -1312,6 +1483,23 @@ footer{
 </section>
 
 
+<!-- ĐUA TOP -->
+
+<section id="leaderboard" class="section">
+
+    <div class="title">
+        <h2>🏆 BẢNG XẾP HẠNG</h2>
+        <p>Ai học chăm nhất? Ai điểm cao nhất?</p>
+    </div>
+
+    <div class="leaderboard">
+        <h2>🥇 TOP HỌC VIÊN</h2>
+        <div id="boardList"></div>
+    </div>
+
+</section>
+
+
 <!-- LÀM ĐỀ -->
 
 <section id="examPage" class="section">
@@ -1330,7 +1518,7 @@ footer{
 
     </div>
 
-    <form id="examForm"></form>
+    <form id="examForm" onsubmit="return false;"></form>
 
     <button class="submit" onclick="submitExam()" type="button">
         Nộp bài
@@ -1354,6 +1542,40 @@ footer{
 
 
 <script>
+
+/* =========================
+   TOAST NOTIFICATION
+========================= */
+
+function showToast(title, message, type = "info", duration = 3500){
+
+    let box = document.getElementById("toastBox");
+
+    let icons = {
+        success: "✅",
+        error: "❌",
+        warning: "⚠️",
+        info: "ℹ️"
+    };
+
+    let toast = document.createElement("div");
+    toast.className = "toast " + type;
+
+    toast.innerHTML =
+        '<div class="toast-icon">' + (icons[type] || "ℹ️") + '</div>' +
+        '<div class="toast-content">' +
+            '<div class="toast-title">' + title + '</div>' +
+            '<div class="toast-msg">' + message + '</div>' +
+        '</div>';
+
+    box.appendChild(toast);
+
+    setTimeout(() => {
+        toast.classList.add("hide");
+        setTimeout(() => toast.remove(), 350);
+    }, duration);
+}
+
 
 /* =========================
    BẢO VỆ NỘI DUNG
@@ -1448,22 +1670,14 @@ footer{
 
 
 function showWarn(){
-
     let overlay = document.getElementById("warnOverlay");
-
-    if(overlay){
-        overlay.style.display = "flex";
-    }
+    if(overlay) overlay.style.display = "flex";
 }
 
 
 function hideWarn(){
-
     let overlay = document.getElementById("warnOverlay");
-
-    if(overlay){
-        overlay.style.display = "none";
-    }
+    if(overlay) overlay.style.display = "none";
 }
 
 
@@ -1630,6 +1844,87 @@ function saveData(data){
 
 
 /* =========================
+   LEADERBOARD
+========================= */
+
+function saveToLeaderboard(){
+
+    if(!currentUser) return;
+
+    let data = getData();
+
+    let board = JSON.parse(localStorage.getItem("quyetTam_leaderboard") || "{}");
+
+    board[currentUser] = {
+        name: currentUser,
+        best: data.best,
+        exams: data.exams,
+        streak: data.streak
+    };
+
+    localStorage.setItem("quyetTam_leaderboard", JSON.stringify(board));
+}
+
+
+function renderLeaderboard(){
+
+    let board = JSON.parse(localStorage.getItem("quyetTam_leaderboard") || "{}");
+
+    let list = Object.values(board);
+
+    list.sort((a,b) => {
+        if(b.best !== a.best) return b.best - a.best;
+        if(b.exams !== a.exams) return b.exams - a.exams;
+        return b.streak - a.streak;
+    });
+
+    let container = document.getElementById("boardList");
+
+    if(list.length === 0){
+        container.innerHTML =
+            '<div class="board-empty">Chưa có ai trong bảng xếp hạng. Hãy làm bài để ghi danh! 🚀</div>';
+        return;
+    }
+
+    let html = "";
+
+    list.forEach((user, index) => {
+
+        let rankClass = "";
+        if(index === 0) rankClass = "gold";
+        else if(index === 1) rankClass = "silver";
+        else if(index === 2) rankClass = "bronze";
+
+        let isMe = user.name === currentUser;
+        let meTag = isMe ? '<span class="board-me-tag">BẠN</span>' : "";
+
+        let medal = "";
+        if(index === 0) medal = "🥇";
+        else if(index === 1) medal = "🥈";
+        else if(index === 2) medal = "🥉";
+
+        html +=
+            '<div class="board-row ' + (isMe ? "me" : "") + '">' +
+                '<div class="board-rank ' + rankClass + '">' +
+                    (medal || (index + 1)) +
+                '</div>' +
+                '<div class="board-name">' +
+                    user.name + meTag +
+                '</div>' +
+                '<div class="board-exams">' +
+                    user.exams + ' đề • 🔥' + user.streak +
+                '</div>' +
+                '<div class="board-score">' +
+                    user.best + '/10' +
+                '</div>' +
+            '</div>';
+    });
+
+    container.innerHTML = html;
+}
+
+
+/* =========================
    LOGIN
 ========================= */
 
@@ -1648,7 +1943,7 @@ function login(){
 
     currentUser = name;
 
-    localStorage.setItem("currentUser",currentUser);
+    localStorage.setItem("currentUser", currentUser);
 
     document.getElementById("loginPage").style.display =
         "none";
@@ -1657,17 +1952,30 @@ function login(){
         "👤 " + currentUser;
 
     updateAll();
+
+    showToast(
+        "Chào mừng " + currentUser + "! 🎯",
+        "Chúc bạn học tập hiệu quả và sớm đỗ cấp 3 nhé!",
+        "success",
+        4000
+    );
 }
 
 
 function logout(){
 
-    localStorage.removeItem("currentUser");
+    showToast(
+        "Đã đăng xuất",
+        "Hẹn gặp lại bạn lần sau! 👋",
+        "info",
+        2500
+    );
 
-    currentUser = "";
-
-    document.getElementById("loginPage").style.display =
-        "flex";
+    setTimeout(() => {
+        localStorage.removeItem("currentUser");
+        currentUser = "";
+        document.getElementById("loginPage").style.display = "flex";
+    }, 800);
 }
 
 
@@ -1689,13 +1997,17 @@ function goHome(){
    SECTION
 ========================= */
 
-function showSection(id,button){
+function showSection(id, button){
 
     document.querySelectorAll(".section").forEach(
         section => section.classList.remove("active")
     );
 
-    document.getElementById(id).classList.add("active");
+    let target = document.getElementById(id);
+
+    if(target){
+        target.classList.add("active");
+    }
 
     document.querySelectorAll("nav button").forEach(
         btn => btn.classList.remove("active")
@@ -1703,6 +2015,10 @@ function showSection(id,button){
 
     if(button){
         button.classList.add("active");
+    }
+
+    if(id === "leaderboard"){
+        renderLeaderboard();
     }
 
     window.scrollTo({
@@ -1718,73 +2034,86 @@ function showSection(id,button){
 
 function startExam(id){
 
-    currentExam = exams[id];
+    let exam = exams[id];
 
-    if(!currentExam){
-        alert("Đề này chưa có dữ liệu. Vui lòng bổ sung sau!");
+    if(!exam){
+        showToast(
+            "Đề chưa có dữ liệu",
+            "Đề này đang được cập nhật. Vui lòng chọn đề khác nhé!",
+            "warning",
+            3000
+        );
         return;
     }
 
+    currentExam = exam;
+
+    /* Ẩn hết section khác */
     document.querySelectorAll(".section").forEach(
         section => section.classList.remove("active")
     );
 
-    document.getElementById("examPage").classList.add("active");
+    /* Hiện trang làm đề */
+    let examPage = document.getElementById("examPage");
+    examPage.classList.add("active");
 
+    /* Bỏ active trên nav */
+    document.querySelectorAll("nav button").forEach(
+        btn => btn.classList.remove("active")
+    );
+
+    /* Tiêu đề */
     document.getElementById("examTitle").innerHTML =
-        "<h2>" + currentExam.title +
+        "<h2>" + exam.title +
         "</h2><p>Hãy chọn đáp án đúng cho từng câu.</p>";
 
-    document.getElementById("result").style.display =
-        "none";
+    /* Ẩn kết quả cũ */
+    document.getElementById("result").style.display = "none";
 
+    /* Render câu hỏi */
     let html = "";
 
-    currentExam.questions.forEach((q,index)=>{
+    exam.questions.forEach((q, index) => {
 
-        html += `
-        <div class="question">
+        html +=
+            '<div class="question">' +
+                '<h3>Câu ' + (index + 1) + ': ' + q[0] + '</h3>' +
 
-            <h3>${q[0]}</h3>
+                '<label class="answer">' +
+                    '<input type="radio" name="q' + index + '" value="A">' +
+                    'A. ' + q[1][0] +
+                '</label>' +
 
-            <label class="answer">
-                <input type="radio"
-                       name="q${index}"
-                       value="A">
-                A. ${q[1][0]}
-            </label>
+                '<label class="answer">' +
+                    '<input type="radio" name="q' + index + '" value="B">' +
+                    'B. ' + q[1][1] +
+                '</label>' +
 
-            <label class="answer">
-                <input type="radio"
-                       name="q${index}"
-                       value="B">
-                B. ${q[1][1]}
-            </label>
+                '<label class="answer">' +
+                    '<input type="radio" name="q' + index + '" value="C">' +
+                    'C. ' + q[1][2] +
+                '</label>' +
 
-            <label class="answer">
-                <input type="radio"
-                       name="q${index}"
-                       value="C">
-                C. ${q[1][2]}
-            </label>
-
-            <label class="answer">
-                <input type="radio"
-                       name="q${index}"
-                       value="D">
-                D. ${q[1][3]}
-            </label>
-
-        </div>`;
+                '<label class="answer">' +
+                    '<input type="radio" name="q' + index + '" value="D">' +
+                    'D. ' + q[1][3] +
+                '</label>' +
+            '</div>';
     });
 
-    document.getElementById("examForm").innerHTML =
-        html;
+    document.getElementById("examForm").innerHTML = html;
 
     window.scrollTo({
         top:0,
         behavior:"smooth"
     });
+
+    showToast(
+        "Bắt đầu làm bài 📝",
+        exam.title + " — " + exam.questions.length + " câu hỏi",
+        "info",
+        2500
+    );
 }
 
 
@@ -1796,11 +2125,11 @@ function submitExam(){
 
     let score = 0;
 
-    currentExam.questions.forEach((q,index)=>{
+    currentExam.questions.forEach((q, index) => {
 
         let answer =
             document.querySelector(
-                'input[name="q'+index+'"]:checked'
+                'input[name="q' + index + '"]:checked'
             );
 
         if(answer && answer.value === q[2]){
@@ -1811,8 +2140,7 @@ function submitExam(){
 
     let total = currentExam.questions.length;
 
-    let diem =
-        Number((score / total * 10).toFixed(2));
+    let diem = Number((score / total * 10).toFixed(2));
 
     let data = getData();
 
@@ -1823,17 +2151,40 @@ function submitExam(){
     }
 
     saveData(data);
+    saveToLeaderboard();
 
-    document.getElementById("result").style.display =
-        "block";
+    document.getElementById("result").style.display = "block";
 
     document.getElementById("resultText").innerHTML =
-        "Bạn trả lời đúng <b>" +
-        score + "/" + total +
-        "</b> câu.<br>" +
+        "Bạn trả lời đúng <b>" + score + "/" + total + "</b> câu.<br>" +
         "Điểm: <b>" + diem + "/10</b>";
 
     updateAll();
+
+    if(diem >= 8){
+        showToast(
+            "Xuất sắc! 🎉",
+            "Bạn đạt " + diem + "/10. Tiếp tục phát huy nhé!",
+            "success",
+            4000
+        );
+    }
+    else if(diem >= 5){
+        showToast(
+            "Khá tốt! 👍",
+            "Bạn đạt " + diem + "/10. Cố gắng thêm chút nữa!",
+            "info",
+            4000
+        );
+    }
+    else{
+        showToast(
+            "Cần cố gắng thêm 💪",
+            "Bạn đạt " + diem + "/10. Ôn lại và thử lại nhé!",
+            "warning",
+            4000
+        );
+    }
 
     window.scrollTo({
         top:0,
@@ -1844,30 +2195,24 @@ function submitExam(){
 
 function backToSubjects(){
 
-    if(currentExam.subject === "math"){
-
-        showSection(
-            "math",
-            document.querySelectorAll("nav button")[1]
-        );
-
+    if(!currentExam){
+        goHome();
+        return;
     }
-    else if(currentExam.subject === "english"){
 
-        showSection(
-            "english",
-            document.querySelectorAll("nav button")[2]
-        );
+    let subject = currentExam.subject;
+    let navIndex = 1;
 
-    }
-    else{
+    if(subject === "math") navIndex = 1;
+    else if(subject === "english") navIndex = 2;
+    else if(subject === "literature") navIndex = 3;
 
-        showSection(
-            "literature",
-            document.querySelectorAll("nav button")[3]
-        );
+    showSection(
+        subject,
+        document.querySelectorAll("nav button")[navIndex]
+    );
 
-    }
+    currentExam = null;
 }
 
 
@@ -1908,7 +2253,13 @@ function completeDaily(){
 
     if(data.lastDay === today){
 
-        alert("Hôm nay bạn đã hoàn thành rồi! 🔥");
+        showToast(
+            "Đã hoàn thành rồi! 🔥",
+            "Hôm nay bạn đã hoàn thành mục tiêu. Hẹn gặp lại ngày mai!",
+            "warning",
+            3000
+        );
+
         return;
     }
 
@@ -1926,13 +2277,15 @@ function completeDaily(){
     data.lastDay = today;
 
     saveData(data);
+    saveToLeaderboard();
 
     updateAll();
 
-    alert(
-        "🎉 HOÀN THÀNH!\n\n" +
-        "+1% tiến độ\n" +
-        "+1 ngày chuỗi 🔥"
+    showToast(
+        "Hoàn thành mục tiêu! 🎉",
+        "+1% tiến độ • +1 ngày chuỗi 🔥",
+        "success",
+        3500
     );
 }
 
@@ -1943,33 +2296,24 @@ function updateDaily(){
 
     let today = getToday();
 
-    let button =
-        document.getElementById("dailyButton");
-
-    let text =
-        document.getElementById("dailyText");
+    let button = document.getElementById("dailyButton");
+    let text = document.getElementById("dailyText");
 
     if(data.lastDay === today){
 
         button.disabled = true;
-
-        button.textContent =
-            "✓ Đã hoàn thành hôm nay";
+        button.textContent = "✓ Đã hoàn thành hôm nay";
 
         text.textContent =
             "Bạn đã hoàn thành mục tiêu hôm nay. Hẹn gặp lại ngày mai!";
-
     }
     else{
 
         button.disabled = false;
-
-        button.textContent =
-            "Hoàn thành hôm nay";
+        button.textContent = "Hoàn thành hôm nay";
 
         text.textContent =
             "Hoàn thành mục tiêu hôm nay để nhận +1% tiến độ và +1 ngày chuỗi.";
-
     }
 }
 
@@ -1988,37 +2332,21 @@ function updateAll(){
     document.getElementById("progressUser").textContent =
         currentUser;
 
-    document.getElementById("examCount").textContent =
-        data.exams;
-
-    document.getElementById("bestScore").textContent =
-        data.best;
-
-    document.getElementById("streak").textContent =
-        data.streak;
-
-    document.getElementById("progressHome").textContent =
-        data.progress + "%";
-
-    document.getElementById("progressNumber").textContent =
-        data.progress + "%";
-
-    document.getElementById("progressPercent").textContent =
-        data.progress + "%";
-
-    document.getElementById("progressStreak").textContent =
-        data.streak;
-
-    document.getElementById("progressExams").textContent =
-        data.exams;
-
-    document.getElementById("progressBest").textContent =
-        data.best;
+    document.getElementById("examCount").textContent = data.exams;
+    document.getElementById("bestScore").textContent = data.best;
+    document.getElementById("streak").textContent = data.streak;
+    document.getElementById("progressHome").textContent = data.progress + "%";
+    document.getElementById("progressNumber").textContent = data.progress + "%";
+    document.getElementById("progressPercent").textContent = data.progress + "%";
+    document.getElementById("progressStreak").textContent = data.streak;
+    document.getElementById("progressExams").textContent = data.exams;
+    document.getElementById("progressBest").textContent = data.best;
 
     document.getElementById("progressBar").style.width =
         data.progress + "%";
 
     updateDaily();
+    saveToLeaderboard();
 }
 
 
@@ -2048,21 +2376,13 @@ function playNote(freq){
         return;
     }
 
-    let oscillator =
-        audioContext.createOscillator();
-
-    let gain =
-        audioContext.createGain();
+    let oscillator = audioContext.createOscillator();
+    let gain = audioContext.createGain();
 
     oscillator.type = "sine";
+    oscillator.frequency.value = freq;
 
-    oscillator.frequency.value =
-        freq;
-
-    gain.gain.setValueAtTime(
-        0.0001,
-        audioContext.currentTime
-    );
+    gain.gain.setValueAtTime(0.0001, audioContext.currentTime);
 
     gain.gain.exponentialRampToValueAtTime(
         0.035,
@@ -2075,14 +2395,10 @@ function playNote(freq){
     );
 
     oscillator.connect(gain);
-
     gain.connect(audioContext.destination);
 
     oscillator.start();
-
-    oscillator.stop(
-        audioContext.currentTime + .5
-    );
+    oscillator.stop(audioContext.currentTime + .5);
 }
 
 
@@ -2092,23 +2408,18 @@ function musicLoop(){
         return;
     }
 
-    playNote(
-        melody[musicStep % melody.length]
-    );
+    playNote(melody[musicStep % melody.length]);
 
     musicStep++;
 
-    musicTimer =
-        setTimeout(musicLoop,500);
+    musicTimer = setTimeout(musicLoop, 500);
 }
 
 
 function toggleMusic(){
 
     if(!audioContext){
-
-        audioContext =
-            new (window.AudioContext ||
+        audioContext = new (window.AudioContext ||
             window.webkitAudioContext)();
     }
 
@@ -2118,11 +2429,9 @@ function toggleMusic(){
 
         musicPlaying = true;
 
-        document.getElementById("musicButton")
-            .textContent = "🎵";
+        document.getElementById("musicButton").textContent = "🎵";
 
         musicLoop();
-
     }
     else{
 
@@ -2130,8 +2439,7 @@ function toggleMusic(){
 
         clearTimeout(musicTimer);
 
-        document.getElementById("musicButton")
-            .textContent = "🔇";
+        document.getElementById("musicButton").textContent = "🔇";
     }
 }
 
@@ -2142,24 +2450,19 @@ function toggleMusic(){
 
 window.onload = function(){
 
-    let savedUser =
-        localStorage.getItem("currentUser");
+    let savedUser = localStorage.getItem("currentUser");
 
     if(savedUser){
 
         currentUser = savedUser;
 
-        document.getElementById("loginPage")
-            .style.display = "none";
+        document.getElementById("loginPage").style.display = "none";
 
         updateAll();
-
     }
     else{
 
-        document.getElementById("loginPage")
-            .style.display = "flex";
-
+        document.getElementById("loginPage").style.display = "flex";
     }
 };
 
