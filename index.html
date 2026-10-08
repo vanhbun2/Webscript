@@ -3,299 +3,508 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>QUYẾT TÂM ĐỖ CẤP 3</title>
+<title>QUYẾT TÂM ĐỖ CẤP 3 — PRO</title>
 <style>
+/* ===== THEME VARIABLES ===== */
 :root{
-  --blue:#2563eb; --blue-d:#1d4ed8; --ink:#1e293b;
-  --muted:#64748b; --line:#e2e8f0; --bg:#f5f7fb;
+  --blue:#3b82f6; --blue-d:#2563eb; --blue-l:#60a5fa;
+  --purple:#8b5cf6; --pink:#ec4899; --green:#10b981;
+  --orange:#f59e0b; --red:#ef4444; --yellow:#fbbf24;
+  --ink:#0f172a; --ink-2:#1e293b; --muted:#64748b;
+  --line:#e2e8f0; --bg:#f8fafc; --card:#ffffff;
+  --shadow:0 4px 24px rgba(15,23,42,.08);
+  --shadow-lg:0 20px 60px rgba(15,23,42,.15);
+  --glass:rgba(255,255,255,.7);
+  --radius:16px;
+  --transition:.3s cubic-bezier(.4,0,.2,1);
 }
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif;
-  -webkit-user-select:none;-moz-user-select:none;user-select:none;-webkit-touch-callout:none}
+[data-theme="dark"]{
+  --ink:#f1f5f9; --ink-2:#e2e8f0; --muted:#94a3b8;
+  --line:#334155; --bg:#0f172a; --card:#1e293b;
+  --shadow:0 4px 24px rgba(0,0,0,.4);
+  --shadow-lg:0 20px 60px rgba(0,0,0,.6);
+  --glass:rgba(30,41,59,.7);
+}
+*{margin:0;padding:0;box-sizing:border-box;
+  font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+  -webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 body{background:var(--bg);color:var(--ink);min-height:100vh;
-  background-image:radial-gradient(circle at 15% 20%,rgba(37,99,235,.08),transparent 35%),
-    radial-gradient(circle at 85% 70%,rgba(14,165,233,.06),transparent 35%)}
-button{cursor:pointer;font-family:inherit}
-input{font-family:inherit}
+  transition:background var(--transition),color var(--transition);
+  background-image:
+    radial-gradient(circle at 15% 20%,rgba(59,130,246,.12),transparent 40%),
+    radial-gradient(circle at 85% 70%,rgba(139,92,246,.1),transparent 40%),
+    radial-gradient(circle at 50% 100%,rgba(236,72,153,.08),transparent 40%);
+  overflow-x:hidden}
+button{cursor:pointer;font-family:inherit;border:0;background:none;color:inherit}
+input,textarea{font-family:inherit;-webkit-user-select:text;user-select:text}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--line);border-radius:10px}
+::-webkit-scrollbar-thumb:hover{background:var(--muted)}
 
-header{height:72px;background:#fff;border-bottom:1px solid var(--line);
+/* ===== HEADER ===== */
+header{height:76px;background:var(--glass);backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--line);
   display:flex;align-items:center;padding:0 32px;position:sticky;top:0;z-index:1000;
-  box-shadow:0 2px 12px rgba(15,23,42,.05)}
-.logo{color:var(--ink);font-size:20px;font-weight:800;transition:.3s;white-space:nowrap;cursor:pointer}
-.logo:hover{color:var(--blue);transform:scale(1.03)}
-nav{display:flex;gap:4px;margin-left:45px;flex-wrap:wrap}
-nav button{color:#475569;background:transparent;border:0;padding:10px 14px;
-  border-radius:9px;transition:.25s;font-size:14px;font-weight:600}
-nav button:hover{background:#eff6ff;color:var(--blue)}
-nav button.active{background:var(--blue);color:#fff;box-shadow:0 4px 12px rgba(37,99,235,.3)}
-.account{margin-left:auto;display:flex;align-items:center;gap:12px}
-.username{color:var(--ink);font-weight:bold;cursor:pointer;padding:8px 14px;
-  border-radius:9px;transition:.25s;border:1px solid transparent}
-.username:hover{background:#eff6ff;border-color:#bfdbfe;color:var(--blue)}
-.logout{background:#f1f5f9;color:var(--ink);border:1px solid #cbd5e1;
-  padding:8px 14px;border-radius:8px;font-weight:600;transition:.25s}
-.logout:hover{background:var(--line);transform:translateY(-2px)}
+  box-shadow:0 2px 20px rgba(15,23,42,.06)}
+.logo{color:var(--ink);font-size:19px;font-weight:900;white-space:nowrap;cursor:pointer;
+  display:flex;align-items:center;gap:8px;transition:var(--transition)}
+.logo:hover{color:var(--blue);transform:scale(1.04)}
+.logo-badge{background:linear-gradient(135deg,var(--blue),var(--purple));
+  color:#fff;font-size:10px;padding:2px 7px;border-radius:20px;font-weight:800;letter-spacing:.5px}
+nav{display:flex;gap:4px;margin-left:35px;flex-wrap:wrap}
+nav button{color:var(--muted);padding:10px 16px;border-radius:10px;
+  transition:var(--transition);font-size:13.5px;font-weight:700;position:relative}
+nav button:hover{background:rgba(59,130,246,.1);color:var(--blue)}
+nav button.active{background:linear-gradient(135deg,var(--blue),var(--blue-d));
+  color:#fff;box-shadow:0 6px 20px rgba(59,130,246,.35)}
+.account{margin-left:auto;display:flex;align-items:center;gap:10px}
+.theme-toggle{width:42px;height:42px;border-radius:12px;background:var(--card);
+  border:1px solid var(--line);font-size:18px;display:flex;align-items:center;
+  justify-content:center;transition:var(--transition)}
+.theme-toggle:hover{transform:rotate(20deg) scale(1.1);border-color:var(--blue)}
+.username{color:var(--ink);font-weight:700;cursor:pointer;padding:9px 16px;
+  border-radius:10px;transition:var(--transition);border:1px solid transparent;font-size:14px}
+.username:hover{background:rgba(59,130,246,.1);border-color:var(--blue-l);color:var(--blue)}
+.logout{background:var(--card);color:var(--ink);border:1px solid var(--line);
+  padding:9px 16px;border-radius:10px;font-weight:700;font-size:13.5px;transition:var(--transition)}
+.logout:hover{background:var(--red);color:#fff;border-color:var(--red);transform:translateY(-2px)}
 
-.container{max-width:1200px;margin:auto;padding:35px 25px}
-.section{display:none;animation:pageIn .45s ease}
+/* ===== CONTAINER ===== */
+.container{max-width:1240px;margin:auto;padding:35px 25px}
+.section{display:none;animation:pageIn .5s cubic-bezier(.4,0,.2,1)}
 .section.active{display:block}
-@keyframes pageIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pageIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 .title{margin-bottom:22px}
-.title h2{font-size:29px}
-.title p{color:var(--muted);margin-top:6px}
-footer{text-align:center;color:#94a3b8;padding:35px;margin-top:40px;font-size:14px}
+.title h2{font-size:30px;font-weight:900;letter-spacing:-.5px}
+.title p{color:var(--muted);margin-top:6px;font-size:15px}
+footer{text-align:center;color:var(--muted);padding:35px;margin-top:40px;font-size:13px}
 
-.hero{min-height:330px;background:linear-gradient(135deg,var(--blue),var(--blue-d));
-  border-radius:22px;padding:55px;display:flex;flex-direction:column;justify-content:center;
-  overflow:hidden;position:relative;box-shadow:0 20px 60px rgba(37,99,235,.25);color:#fff}
-.hero:after{content:"";position:absolute;width:350px;height:350px;right:-100px;
-  top:-120px;border-radius:50%;background:rgba(255,255,255,.1);filter:blur(10px)}
-.hero h1{font-size:46px;letter-spacing:1px;position:relative;z-index:2}
-.hero p{color:#e0e7ff;font-size:17px;margin-top:12px;max-width:650px;
+/* ===== HERO ===== */
+.hero{min-height:360px;background:linear-gradient(135deg,#3b82f6 0%,#8b5cf6 50%,#ec4899 100%);
+  border-radius:24px;padding:60px;display:flex;flex-direction:column;justify-content:center;
+  overflow:hidden;position:relative;box-shadow:0 25px 70px rgba(59,130,246,.35);color:#fff}
+.hero:before{content:"";position:absolute;width:400px;height:400px;right:-120px;
+  top:-150px;border-radius:50%;background:rgba(255,255,255,.15);filter:blur(20px);
+  animation:float 8s ease-in-out infinite}
+.hero:after{content:"";position:absolute;width:250px;height:250px;left:-80px;
+  bottom:-100px;border-radius:50%;background:rgba(255,255,255,.1);filter:blur(15px);
+  animation:float 6s ease-in-out infinite reverse}
+@keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(20px,-20px)}}
+.hero h1{font-size:52px;letter-spacing:-1px;position:relative;z-index:2;font-weight:900;
+  line-height:1.1}
+.hero .gradient-text{background:linear-gradient(135deg,#fff,#fbbf24);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:rgba(255,255,255,.95);font-size:17px;margin-top:16px;max-width:680px;
   line-height:1.7;position:relative;z-index:2}
-.hero-title{animation:titleFlash 5s infinite}
-@keyframes titleFlash{0%,72%,100%{opacity:1;text-shadow:0 0 0 transparent}
-  75%{opacity:.3}78%{opacity:1;text-shadow:0 0 18px #fff}
-  81%{opacity:.4}84%{opacity:1;text-shadow:0 0 28px rgba(255,255,255,.9)}}
-.hero button{width:max-content;margin-top:27px;padding:13px 24px;border:0;
-  border-radius:10px;background:#fff;color:var(--blue-d);font-weight:bold;
-  position:relative;z-index:2;transition:.3s;font-size:15px}
-.hero button:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 0 25px rgba(255,255,255,.5)}
+.hero-buttons{display:flex;gap:12px;margin-top:28px;position:relative;z-index:2}
+.hero button{padding:14px 26px;border-radius:12px;font-weight:800;
+  transition:var(--transition);font-size:15px}
+.hero .btn-primary{background:#fff;color:var(--blue-d)}
+.hero .btn-primary:hover{transform:translateY(-3px) scale(1.04);
+  box-shadow:0 15px 40px rgba(255,255,255,.4)}
+.hero .btn-ghost{background:rgba(255,255,255,.15);color:#fff;
+  border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(10px)}
+.hero .btn-ghost:hover{background:rgba(255,255,255,.25);transform:translateY(-3px)}
 
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:30px 0 38px}
-.stat{background:#fff;border:1px solid var(--line);padding:22px;border-radius:15px;
-  transition:.3s;box-shadow:0 2px 8px rgba(15,23,42,.04)}
-.stat:hover{transform:translateY(-5px);border-color:#93c5fd;box-shadow:0 10px 30px rgba(37,99,235,.12)}
-.stat .icon{font-size:25px}
-.stat h3{margin-top:10px;font-size:27px;color:var(--blue)}
-.stat p{margin-top:4px;color:var(--muted);font-weight:500}
+/* ===== STATS ===== */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin:30px 0 38px}
+.stat{background:var(--card);border:1px solid var(--line);padding:24px;
+  border-radius:18px;transition:var(--transition);box-shadow:var(--shadow);position:relative;overflow:hidden}
+.stat:before{content:"";position:absolute;top:0;left:0;width:4px;height:100%;
+  background:linear-gradient(180deg,var(--blue),var(--purple));opacity:0;transition:var(--transition)}
+.stat:hover{transform:translateY(-6px);border-color:var(--blue-l);box-shadow:var(--shadow-lg)}
+.stat:hover:before{opacity:1}
+.stat .icon{font-size:28px}
+.stat h3{margin-top:10px;font-size:30px;font-weight:900;
+  background:linear-gradient(135deg,var(--blue),var(--purple));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.stat p{margin-top:4px;color:var(--muted);font-weight:600;font-size:13.5px}
 
-.subjects{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-.subject{min-height:280px;background:#fff;border:1px solid var(--line);border-radius:18px;
-  padding:27px;position:relative;overflow:hidden;cursor:pointer;transition:.4s;
-  box-shadow:0 2px 8px rgba(15,23,42,.04)}
-.subject:before{content:"";position:absolute;inset:-100%;
-  background:radial-gradient(circle,rgba(59,130,246,.08),transparent 45%);
-  opacity:0;transition:.4s}
-.subject:hover{transform:translateY(-10px) scale(1.025);border-color:#93c5fd;
-  box-shadow:0 15px 45px rgba(37,99,235,.15)}
+/* ===== SUBJECTS ===== */
+.subjects{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.subject{min-height:300px;background:var(--card);border:1px solid var(--line);
+  border-radius:20px;padding:30px;position:relative;overflow:hidden;cursor:pointer;
+  transition:var(--transition);box-shadow:var(--shadow)}
+.subject:before{content:"";position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 0%,rgba(59,130,246,.12),transparent 60%);
+  opacity:0;transition:var(--transition)}
+.subject:hover{transform:translateY(-12px) scale(1.02);border-color:var(--blue-l);
+  box-shadow:0 25px 60px rgba(59,130,246,.2)}
 .subject:hover:before{opacity:1}
-.subject .emoji{width:65px;height:65px;display:flex;align-items:center;
-  justify-content:center;font-size:38px;position:relative;transition:.5s cubic-bezier(.2,.8,.2,1)}
-.subject:hover .emoji{transform:scale(1.35) rotate(-5deg);
-  filter:drop-shadow(0 4px 8px rgba(37,99,235,.4))}
-.subject h3{margin:18px 0 9px;font-size:23px;position:relative}
-.subject p{color:var(--muted);line-height:1.6;position:relative}
-.subject button{margin-top:20px;width:100%;padding:11px;border:1px solid var(--blue);
-  border-radius:9px;background:var(--blue);color:#fff;position:relative;transition:.3s;font-weight:600}
-.subject button:hover{background:var(--blue-d);box-shadow:0 4px 15px rgba(37,99,235,.4)}
+.subject .emoji-wrap{width:80px;height:80px;display:flex;align-items:center;
+  justify-content:center;font-size:44px;position:relative;transition:var(--transition);
+  border-radius:20px;background:linear-gradient(135deg,rgba(59,130,246,.1),rgba(139,92,246,.1))}
+.subject:hover .emoji-wrap{transform:scale(1.15) rotate(-8deg);
+  box-shadow:0 15px 40px rgba(59,130,246,.3)}
+.subject h3{margin:20px 0 10px;font-size:24px;position:relative;font-weight:900}
+.subject p{color:var(--muted);line-height:1.6;position:relative;font-size:14.5px}
+.subject button{margin-top:22px;width:100%;padding:12px;border-radius:10px;
+  background:linear-gradient(135deg,var(--blue),var(--blue-d));color:#fff;
+  position:relative;transition:var(--transition);font-weight:700;font-size:14px}
+.subject button:hover{box-shadow:0 8px 25px rgba(59,130,246,.45);transform:translateY(-2px)}
+/* Math ruler effect */
+.subject.math-subject .emoji-wrap{position:relative}
+.subject.math-subject .emoji-wrap:after{content:"📏";position:absolute;
+  font-size:60px;opacity:0;transform:scale(.5) rotate(-45deg);
+  transition:all .5s cubic-bezier(.34,1.56,.64,1);pointer-events:none}
+.subject.math-subject:hover .emoji-wrap:after{opacity:1;
+  transform:scale(1.3) rotate(15deg);filter:drop-shadow(0 8px 20px rgba(59,130,246,.5))}
 
-.term-title{font-size:20px;margin:30px 0 15px;padding-left:14px;border-left:5px solid var(--blue);
-  font-weight:800;display:flex;align-items:center;gap:10px}
+/* ===== TERM TITLE ===== */
+.term-title{font-size:20px;margin:32px 0 16px;padding-left:16px;
+  border-left:5px solid var(--blue);font-weight:900;display:flex;
+  align-items:center;gap:12px}
 .term-title:first-child{margin-top:0}
 .term-title .term-icon{font-size:24px}
-.term-title .term-count{font-size:13px;color:var(--muted);font-weight:500;margin-left:auto}
+.term-title .term-count{font-size:12.5px;color:var(--muted);font-weight:600;
+  margin-left:auto;background:var(--card);padding:4px 12px;border-radius:20px;
+  border:1px solid var(--line)}
 
+/* ===== EXAM LIST ===== */
 .exam-list{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
-.exam{background:#fff;border:1px solid var(--line);border-radius:15px;padding:23px;
-  transition:.3s;box-shadow:0 2px 8px rgba(15,23,42,.04)}
-.exam:hover{transform:translateY(-5px);border-color:#3b82f6;box-shadow:0 10px 30px rgba(37,99,235,.12)}
-.exam h3{margin-bottom:10px}
-.exam p{color:var(--muted);line-height:1.5}
-.exam button{margin-top:16px;width:100%;padding:11px;border:0;border-radius:8px;
-  background:var(--blue);color:#fff;transition:.3s;font-weight:600}
-.exam button:hover{background:var(--blue-d);transform:translateY(-2px);
-  box-shadow:0 4px 15px rgba(37,99,235,.35)}
-.difficulty{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;
-  font-weight:700;margin-bottom:10px;letter-spacing:.3px}
-.diff-easy{background:#dcfce7;color:#15803d}
-.diff-mid{background:#fef3c7;color:#b45309}
-.diff-hard{background:#fee2e2;color:#b91c1c}
-.diff-super{background:var(--ink);color:#fbbf24}
+.exam{background:var(--card);border:1px solid var(--line);border-radius:18px;
+  padding:24px;transition:var(--transition);box-shadow:var(--shadow);
+  position:relative;overflow:hidden}
+.exam:before{content:"";position:absolute;top:0;left:0;width:100%;height:3px;
+  background:linear-gradient(90deg,var(--blue),var(--purple),var(--pink));
+  transform:scaleX(0);transform-origin:left;transition:transform .4s}
+.exam:hover{transform:translateY(-6px);border-color:var(--blue-l);box-shadow:var(--shadow-lg)}
+.exam:hover:before{transform:scaleX(1)}
+.exam h3{margin-bottom:10px;font-size:17px;font-weight:800}
+.exam .exam-meta{display:flex;gap:14px;color:var(--muted);font-size:13px;margin-bottom:6px}
+.exam .exam-meta span{display:flex;align-items:center;gap:4px}
+.exam button{margin-top:18px;width:100%;padding:12px;border-radius:10px;
+  background:linear-gradient(135deg,var(--blue),var(--blue-d));color:#fff;
+  transition:var(--transition);font-weight:700;font-size:14px}
+.exam button:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(59,130,246,.4)}
+.difficulty{display:inline-block;padding:4px 12px;border-radius:20px;font-size:11px;
+  font-weight:800;margin-bottom:10px;letter-spacing:.5px}
+.diff-easy{background:rgba(16,185,129,.15);color:#059669}
+.diff-mid{background:rgba(245,158,11,.15);color:#d97706}
+.diff-hard{background:rgba(239,68,68,.15);color:#dc2626}
+.diff-super{background:linear-gradient(135deg,#0f172a,#334155);color:#fbbf24}
 
-.streak-box{background:#fff;border:1px solid var(--line);border-radius:16px;
-  padding:40px 28px;box-shadow:0 2px 8px rgba(15,23,42,.04);text-align:center}
-.streak-flame{font-size:110px;line-height:1;display:inline-block;
-  animation:flameFloat 2s ease-in-out infinite;filter:drop-shadow(0 0 25px rgba(251,146,60,.6))}
-@keyframes flameFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-8px) scale(1.08)}}
-.streak-number{font-size:80px;color:#ea580c;font-weight:900;margin-top:10px;
-  text-shadow:0 4px 20px rgba(251,146,60,.3)}
-.streak-label{color:var(--muted);font-size:17px;margin-top:8px;font-weight:600}
-.streak-msg{color:#ea580c;font-size:15px;margin-top:14px;font-weight:600}
-.daily{margin-top:25px;padding:22px;border-radius:12px;background:#fff7ed;border:1px solid #fed7aa}
-.daily h3{color:#9a3412;margin-bottom:10px}
-.daily p{color:#9a3412;margin-top:8px;line-height:1.6}
-.daily button{background:#ea580c;color:#fff;border:0;padding:13px 26px;border-radius:8px;
-  margin-top:15px;transition:.3s;font-weight:700;font-size:15px}
-.daily button:hover{transform:scale(1.04);box-shadow:0 0 25px rgba(234,88,12,.5);background:#c2410c}
-.daily button:disabled{background:#94a3b8;cursor:not-allowed;box-shadow:none;transform:none}
+/* ===== STREAK ===== */
+.streak-box{background:var(--card);border:1px solid var(--line);border-radius:20px;
+  padding:45px 30px;box-shadow:var(--shadow);text-align:center;position:relative;overflow:hidden}
+.streak-box:before{content:"";position:absolute;top:-50%;left:-50%;width:200%;height:200%;
+  background:radial-gradient(circle,rgba(251,146,60,.08),transparent 50%);
+  animation:rotate 20s linear infinite}
+@keyframes rotate{to{transform:rotate(360deg)}}
+.streak-flame{font-size:120px;line-height:1;display:inline-block;position:relative;
+  animation:flameFloat 2s ease-in-out infinite}
+@keyframes flameFloat{0%,100%{transform:translateY(0) scale(1)}
+  50%{transform:translateY(-10px) scale(1.08)}}
+.streak-number{font-size:88px;color:#ea580c;font-weight:900;margin-top:10px;
+  text-shadow:0 4px 30px rgba(251,146,60,.5);position:relative}
+.streak-label{color:var(--muted);font-size:18px;margin-top:8px;font-weight:700;position:relative}
+.streak-msg{color:#ea580c;font-size:15px;margin-top:14px;font-weight:700;position:relative}
+.daily{margin-top:28px;padding:24px;border-radius:16px;position:relative;
+  background:linear-gradient(135deg,rgba(251,146,60,.1),rgba(236,72,153,.08));
+  border:1px solid rgba(251,146,60,.3)}
+.daily h3{color:#ea580c;margin-bottom:10px;font-weight:900}
+.daily p{color:var(--ink);margin-top:8px;line-height:1.6;opacity:.85}
+.daily button{background:linear-gradient(135deg,#ea580c,#f59e0b);color:#fff;
+  padding:14px 28px;border-radius:12px;margin-top:15px;transition:var(--transition);
+  font-weight:800;font-size:15px}
+.daily button:hover{transform:scale(1.06);box-shadow:0 12px 35px rgba(234,88,12,.5)}
+.daily button:disabled{background:var(--muted);cursor:not-allowed;box-shadow:none;transform:none}
 
-.leaderboard{background:#fff;border:1px solid var(--line);border-radius:16px;
-  padding:28px;box-shadow:0 2px 8px rgba(15,23,42,.04);margin-top:25px}
-.leaderboard h2{margin-bottom:18px;font-size:22px}
-.board-row{display:flex;align-items:center;gap:15px;padding:14px 18px;border-radius:12px;
-  background:#f8fafc;border:1px solid var(--line);margin-bottom:10px;transition:.25s}
-.board-row:hover{background:#eff6ff;border-color:#93c5fd;transform:translateX(4px)}
-.board-row.me{background:#fef3c7;border-color:#fbbf24;box-shadow:0 4px 15px rgba(251,191,36,.25)}
-.board-rank{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;
-  justify-content:center;font-weight:bold;font-size:17px;color:#fff;background:#94a3b8;flex-shrink:0}
-.board-rank.gold{background:linear-gradient(135deg,#fbbf24,#f59e0b);box-shadow:0 0 15px rgba(251,191,36,.5)}
+/* ===== LEADERBOARD ===== */
+.leaderboard{background:var(--card);border:1px solid var(--line);border-radius:20px;
+  padding:30px;box-shadow:var(--shadow);margin-top:25px}
+.leaderboard h2{margin-bottom:20px;font-size:24px;font-weight:900}
+.board-row{display:flex;align-items:center;gap:16px;padding:16px 20px;
+  border-radius:14px;background:var(--bg);border:1px solid var(--line);
+  margin-bottom:10px;transition:var(--transition)}
+.board-row:hover{background:rgba(59,130,246,.08);border-color:var(--blue-l);transform:translateX(6px)}
+.board-row.me{background:linear-gradient(135deg,rgba(251,191,36,.15),rgba(245,158,11,.1));
+  border-color:var(--yellow);box-shadow:0 6px 20px rgba(251,191,36,.25)}
+.board-rank{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;font-weight:900;font-size:18px;color:#fff;
+  background:var(--muted);flex-shrink:0}
+.board-rank.gold{background:linear-gradient(135deg,#fbbf24,#f59e0b);
+  box-shadow:0 0 20px rgba(251,191,36,.6)}
 .board-rank.silver{background:linear-gradient(135deg,#cbd5e1,#94a3b8)}
 .board-rank.bronze{background:linear-gradient(135deg,#fb923c,#ea580c)}
-.board-name{flex:1;font-weight:600;font-size:15px}
-.board-me-tag{background:#fbbf24;color:#78350f;padding:2px 8px;border-radius:6px;
-  font-size:11px;font-weight:bold;margin-left:8px}
-.board-streak{font-weight:bold;color:#ea580c;font-size:17px;min-width:70px;text-align:right}
+.board-name{flex:1;font-weight:700;font-size:15px}
+.board-me-tag{background:var(--yellow);color:#78350f;padding:2px 9px;
+  border-radius:6px;font-size:11px;font-weight:900;margin-left:8px}
+.board-streak{font-weight:900;color:#ea580c;font-size:18px;min-width:80px;text-align:right}
 .board-exams{color:var(--muted);font-size:13px;min-width:90px;text-align:right}
-.board-empty{text-align:center;color:#94a3b8;padding:25px;font-style:italic}
+.board-empty{text-align:center;color:var(--muted);padding:30px;font-style:italic}
 
-.question{background:#fff;border:1px solid var(--line);border-radius:15px;
-  padding:25px;margin-bottom:18px;box-shadow:0 2px 8px rgba(15,23,42,.04)}
-.question h3{line-height:1.5;margin-bottom:15px}
-.answer{display:block;background:#f8fafc;border:1px solid var(--line);color:#334155;
-  padding:12px;border-radius:8px;margin:8px 0;cursor:pointer;transition:.2s}
-.answer:hover{border-color:#60a5fa;background:#eff6ff;transform:translateX(4px)}
-.answer input{margin-right:10px;accent-color:var(--blue)}
-.answer.correct{background:#dcfce7!important;border-color:#16a34a!important;
-  color:#15803d!important;font-weight:600}
-.answer.wrong{background:#fee2e2!important;border-color:#dc2626!important;
-  color:#b91c1c!important;font-weight:600}
-.explanation{background:#fef3c7;border-left:5px solid #f59e0b;border-radius:8px;
-  padding:14px 18px;margin-top:14px;color:#78350f;font-size:14px;line-height:1.6;
-  animation:expIn .35s ease}
-@keyframes expIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
-.explanation .exp-title{font-weight:800;display:block;margin-bottom:5px;color:#92400e}
-.explanation.correct-exp{background:#dcfce7;border-left-color:#16a34a;color:#14532d}
-.explanation.correct-exp .exp-title{color:#15803d}
-.submit{background:#16a34a;border:0;color:#fff;padding:13px 28px;border-radius:9px;
-  font-weight:bold;transition:.3s;font-size:15px}
-.submit:hover{transform:translateY(-2px);box-shadow:0 0 20px rgba(34,197,94,.4)}
-.submit:disabled{background:#94a3b8;cursor:not-allowed;transform:none;box-shadow:none}
-.back{background:#f1f5f9;border:1px solid #cbd5e1;color:var(--ink);padding:11px 20px;
-  border-radius:8px;margin-bottom:20px;font-weight:600;transition:.25s}
-.back:hover{background:var(--line)}
-#result{background:#dcfce7;border:1px solid #86efac;border-radius:15px;padding:25px;
-  margin-bottom:25px;display:none}
-#result h2{color:#15803d;margin-bottom:10px}
-#result p{color:#166534}
-#examPage{display:none}
-#examPage.active{display:block}
+/* ===== EXAM PAGE ===== */
+.exam-header{background:var(--card);border:1px solid var(--line);border-radius:18px;
+  padding:24px;margin-bottom:22px;box-shadow:var(--shadow);
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+  position:sticky;top:90px;z-index:100;backdrop-filter:blur(20px)}
+.exam-header .info h2{font-size:22px;font-weight:900;margin-bottom:4px}
+.exam-header .info p{color:var(--muted);font-size:13.5px}
+.timer{display:flex;align-items:center;gap:12px;padding:12px 20px;
+  border-radius:14px;background:linear-gradient(135deg,rgba(59,130,246,.1),rgba(139,92,246,.1));
+  border:2px solid var(--blue-l);transition:var(--transition)}
+.timer.warning{background:linear-gradient(135deg,rgba(245,158,11,.15),rgba(251,146,60,.1));
+  border-color:var(--orange);animation:pulse 1s infinite}
+.timer.danger{background:linear-gradient(135deg,rgba(239,68,68,.15),rgba(236,72,153,.1));
+  border-color:var(--red);animation:pulse .5s infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+.timer-icon{font-size:22px}
+.timer-text{font-size:24px;font-weight:900;font-variant-numeric:tabular-nums;
+  letter-spacing:1px}
+.timer-label{font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase}
 
+.progress-bar{height:6px;background:var(--line);border-radius:10px;margin-bottom:22px;
+  overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--purple));
+  border-radius:10px;transition:width .4s;width:0%}
 
-#loginPage{position:fixed;inset:0;background:
-  radial-gradient(circle at 20% 20%,rgba(37,99,235,.12),transparent 35%),
-  radial-gradient(circle at 80% 80%,rgba(14,165,233,.1),transparent 35%),var(--bg);
-  display:flex;align-items:center;justify-content:center;z-index:9999;padding:20px;overflow-y:auto}
-.login-box{width:460px;max-width:100%;background:#fff;border:1px solid var(--line);
-  border-radius:24px;padding:40px 38px;text-align:center;
-  box-shadow:0 25px 70px rgba(37,99,235,.15);margin:auto}
-.login-logo{font-size:48px;margin-bottom:8px}
-.login-box h1{font-size:25px;margin-bottom:6px}
-.login-box .subtitle{color:var(--muted);line-height:1.6;margin-bottom:22px;font-size:14px}
-.auth-tabs{display:flex;background:#f1f5f9;border-radius:12px;padding:5px;margin-bottom:22px}
-.auth-tab{flex:1;padding:11px;border:0;background:transparent;color:var(--muted);
-  font-weight:700;font-size:14px;border-radius:9px;transition:.3s}
-.auth-tab.active{color:#fff;background:var(--blue);box-shadow:0 4px 12px rgba(37,99,235,.3)}
+.question{background:var(--card);border:1px solid var(--line);border-radius:18px;
+  padding:28px;margin-bottom:18px;box-shadow:var(--shadow);transition:var(--transition);
+  animation:qIn .5s cubic-bezier(.4,0,.2,1) backwards}
+@keyframes qIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.question:hover{border-color:var(--blue-l)}
+.question .q-number{display:inline-block;background:linear-gradient(135deg,var(--blue),var(--purple));
+  color:#fff;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:800;
+  margin-bottom:12px;letter-spacing:.5px}
+.question h3{line-height:1.6;margin-bottom:18px;font-size:16.5px;font-weight:700}
+.answer{display:flex;align-items:center;background:var(--bg);border:2px solid var(--line);
+  color:var(--ink);padding:14px 18px;border-radius:12px;margin:8px 0;cursor:pointer;
+  transition:var(--transition);font-size:14.5px}
+.answer:hover{border-color:var(--blue-l);background:rgba(59,130,246,.08);transform:translateX(6px)}
+.answer input{margin-right:12px;accent-color:var(--blue);width:18px;height:18px}
+.answer.selected{border-color:var(--blue);background:rgba(59,130,246,.12)}
+.answer.correct{background:rgba(16,185,129,.15)!important;
+  border-color:var(--green)!important;color:#059669!important;font-weight:700}
+.answer.wrong{background:rgba(239,68,68,.12)!important;
+  border-color:var(--red)!important;color:#dc2626!important;font-weight:700}
+.text-input-answer{width:100%;padding:14px 18px;border-radius:12px;
+  border:2px solid var(--line);background:var(--bg);color:var(--ink);
+  font-size:15px;outline:none;transition:var(--transition)}
+.text-input-answer:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(59,130,246,.15)}
+.text-input-answer.correct{border-color:var(--green);background:rgba(16,185,129,.1)}
+.text-input-answer.wrong{border-color:var(--red);background:rgba(239,68,68,.08)}
+.explanation{background:linear-gradient(135deg,rgba(245,158,11,.12),rgba(251,191,36,.08));
+  border-left:5px solid var(--orange);border-radius:10px;padding:16px 20px;
+  margin-top:16px;color:var(--ink);font-size:14px;line-height:1.7;animation:expIn .4s ease}
+@keyframes expIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.explanation .exp-title{font-weight:900;display:block;margin-bottom:6px;color:#d97706}
+.explanation.correct-exp{background:linear-gradient(135deg,rgba(16,185,129,.12),rgba(5,150,105,.08));
+  border-left-color:var(--green)}
+.explanation.correct-exp .exp-title{color:#059669}
+
+.submit{background:linear-gradient(135deg,#10b981,#059669);color:#fff;
+  padding:15px 32px;border-radius:12px;font-weight:800;transition:var(--transition);
+  font-size:15px}
+.submit:hover{transform:translateY(-3px);box-shadow:0 15px 40px rgba(16,185,129,.4)}
+.submit:disabled{background:var(--muted);cursor:not-allowed;transform:none;box-shadow:none}
+.back{background:var(--card);border:1px solid var(--line);color:var(--ink);
+  padding:12px 22px;border-radius:10px;margin-bottom:20px;font-weight:700;
+  transition:var(--transition);font-size:14px}
+.back:hover{background:var(--line);transform:translateX(-3px)}
+.result-card{background:linear-gradient(135deg,rgba(16,185,129,.15),rgba(5,150,105,.08));
+  border:2px solid var(--green);border-radius:20px;padding:32px;
+  margin-bottom:25px;display:none;animation:resultIn .5s ease}
+@keyframes resultIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+.result-card.show{display:block}
+.result-card h2{color:#059669;margin-bottom:12px;font-size:26px;font-weight:900}
+.result-card .score-big{font-size:56px;font-weight:900;
+  background:linear-gradient(135deg,#10b981,#059669);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  line-height:1}
+.result-card .result-detail{display:grid;grid-template-columns:repeat(3,1fr);
+  gap:16px;margin-top:20px}
+.result-stat{background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:16px;text-align:center}
+.result-stat .num{font-size:24px;font-weight:900;color:var(--blue)}
+.result-stat .num.green{color:var(--green)}
+.result-stat .num.red{color:var(--red)}
+.result-stat .lbl{font-size:12px;color:var(--muted);font-weight:700;margin-top:4px}
+
+/* ===== LOGIN ===== */
+#loginPage{position:fixed;inset:0;
+  background:
+    radial-gradient(circle at 20% 20%,rgba(59,130,246,.15),transparent 40%),
+    radial-gradient(circle at 80% 80%,rgba(139,92,246,.12),transparent 40%),
+    radial-gradient(circle at 50% 50%,rgba(236,72,153,.08),transparent 50%),
+    var(--bg);
+  display:flex;align-items:center;justify-content:center;z-index:9999;
+  padding:20px;overflow-y:auto}
+.login-box{width:480px;max-width:100%;background:var(--card);border:1px solid var(--line);
+  border-radius:26px;padding:44px 40px;text-align:center;
+  box-shadow:var(--shadow-lg);margin:auto;animation:loginIn .6s cubic-bezier(.4,0,.2,1)}
+@keyframes loginIn{from{opacity:0;transform:translateY(30px) scale(.95)}
+  to{opacity:1;transform:translateY(0) scale(1)}}
+.login-logo{font-size:56px;margin-bottom:8px;display:inline-block;
+  animation:flameFloat 3s ease-in-out infinite}
+.login-box h1{font-size:26px;margin-bottom:6px;font-weight:900}
+.login-box .subtitle{color:var(--muted);line-height:1.6;margin-bottom:24px;font-size:14px}
+.auth-tabs{display:flex;background:var(--bg);border-radius:14px;padding:5px;margin-bottom:24px}
+.auth-tab{flex:1;padding:12px;color:var(--muted);font-weight:800;font-size:14px;
+  border-radius:10px;transition:var(--transition)}
+.auth-tab.active{color:#fff;background:linear-gradient(135deg,var(--blue),var(--blue-d));
+  box-shadow:0 6px 20px rgba(59,130,246,.35)}
 .auth-form{display:none;text-align:left}
-.auth-form.active{display:block;animation:fadeUp .35s ease}
-@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.form-group{margin-bottom:14px}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.form-group label{display:block;color:#475569;font-size:13px;font-weight:600;margin-bottom:6px}
-.form-group input{width:100%;padding:12px 14px;border-radius:10px;border:1px solid #cbd5e1;
-  background:#f8fafc;color:var(--ink);outline:none;-webkit-user-select:text;user-select:text;
-  font-size:14px;transition:.2s}
-.form-group input:focus{border-color:#60a5fa;background:#fff;box-shadow:0 0 0 3px rgba(96,165,250,.15)}
-.auth-submit{width:100%;padding:13px;background:var(--blue);color:#fff;border:0;
-  border-radius:10px;font-weight:bold;transition:.3s;font-size:15px;margin-top:6px}
-.auth-submit:hover{background:var(--blue-d);transform:translateY(-2px);
-  box-shadow:0 6px 20px rgba(37,99,235,.35)}
-.auth-submit.register{background:#16a34a}
-.auth-submit.register:hover{background:#15803d;box-shadow:0 6px 20px rgba(22,163,74,.35)}
-.login-hint{color:#94a3b8;font-size:12px;margin-top:14px;line-height:1.5;text-align:center}
-.login-error{color:#dc2626;margin-top:12px;display:none;font-size:13.5px;background:#fee2e2;
-  padding:10px 14px;border-radius:8px;border-left:3px solid #dc2626;text-align:left}
-.login-error.show{display:block}
+.auth-form.active{display:block;animation:fadeUp .4s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.form-group{margin-bottom:15px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-group label{display:block;color:var(--muted);font-size:12.5px;
+  font-weight:800;margin-bottom:7px;text-transform:uppercase;letter-spacing:.3px}
+.form-group input{width:100%;padding:13px 16px;border-radius:12px;
+  border:2px solid var(--line);background:var(--bg);color:var(--ink);outline:none;
+  font-size:14.5px;transition:var(--transition)}
+.form-group input:focus{border-color:var(--blue);background:var(--card);
+  box-shadow:0 0 0 4px rgba(59,130,246,.15)}
+.auth-submit{width:100%;padding:14px;background:linear-gradient(135deg,var(--blue),var(--blue-d));
+  color:#fff;border-radius:12px;font-weight:800;transition:var(--transition);
+  font-size:15px;margin-top:6px}
+.auth-submit:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(59,130,246,.4)}
+.auth-submit.register{background:linear-gradient(135deg,#10b981,#059669)}
+.auth-submit.register:hover{box-shadow:0 12px 30px rgba(16,185,129,.4)}
+.login-hint{color:var(--muted);font-size:12.5px;margin-top:16px;line-height:1.5;text-align:center}
+.login-error{color:#dc2626;margin-top:12px;display:none;font-size:13.5px;
+  background:rgba(239,68,68,.1);padding:12px 16px;border-radius:10px;
+  border-left:4px solid var(--red);text-align:left}
+.login-error.show{display:block;animation:shake .4s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}
+  75%{transform:translateX(6px)}}
 
-.modal-bg{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(4px);
-  display:none;align-items:center;justify-content:center;z-index:9998;padding:20px}
+/* ===== MODAL ===== */
+.modal-bg{position:fixed;inset:0;background:rgba(15,23,42,.6);
+  backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;
+  z-index:9998;padding:20px}
 .modal-bg.show{display:flex}
-.modal{background:#fff;border-radius:20px;width:420px;max-width:100%;padding:32px 30px;
-  text-align:center;box-shadow:0 25px 70px rgba(15,23,42,.35);
-  animation:modalIn .35s cubic-bezier(.2,.8,.2,1);position:relative}
-@keyframes modalIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
-.modal-close{position:absolute;top:14px;right:16px;width:34px;height:34px;border-radius:50%;
-  border:0;background:#f1f5f9;color:var(--muted);font-size:20px;transition:.2s;
-  display:flex;align-items:center;justify-content:center}
-.modal-close:hover{background:var(--line);color:var(--ink);transform:rotate(90deg)}
-.modal-avatar{width:90px;height:90px;border-radius:50%;
-  background:linear-gradient(135deg,var(--blue),#38bdf8);color:#fff;font-size:38px;
-  font-weight:900;display:flex;align-items:center;justify-content:center;
-  margin:0 auto 16px;box-shadow:0 10px 30px rgba(37,99,235,.35);text-transform:uppercase}
-.modal h2{font-size:22px;margin-bottom:4px}
+.modal{background:var(--card);border-radius:22px;width:440px;max-width:100%;
+  padding:34px 32px;text-align:center;box-shadow:var(--shadow-lg);
+  animation:modalIn .4s cubic-bezier(.34,1.56,.64,1);position:relative}
+@keyframes modalIn{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
+.modal-close{position:absolute;top:14px;right:16px;width:36px;height:36px;
+  border-radius:50%;background:var(--bg);color:var(--muted);font-size:20px;
+  transition:var(--transition);display:flex;align-items:center;justify-content:center}
+.modal-close:hover{background:var(--red);color:#fff;transform:rotate(90deg)}
+.modal-avatar{width:96px;height:96px;border-radius:50%;
+  background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;
+  font-size:40px;font-weight:900;display:flex;align-items:center;justify-content:center;
+  margin:0 auto 18px;box-shadow:0 15px 40px rgba(59,130,246,.4);text-transform:uppercase}
+.modal h2{font-size:23px;margin-bottom:4px;font-weight:900}
 .modal .modal-sub{color:var(--muted);font-size:14px;margin-bottom:22px}
 .modal-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px}
-.modal-stat{background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:14px 8px}
+.modal-stat{background:var(--bg);border:1px solid var(--line);
+  border-radius:12px;padding:14px 8px}
 .modal-stat .num{font-size:22px;font-weight:900;color:var(--blue)}
 .modal-stat .num.fire{color:#ea580c}
-.modal-stat .lbl{font-size:11.5px;color:var(--muted);margin-top:4px;font-weight:600}
-.modal-info{background:#f8fafc;border-radius:12px;padding:16px 18px;text-align:left;font-size:13.5px}
-.modal-info .row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px dashed var(--line)}
+.modal-stat .lbl{font-size:11px;color:var(--muted);margin-top:4px;font-weight:700}
+.modal-info{background:var(--bg);border-radius:12px;padding:16px 18px;
+  text-align:left;font-size:13.5px}
+.modal-info .row{display:flex;justify-content:space-between;padding:8px 0;
+  border-bottom:1px dashed var(--line)}
 .modal-info .row:last-child{border-bottom:0}
-.modal-info .k{color:var(--muted);font-weight:600}
-.modal-info .v{font-weight:700;text-align:right}
+.modal-info .k{color:var(--muted);font-weight:700}
+.modal-info .v{font-weight:800;text-align:right}
 
-#toastBox{position:fixed;top:90px;right:25px;z-index:99998;display:flex;
-  flex-direction:column;gap:10px;pointer-events:none}
-.toast{min-width:280px;max-width:400px;background:#fff;border-left:5px solid var(--blue);
-  border-radius:12px;padding:16px 20px;box-shadow:0 10px 35px rgba(15,23,42,.18);
-  display:flex;align-items:flex-start;gap:12px;
-  animation:toastIn .4s cubic-bezier(.2,.8,.2,1);pointer-events:auto}
-.toast.success{border-left-color:#16a34a}
-.toast.error{border-left-color:#dc2626}
-.toast.warning{border-left-color:#f59e0b}
+/* ===== TOAST ===== */
+#toastBox{position:fixed;top:90px;right:25px;z-index:99998;
+  display:flex;flex-direction:column;gap:12px;pointer-events:none}
+.toast{min-width:300px;max-width:420px;background:var(--card);
+  border-left:5px solid var(--blue);border-radius:14px;padding:18px 22px;
+  box-shadow:var(--shadow-lg);display:flex;align-items:flex-start;gap:14px;
+  animation:toastIn .5s cubic-bezier(.34,1.56,.64,1);pointer-events:auto;
+  border:1px solid var(--line)}
+.toast.success{border-left-color:var(--green)}
+.toast.error{border-left-color:var(--red)}
+.toast.warning{border-left-color:var(--orange)}
 .toast.fire{border-left-color:#ea580c}
-.toast.lock{border-left-color:#7c3aed}
-@keyframes toastIn{from{opacity:0;transform:translateX(60px)}to{opacity:1;transform:translateX(0)}}
-@keyframes toastOut{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(60px)}}
-.toast.hide{animation:toastOut .35s ease forwards}
-.toast-icon{font-size:22px;flex-shrink:0}
-.toast-title{font-weight:bold;font-size:15px;margin-bottom:3px}
-.toast-msg{color:#475569;font-size:13.5px;line-height:1.5}
+.toast.lock{border-left-color:var(--purple)}
+.toast.news{border-left-color:var(--pink)}
+@keyframes toastIn{from{opacity:0;transform:translateX(80px) scale(.9)}
+  to{opacity:1;transform:translateX(0) scale(1)}}
+@keyframes toastOut{from{opacity:1;transform:translateX(0)}
+  to{opacity:0;transform:translateX(80px)}}
+.toast.hide{animation:toastOut .4s ease forwards}
+.toast-icon{font-size:24px;flex-shrink:0}
+.toast-title{font-weight:900;font-size:15px;margin-bottom:3px}
+.toast-msg{color:var(--muted);font-size:13.5px;line-height:1.5}
 
-.music-control{position:fixed;right:25px;bottom:25px;z-index:2000;display:flex;
-  flex-direction:column;align-items:flex-end;gap:10px}
-.music-button{width:52px;height:52px;border-radius:50%;border:1px solid #cbd5e1;
-  background:#fff;color:var(--blue);font-size:21px;box-shadow:0 8px 25px rgba(15,23,42,.15);transition:.3s}
-.music-button:hover{transform:scale(1.12);box-shadow:0 0 25px rgba(96,165,250,.5);background:#eff6ff}
-.music-panel{background:#fff;border:1px solid var(--line);border-radius:14px;
-  padding:14px 16px;box-shadow:0 10px 30px rgba(15,23,42,.15);display:none;
-  flex-direction:column;gap:8px;min-width:220px}
-.music-panel.show{display:flex;animation:panelIn .3s ease}
-@keyframes panelIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.music-panel label{color:#475569;font-size:12.5px;font-weight:700}
-.music-panel .vol-display{color:var(--blue);font-weight:800;float:right}
+/* ===== MUSIC ===== */
+.music-control{position:fixed;right:25px;bottom:25px;z-index:2000;
+  display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.music-button{width:56px;height:56px;border-radius:50%;
+  border:1px solid var(--line);background:var(--card);color:var(--blue);
+  font-size:22px;box-shadow:var(--shadow-lg);transition:var(--transition)}
+.music-button:hover{transform:scale(1.15);box-shadow:0 0 30px rgba(59,130,246,.5)}
+.music-panel{background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:16px 18px;box-shadow:var(--shadow-lg);display:none;
+  flex-direction:column;gap:10px;min-width:240px}
+.music-panel.show{display:flex;animation:panelIn .35s ease}
+@keyframes panelIn{from{opacity:0;transform:translateY(15px)}
+  to{opacity:1;transform:translateY(0)}}
+.music-panel label{color:var(--muted);font-size:12.5px;font-weight:800}
+.music-panel .vol-display{color:var(--blue);font-weight:900;float:right}
 .music-panel input[type=range]{width:100%;accent-color:var(--blue);cursor:pointer}
-.music-panel .vol-row{display:flex;align-items:center;gap:8px}
+.music-panel .vol-row{display:flex;align-items:center;gap:10px}
 .music-panel .vol-icon{font-size:16px;color:var(--muted)}
 
-@media(max-width:1000px){
-  header{padding:15px;height:auto;flex-wrap:wrap;gap:10px}
-  nav{margin-left:0;order:3;width:100%;justify-content:center}
-  .stats,.subjects,.exam-list{grid-template-columns:1fr}
-  .hero{padding:35px}
-  .hero h1{font-size:34px}
-  #toastBox{top:auto;bottom:90px;right:15px;left:15px}
-  .toast{min-width:auto;width:100%}
-  .streak-flame{font-size:80px}
-  .streak-number{font-size:60px}
-  .form-row{grid-template-columns:1fr}
-}
+/* ===== NEWS BANNER ===== */
+.news-banner{background:linear-gradient(135deg,var(--pink),#f43f5e);color:#fff;
+  border-radius:16px;padding:20px 24px;margin-bottom:24px;display:none;
+  align-items:center;gap:16px;box-shadow:0 12px 35px rgba(236,72,153,.35);
+  animation:newsIn .6s cubic-bezier(.34,1.56,.64,1)}
+.news-banner.show{display:flex}
+@keyframes newsIn{from{opacity:0;transform:translateY(-20px)}
+  to{opacity:1;transform:translateY(0)}}
+.news-banner .news-icon{font-size:32px;animation:bell 1s infinite}
+@keyframes bell{0%,100%{transform:rotate(0)}25%{transform:rotate(15deg)}
+  75%{transform:rotate(-15deg)}}
+.news-banner .news-content{flex:1}
+.news-banner .news-title{font-weight:900;font-size:16px;margin-bottom:4px}
+.news-banner .news-text{font-size:13.5px;opacity:.95}
+.news-banner .news-close{background:rgba(255,255,255,.2);border-radius:10px;
+  padding:8px 14px;font-weight:800;font-size:13px;transition:var(--transition)}
+.news-banner .news-close:hover{background:rgba(255,255,255,.3)}
+
+/* ===== CONFETTI ===== */
+.confetti{position:fixed;width:10px;height:10px;top:-20px;z-index:99999;
+  pointer-events:none;animation:confettiFall linear forwards}
+@keyframes confettiFall{to{transform:translateY(100vh) rotate(720deg);opacity:0}}
+
+/* ===== MODE TOGGLE ===== */
+.mode-toggle{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.mode-btn{padding:10px 18px;border-radius:10px;background:var(--card);
+  border:1px solid var(--line);color:var(--muted);font-weight:700;
+  font-size:13.5px;transition:var(--transition)}
+.mode-btn:hover{border-color:var(--blue-l);color:var(--blue)}
+.mode-btn.active{background:linear-gradient(135deg,var(--blue),var(--purple));
+  color:#fff;border-color:transparent;box-shadow:0 6px 20px rgba(59,130,246,.3)}
+
+/* ===== HISTORY ===== */
+.history-item{background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:18px 22px;margin-bottom:12px;display:flex;align-items:center;
+  justify-content:space-between;transition:var(--transition)}
+.history-item:hover{border-color:var(--blue-l);transform:translateX(6px)}
+.history-info h4{font-size:15px;font-weight:800;margin-bottom:4px}
+.history-info p{color:var(--muted);font-size:12.5px}
+.history-score{font-size:20px;font-weight:900;color:var(--blue)}
+.history-score.high{color:var(--green)}
+.history-score.low{color:var(--red)}
 </style>
 </head>
 <body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
 
 <div id="toastBox"></div>
 
+<!-- NEWS BANNER -->
+<div class="news-banner" id="newsBanner">
+  <div class="news-icon">📢</div>
+  <div class="news-content">
+    <div class="news-title">Văn chữa đã xuất hiện!</div>
+    <div class="news-text">Đề Văn mới với đáp án chi tiết vừa được cập nhật. Vào ôn ngay! 📖</div>
+  </div>
+  <button class="news-close" onclick="closeNews()">Đã hiểu</button>
+</div>
+
+<!-- ACCOUNT MODAL -->
 <div class="modal-bg" id="accountModal">
   <div class="modal">
     <button class="modal-close" onclick="closeAccountModal()">×</button>
@@ -316,6 +525,7 @@ footer{text-align:center;color:#94a3b8;padding:35px;margin-top:40px;font-size:14
   </div>
 </div>
 
+<!-- LOGIN -->
 <div id="loginPage">
   <div class="login-box">
     <div class="login-logo">🎯</div>
@@ -357,17 +567,23 @@ footer{text-align:center;color:#94a3b8;padding:35px;margin-top:40px;font-size:14
   </div>
 </div>
 
+<!-- HEADER -->
 <header>
-  <div class="logo" onclick="goHome()">🎯 QUYẾT TÂM ĐỖ CẤP 3</div>
+  <div class="logo" onclick="goHome()">
+    🎯 QUYẾT TÂM ĐỖ CẤP 3
+    <span class="logo-badge">PRO</span>
+  </div>
   <nav>
-    <button class="active" onclick="showSection('home',this)">Trang chủ</button>
+    <button class="active" onclick="showSection('home',this)">🏠 Trang chủ</button>
     <button onclick="showSection('math',this)">📐 Toán</button>
     <button onclick="showSection('english',this)">🇬🇧 Anh</button>
     <button onclick="showSection('literature',this)">📖 Văn</button>
     <button onclick="showSection('streakPage',this)">🔥 Streak</button>
     <button onclick="showSection('leaderboard',this)">🏆 Đua Top</button>
+    <button onclick="showSection('history',this)">📜 Lịch sử</button>
   </nav>
   <div class="account">
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Chế độ sáng/tối">🌙</button>
     <span class="username" id="usernameDisplay" onclick="openAccountModal()"></span>
     <button class="logout" onclick="logout()">Đăng xuất</button>
   </div>
@@ -375,54 +591,67 @@ footer{text-align:center;color:#94a3b8;padding:35px;margin-top:40px;font-size:14
 
 <main class="container">
 
+<!-- HOME -->
 <section id="home" class="section active">
   <div class="hero">
-    <h1 class="hero-title">QUYẾT TÂM ĐỖ CẤP 3</h1>
+    <h1>QUYẾT TÂM ĐỖ <span class="gradient-text">CẤP 3</span></h1>
     <p>Học mỗi ngày một chút — tiến bộ mỗi ngày một chút. Giữ streak 🔥 cháy mãi nhé!</p>
-    <button onclick="showSection('math',document.querySelectorAll('nav button')[1])">Bắt đầu ôn tập →</button>
+    <div class="hero-buttons">
+      <button class="btn-primary" onclick="showSection('math',document.querySelectorAll('nav button')[1])">Bắt đầu ôn tập →</button>
+      <button class="btn-ghost" onclick="showSection('streakPage',document.querySelectorAll('nav button')[4])">🔥 Điểm danh</button>
+    </div>
   </div>
   <div class="stats">
     <div class="stat"><div class="icon">🔥</div><h3 id="homeStreak">0</h3><p>Streak (ngày)</p></div>
     <div class="stat"><div class="icon">📝</div><h3 id="homeExams">0</h3><p>Đề đã làm</p></div>
     <div class="stat"><div class="icon">🎯</div><h3 id="homeBest">0</h3><p>Điểm cao nhất</p></div>
+    <div class="stat"><div class="icon">⚡</div><h3 id="homeAvg">0</h3><p>Điểm trung bình</p></div>
   </div>
   <div class="title"><h2>ÔN LUYỆN</h2><p>Chọn môn học để bắt đầu.</p></div>
   <div class="subjects">
-    <div class="subject" onclick="showSection('math',document.querySelectorAll('nav button')[1])">
-      <div class="emoji">📐</div><h3>Toán</h3>
-      <p>Đại số, hình học, phương trình, hệ phương trình và đề thi thử.</p>
+    <div class="subject math-subject" onclick="showSection('math',document.querySelectorAll('nav button')[1])">
+      <div class="emoji-wrap">📐</div><h3>Toán</h3>
+      <p>Đại số cơ bản, Đại số + Hình học, Phương trình, Hệ phương trình và đề thi thử.</p>
       <button onclick="event.stopPropagation();showSection('math',document.querySelectorAll('nav button')[1])">Xem đề Toán</button>
     </div>
     <div class="subject" onclick="showSection('english',document.querySelectorAll('nav button')[2])">
-      <div class="emoji">🇬🇧</div><h3>Tiếng Anh</h3>
+      <div class="emoji-wrap">🇬🇧</div><h3>Tiếng Anh</h3>
       <p>Ngữ pháp, từ vựng, phát âm, trọng âm, đọc hiểu và đề tổng hợp.</p>
       <button onclick="event.stopPropagation();showSection('english',document.querySelectorAll('nav button')[2])">Xem đề Anh</button>
     </div>
     <div class="subject" onclick="showSection('literature',document.querySelectorAll('nav button')[3])">
-      <div class="emoji">📖</div><h3>Ngữ Văn</h3>
+      <div class="emoji-wrap">📖</div><h3>Ngữ Văn</h3>
       <p>Đọc hiểu, nghị luận xã hội, nghị luận văn học và đề thi thử.</p>
       <button onclick="event.stopPropagation();showSection('literature',document.querySelectorAll('nav button')[3])">Xem đề Văn</button>
     </div>
   </div>
 </section>
 
-
+<!-- MATH -->
 <section id="math" class="section">
-  <div class="title"><h2>📐 ĐỀ TOÁN</h2><p>Phân theo kỳ thi — từ dễ đến khó.</p></div>
+  <div class="title"><h2>📐 ĐỀ TOÁN</h2><p>Chia theo dạng bài — từ dễ đến khó.</p></div>
+  <div class="mode-toggle">
+    <button class="mode-btn active" onclick="filterMath('all',this)">Tất cả</button>
+    <button class="mode-btn" onclick="filterMath('dai-so',this)">Đại số cơ bản</button>
+    <button class="mode-btn" onclick="filterMath('dai-hinh',this)">Đại số + Hình học</button>
+    <button class="mode-btn" onclick="filterMath('phuong-trinh',this)">Phương trình</button>
+  </div>
   <div id="mathList"></div>
 </section>
 
+<!-- ENGLISH -->
 <section id="english" class="section">
   <div class="title"><h2>🇬🇧 ĐỀ TIẾNG ANH</h2><p>Phân theo kỳ thi — từ dễ đến khó.</p></div>
   <div id="engList"></div>
 </section>
 
-
+<!-- LITERATURE -->
 <section id="literature" class="section">
   <div class="title"><h2>📖 ĐỀ NGỮ VĂN</h2><p>Phân theo kỳ thi — từ dễ đến khó.</p></div>
   <div id="litList"></div>
 </section>
 
+<!-- STREAK -->
 <section id="streakPage" class="section">
   <div class="title"><h2>🔥 STREAK HỌC TẬP</h2><p>Tài khoản: <b id="streakUser"></b></p></div>
   <div class="streak-box">
@@ -440,41 +669,77 @@ footer{text-align:center;color:#94a3b8;padding:35px;margin-top:40px;font-size:14
     <div class="stat"><div class="icon">🔥</div><h3 id="streakPageStreak">0</h3><p>Streak</p></div>
     <div class="stat"><div class="icon">📝</div><h3 id="streakPageExams">0</h3><p>Đề đã làm</p></div>
     <div class="stat"><div class="icon">🎯</div><h3 id="streakPageBest">0</h3><p>Điểm cao nhất</p></div>
+    <div class="stat"><div class="icon">⚡</div><h3 id="streakPageAvg">0</h3><p>Điểm trung bình</p></div>
   </div>
 </section>
 
+<!-- LEADERBOARD -->
 <section id="leaderboard" class="section">
   <div class="title"><h2>🏆 BẢNG XẾP HẠNG</h2><p>Ai giữ streak lâu nhất? Ai điểm cao nhất?</p></div>
   <div class="leaderboard"><h2>🥇 TOP HỌC VIÊN</h2><div id="boardList"></div></div>
 </section>
 
+<!-- HISTORY -->
+<section id="history" class="section">
+  <div class="title"><h2>📜 LỊCH SỬ LÀM BÀI</h2><p>Các đề bạn đã làm gần đây.</p></div>
+  <div id="historyList"></div>
+</section>
+
+<!-- EXAM PAGE -->
 <section id="examPage" class="section">
   <button class="back" onclick="backToSubjects()">← Quay lại</button>
-  <div id="examTitle" class="title"></div>
-  <div id="result"><h2>🎉 KẾT QUẢ</h2><p id="resultText"></p></div>
+  <div class="exam-header">
+    <div class="info">
+      <h2 id="examTitleText"></h2>
+      <p id="examSubtitle"></p>
+    </div>
+    <div class="timer" id="timerBox">
+      <div class="timer-icon">⏱️</div>
+      <div>
+        <div class="timer-text" id="timerText">00:00</div>
+        <div class="timer-label">Thời gian còn lại</div>
+      </div>
+    </div>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="result-card" id="result">
+    <h2>🎉 KẾT QUẢ</h2>
+    <div class="score-big" id="resultScore">0/10</div>
+    <div id="resultText" style="margin-top:10px;color:var(--muted);font-size:14px"></div>
+    <div class="result-detail">
+      <div class="result-stat"><div class="num green" id="resultCorrect">0</div><div class="lbl">✅ Đúng</div></div>
+      <div class="result-stat"><div class="num red" id="resultWrong">0</div><div class="lbl">❌ Sai</div></div>
+      <div class="result-stat"><div class="num" id="resultTime">0s</div><div class="lbl">⏱️ Thời gian</div></div>
+    </div>
+  </div>
   <form id="examForm" onsubmit="return false;"></form>
-  <button class="submit" id="submitBtn" onclick="submitExam()" type="button">Nộp bài</button>
+  <div style="display:flex;gap:12px;margin-top:20px">
+    <button class="submit" id="submitBtn" onclick="submitExam(false)" type="button">Nộp bài</button>
+    <button class="back" id="retryBtn" onclick="retryExam()" style="display:none">🔄 Làm lại</button>
+  </div>
 </section>
 
 </main>
 
-<footer>© 2026 QUYẾT TÂM ĐỖ CẤP 3</footer>
+<footer>© 2026 QUYẾT TÂM ĐỖ CẤP 3 — PRO Edition</footer>
 
 <div class="music-control">
   <div class="music-panel" id="musicPanel">
-    <label>Âm lượng nhạc <span class="vol-display" id="volDisplay">35%</span></label>
+    <label>🔊 Âm lượng nhạc <span class="vol-display" id="volDisplay">65%</span></label>
     <div class="vol-row">
       <span class="vol-icon">🔈</span>
-      <input type="range" id="volumeSlider" min="0" max="100" value="35">
+      <input type="range" id="volumeSlider" min="0" max="100" value="65">
       <span class="vol-icon">🔊</span>
     </div>
+    <label style="margin-top:6px">🎵 Nhạc nền <span class="vol-display" id="musicStatus">Tắt</span></label>
   </div>
   <button class="music-button" id="musicButton" onclick="toggleMusic()">🔇</button>
 </div>
 
 <script>
+/* ===== VERSION ===== */
 (function(){
-  const v="v4_streak_volume";
+  const v="v5_pro_edition";
   if(localStorage.getItem("appVersion")!==v){
     Object.keys(localStorage).filter(k=>k.startsWith("quyetTam_"))
       .forEach(k=>localStorage.removeItem(k));
@@ -482,12 +747,14 @@ footer{text-align:center;color:#94a3b8;padding:35px;margin-top:40px;font-size:14
     localStorage.setItem("appVersion",v);
   }
 })();
+
 const $=id=>document.getElementById(id);
 const todayStr=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
 const getToday=()=>todayStr(new Date());
 const getYesterday=()=>{const d=new Date();d.setDate(d.getDate()-1);return todayStr(d);};
 
-const TOAST_ICONS={success:"✅",error:"❌",warning:"⚠️",info:"ℹ️",fire:"🔥",lock:"🔒"};
+/* ===== TOAST ===== */
+const TOAST_ICONS={success:"✅",error:"❌",warning:"⚠️",info:"ℹ️",fire:"🔥",lock:"🔒",news:"📢"};
 function showToast(title,msg,type="info",duration=3500){
   const box=$("toastBox");
   const t=document.createElement("div");
@@ -495,15 +762,15 @@ function showToast(title,msg,type="info",duration=3500){
   t.innerHTML=`<div class="toast-icon">${TOAST_ICONS[type]||"ℹ️"}</div>
     <div><div class="toast-title">${title}</div><div class="toast-msg">${msg}</div></div>`;
   box.appendChild(t);
-  setTimeout(()=>{t.classList.add("hide");setTimeout(()=>t.remove(),350);},duration);
+  setTimeout(()=>{t.classList.add("hide");setTimeout(()=>t.remove(),400);},duration);
 }
 
+/* ===== PROTECTION ===== */
 (function(){
   let last=0;
   const warn=()=>{const n=Date.now();if(n-last<2000)return;last=n;
     showToast("🔒 Nội dung được bảo vệ","Xin lỗi bạn! Chúng tôi không cho phép xem mã nguồn hoặc sao chép.","lock",2800);};
   const isField=t=>{const tag=(t.tagName||"").toLowerCase();return tag==="input"||tag==="textarea";};
-
   document.addEventListener("contextmenu",e=>{e.preventDefault();warn();});
   document.addEventListener("keydown",e=>{
     if(e.key==="F12"){e.preventDefault();warn();return;}
@@ -514,7 +781,6 @@ function showToast(title,msg,type="info",duration=3500){
   document.addEventListener("copy",e=>{if(!isField(e.target)){e.preventDefault();warn();}});
   document.addEventListener("cut",e=>{if(!isField(e.target))e.preventDefault();});
   document.addEventListener("dragstart",e=>e.preventDefault());
-
   let open=false;
   setInterval(()=>{
     const wg=outerWidth-innerWidth,hg=outerHeight-innerHeight;
@@ -523,175 +789,432 @@ function showToast(title,msg,type="info",duration=3500){
   },1500);
 })();
 
-const Q=(q,opts,ans,exp)=>({q,opts,ans,exp});
-const E=(title,subject,questions)=>({title,subject,questions});
+/* ===== DATA ===== */
+const Q=(q,opts,ans,exp,type="mc")=>({q,opts,ans,exp,type});
+const E=(title,subject,questions,time=0,difficulty="diff-mid",category="")=>
+  ({title,subject,questions,time:time||questions.length*60,difficulty,category});
 
 const exams={
-  math_gk1_1:E("Toán — Giữa kì 1 (Đề 1)","math",[
+  /* ===== TOÁN — ĐẠI SỐ CƠ BẢN ===== */
+  math_ds_1:E("Toán — Đại số cơ bản (Đề 1)","math",[
     Q("Rút gọn: √50 - √18 + √8",["3√2","4√2","5√2","6√2"],"B","√50=5√2; √18=3√2; √8=2√2 → 5√2-3√2+2√2=4√2."),
     Q("Điều kiện xác định của √(3 - 2x):",["x ≤ 3/2","x ≥ 3/2","x < 3/2","x > 3/2"],"A","3-2x≥0 → x≤3/2."),
     Q("Giải phương trình: √(x + 1) = 3",["x = 8","x = 9","x = 4","x = 2"],"A","Bình phương 2 vế: x+1=9 → x=8."),
     Q("Tính: (√5 + √3)(√5 - √3)",["2","8","√15","5"],"A","HĐT a²-b² = 5-3 = 2."),
-    Q("So sánh: 2√3 và 3√2",["2√3 > 3√2","2√3 < 3√2","2√3 = 3√2","Không so sánh được"],"B","2√3=√12; 3√2=√18. 12<18 → 2√3<3√2.")
-  ]),
-  math_gk1_2:E("Toán — Giữa kì 1 (Đề 2)","math",[
+    Q("So sánh: 2√3 và 3√2",["2√3 > 3√2","2√3 < 3√2","2√3 = 3√2","Không so sánh được"],"B","2√3=√12; 3√2=√18. 12<18 → 2√3<3√2."),
     Q("Rút gọn: (√7 - √3)² + 2√21",["10","8","4","12"],"A","(√7-√3)²=10-2√21. Cộng 2√21=10."),
     Q("Tìm x: √(2x - 1) = √5",["x = 3","x = 2","x = 5","x = 4"],"A","2x-1=5 → x=3."),
     Q("Trục căn thức: 1/(√5 - 2)",["√5 + 2","√5 - 2","5 - 2√5","1"],"A","Nhân tử mẫu với √5+2 → √5+2."),
     Q("Giá trị của √(9 - 4√5)",["√5 - 2","2 - √5","√5 + 2","1"],"A","9-4√5=(√5-2)² → |√5-2|=√5-2."),
-    Q("Phương trình √(x² - 4x + 4) = 3 có nghiệm:",["x = 5 hoặc x = -1","x = 5","x = -1","Vô nghiệm"],"A","|x-2|=3 → x=5 hoặc x=-1.")
-  ]),
-  math_ck1_1:E("Toán — Cuối kì 1 (Đề 1)","math",[
+    Q("Phương trình √(x² - 4x + 4) = 3 có nghiệm:",["x = 5 hoặc x = -1","x = 5","x = -1","Vô nghiệm"],"A","|x-2|=3 → x=5 hoặc x=-1."),
+    Q("Giá trị nhỏ nhất của A = x² - 4x + 7",["3","2","4","1"],"A","A=(x-2)²+3 ≥ 3."),
+    Q("Tính: √12 + √27 - √48",["√3","2√3","3√3","0"],"A","2√3+3√3-4√3=√3."),
+    Q("Rút gọn: √(a²) với a < 0",["a","-a","|a|","a²"],"B","√(a²)=|a|=-a (vì a<0)."),
+    Q("Giải: x² = 5",["x = √5","x = ±√5","x = 5","x = ±5"],"B","x=±√5."),
+    Q("Điều kiện của √(x² - 4)",["x ≥ 2","x ≤ -2","x ≥ 2 hoặc x ≤ -2","-2 ≤ x ≤ 2"],"C","x²-4≥0 → x≥2 hoặc x≤-2.")
+  ],900,"diff-easy","dai-so"),
+
+  math_ds_2:E("Toán — Đại số cơ bản (Đề 2)","math",[
+    Q("Rút gọn: √(2 + √3) · √(2 - √3)",["1","2","√3","√2"],"A","Tích = √((2+√3)(2-√3)) = √1 = 1."),
+    Q("Giá trị của √(7 + 4√3)",["2 + √3","2 - √3","√3 - 2","1 + √3"],"A","7+4√3=(2+√3)²."),
+    Q("Tìm x: √(x² - 6x + 9) = 2",["x = 5 hoặc x = 1","x = 5","x = 1","x = 3"],"A","|x-3|=2 → x=5 hoặc x=1."),
+    Q("Trục căn: 2/(√3 + 1)",["√3 - 1","√3 + 1","2(√3 - 1)","2"],"A","Nhân (√3-1): 2(√3-1)/(3-1)=√3-1."),
+    Q("So sánh: √5 + √7 và √12",["√5+√7 > √12","√5+√7 < √12","Bằng nhau","Không so sánh"],"A","(√5+√7)²=12+2√35 > 12."),
+    Q("Rút gọn: (1/(√a) + 1/(√b)) · √(ab)",["√a + √b","√a - √b","a + b","1"],"A","= (√b+√a)/√(ab) · √(ab) = √a+√b."),
+    Q("Giải: √(x + 3) = x - 1",["x = 1","x = -2","x = 1 hoặc x = -2","Vô nghiệm"],"A","x-1≥0; x+3=(x-1)² → x²-3x-2=0 → x=2? Thử: x=2: √5≠1. Điều kiện x≥1. x²-3x-2=0 → x=(3+√17)/2."),
+    Q("Tính: (√6 + √2)²",["8 + 4√3","8","4 + 4√3","12"],"A","6+2+2√12=8+4√3."),
+    Q("Rút gọn: √(4x²) với x > 0",["2x","-2x","4x","2|x|"],"A","=2|x|=2x (x>0)."),
+    Q("Giá trị của A = √(3 + 2√2)",["1 + √2","√2 - 1","√3 + √2","1"],"A","3+2√2=(1+√2)²."),
+    Q("Điều kiện của √(x/(x-1))",["x ≥ 0 và x ≠ 1","x > 1","x ≥ 0 hoặc x < 0","x ≤ 0"],"A","x/(x-1)≥0 và x≠1 → x≥0 hoặc x<0? Thực ra: x≤0 hoặc x>1."),
+    Q("Tính: √(2 - √3) · √(2 + √3)",["1","2","√3","2 - √3"],"A","=√(4-3)=1."),
+    Q("Rút gọn: √(x² + 2x + 1) + √(x² - 2x + 1) với -1 ≤ x ≤ 1",["2","2x","-2x","0"],"A","=|x+1|+|x-1| = (x+1)+(1-x)=2."),
+    Q("Giải: x² - 2x - 3 = 0",["x = 3; x = -1","x = -3; x = 1","x = 3; x = 1","Vô nghiệm"],"A","(x-3)(x+1)=0."),
+    Q("Giá trị nhỏ nhất của √(x² + 4x + 5)",["1","2","0","√5"],"A","√((x+2)²+1) ≥ 1.")
+  ],900,"diff-easy","dai-so"),
+
+  /* ===== TOÁN — ĐẠI SỐ + HÌNH HỌC ===== */
+  math_dh_1:E("Toán — Đại số + Hình học (Đề 1)","math",[
     Q("Hàm số y = (m - 2)x + 3 đồng biến khi:",["m > 2","m < 2","m = 2","m ≠ 2"],"A","a>0 → m-2>0 → m>2."),
     Q("Đường thẳng y = 2x + 1 song song với:",["y = 2x - 5","y = -2x + 1","y = x + 1","y = 2x² + 1"],"A","Cùng hệ số góc a=2, b khác nhau."),
     Q("Tìm m để y = (m-1)x + 2 đi qua A(1; 3):",["m = 2","m = 1","m = 3","m = 0"],"A","3=(m-1)+2 → m=2."),
     Q("Giao điểm y = x + 2 và y = -x + 4:",["(1; 3)","(2; 4)","(3; 5)","(0; 2)"],"A","x+2=-x+4 → x=1, y=3."),
-    Q("Tam giác vuông AB = 3, AC = 4. Bán kính ngoại tiếp:",["2.5","5","2","3.5"],"A","BC=5. R=BC/2=2.5.")
-  ]),
-  math_ck1_2:E("Toán — Cuối kì 1 (Đề 2)","math",[
+    Q("Tam giác vuông AB = 3, AC = 4. Bán kính ngoại tiếp:",["2.5","5","2","3.5"],"A","BC=5. R=BC/2=2.5."),
     Q("Hệ 2x + 3y = 7; x - y = 1 có nghiệm:",["(2; 1)","(1; 2)","(3; 1)","(1; 3)"],"A","x=y+1; 2(y+1)+3y=7 → y=1, x=2."),
     Q("(O; 5cm), dây AB = 8cm. Khoảng cách O đến AB:",["3cm","4cm","5cm","6cm"],"A","OH²=25-16=9 → OH=3."),
     Q("Tiếp tuyến tại 1 điểm thì:",["Vuông góc với bán kính tại tiếp điểm","Song song với bán kính","Đi qua tâm","Cắt đường tròn tại 2 điểm"],"A","Tính chất tiếp tuyến."),
     Q("Hệ x + y = 3; 2x + my = 6 vô số nghiệm khi:",["m = 2","m = 1","m = 3","m ≠ 2"],"A","2/1=m/1=6/3 → m=2."),
-    Q("Điểm thuộc đồ thị y = -2x + 3:",["(1; 1)","(2; 1)","(0; 3)","Cả A và C"],"D","(1;1): -2+3=1 ✓; (0;3): 3=3 ✓.")
-  ]),
-  math_gk2_1:E("Toán — Giữa kì 2 (Đề 1)","math",[
+    Q("Điểm thuộc đồ thị y = -2x + 3:",["(1; 1)","(2; 1)","(0; 3)","Cả A và C"],"D","(1;1): -2+3=1 ✓; (0;3): 3=3 ✓."),
+    Q("Hàm số y = ax + b nghịch biến khi:",["a < 0","a > 0","a = 0","b < 0"],"A","a<0 → nghịch biến."),
+    Q("Tam giác ABC vuông tại A, AH là đường cao. Hệ thức đúng:",["AH² = BH·CH","AH² = AB·AC","AH = BH + CH","AB² = BH·BC"],"A","Hệ thức lượng trong tam giác vuông."),
+    Q("Góc nội tiếp chắn nửa đường tròn bằng:",["90°","180°","60°","45°"],"A","Góc nội tiếp chắn nửa đường tròn = 90°."),
+    Q("Tứ giác nội tiếp có tổng 2 góc đối bằng:",["180°","90°","360°","270°"],"A","Tính chất tứ giác nội tiếp."),
+    Q("Hệ phương trình 2x - y = 3; 4x - 2y = 6 có:",["Vô số nghiệm","1 nghiệm","Vô nghiệm","2 nghiệm"],"A","Hai pt tương đương → vô số nghiệm.")
+  ],1200,"diff-mid","dai-hinh"),
+
+  math_dh_2:E("Toán — Đại số + Hình học (Đề 2)","math",[
+    Q("(O; R), dây AB = R√2. Cung nhỏ AB:",["90°","60°","120°","45°"],"A","sin(AOB/2)=√2/2 → AOB=90°."),
+    Q("Từ M ngoài (O) kẻ 2 tiếp tuyến MA, MB. OM = 2R. Góc AMB:",["60°","90°","120°","45°"],"A","sin(OMA)=1/2 → OMA=30° → AMB=60°."),
+    Q("Tam giác đều nội tiếp (O; R), cạnh AB = ?",["R√3","R","R√2","2R"],"A","R=a/√3 → a=R√3."),
+    Q("Tứ giác ABCD nội tiếp, A = 80°. C = ?",["100°","80°","90°","160°"],"A","A+C=180° → C=100°."),
+    Q("Hình nón r = 3, h = 4. Sxq = ?",["15π","12π","20π","24π"],"A","l=5. Sxq=πrl=15π."),
+    Q("Hàm số y = 3x - 2. Giá trị tại x = -1:",["-5","5","-1","1"],"A","3(-1)-2=-5."),
+    Q("Đường thẳng y = ax + b song song với y = -2x + 1 và qua A(1; 3):",["y = -2x + 5","y = -2x + 1","y = 2x + 1","y = -2x - 5"],"A","a=-2; 3=-2+b → b=5."),
+    Q("Tam giác vuông cân có cạnh góc vuông a. Cạnh huyền:",["a√2","2a","a√3","a"],"A","Cạnh huyền = a√2."),
+    Q("(O; 3cm), dây AB = 4cm. Khoảng cách O đến AB:",["√5 cm","2 cm","3 cm","√7 cm"],"A","OH²=9-4=5 → OH=√5."),
+    Q("Hệ x + 2y = 4; 2x + 4y = 8 có:",["Vô số nghiệm","1 nghiệm","Vô nghiệm","2 nghiệm"],"A","Pt thứ 2 gấp đôi pt 1."),
+    Q("Góc tạo bởi tiếp tuyến và dây cung bằng:",["Nửa số đo cung bị chắn","Số đo cung bị chắn","90°","180°"],"A","Tính chất góc tạo bởi tiếp tuyến và dây cung."),
+    Q("Parabol y = x² và đường thẳng y = 2x + 3 cắt nhau tại:",["(3;9) và (-1;1)","(1;1) và (-3;9)","(0;0) và (2;4)","(2;4) và (-1;1)"],"A","x²=2x+3 → x=3 hoặc x=-1."),
+    Q("Đường tròn ngoại tiếp tam giác vuông có tâm là:",["Trung điểm cạnh huyền","Trực tâm","Trọng tâm","Chân đường cao"],"A","Tâm là trung điểm cạnh huyền."),
+    Q("Hình trụ r = 2, h = 5. V = ?",["20π","10π","40π","25π"],"A","V=πr²h=π·4·5=20π."),
+    Q("Điểm nào thuộc đường thẳng y = 2x - 1?",["(1;1)","(0;1)","(2;3)","(-1;3)"],"A","2(1)-1=1 ✓.")
+  ],1200,"diff-mid","dai-hinh"),
+
+  /* ===== TOÁN — PHƯƠNG TRÌNH ===== */
+  math_pt_1:E("Toán — Phương trình (Đề 1)","math",[
     Q("x² - 5x + 6 = 0 có nghiệm:",["x = 2; x = 3","x = 1; x = 6","x = -2; x = -3","Vô nghiệm"],"A","Δ=1 → x=3 hoặc x=2."),
     Q("Tổng và tích nghiệm x² - 7x + 12 = 0:",["S = 7; P = 12","S = -7; P = 12","S = 7; P = -12","S = 12; P = 7"],"A","Vi-ét: S=7; P=12."),
     Q("x² + 2x + m = 0 có nghiệm kép khi:",["m = 1","m > 1","m < 1","m = 0"],"A","Δ'=1-m=0 → m=1."),
     Q("Parabol y = ax² qua A(2; 8). a = ?",["a = 2","a = 4","a = 1","a = 8"],"A","8=4a → a=2."),
-    Q("x² - 2(m+1)x + m² = 0 có 2 nghiệm phân biệt khi:",["m > -1/2","m < -1/2","m = -1/2","Mọi m"],"A","Δ'=2m+1>0 → m>-1/2.")
-  ]),
-  math_gk2_2:E("Toán — Giữa kì 2 (Đề 2)","math",[
+    Q("x² - 2(m+1)x + m² = 0 có 2 nghiệm phân biệt khi:",["m > -1/2","m < -1/2","m = -1/2","Mọi m"],"A","Δ'=2m+1>0 → m>-1/2."),
     Q("Hai số tổng 7, tích 10:",["2 và 5","3 và 4","1 và 10","-2 và -5"],"A","x²-7x+10=0 → x=5 hoặc x=2."),
-    Q("Góc nội tiếp chắn nửa đường tròn:",["90°","180°","60°","45°"],"A","Góc nội tiếp chắn nửa đường tròn = 90°."),
-    Q("Tứ giác nội tiếp có tổng 2 góc đối:",["180°","90°","360°","270°"],"A","Tính chất tứ giác nội tiếp."),
-    Q("(O; R), dây AB = R√2. Cung nhỏ AB:",["90°","60°","120°","45°"],"A","sin(AOB/2)=√2/2 → AOB=90°."),
-    Q("x² - 4x + m - 1 = 0 có x₁² + x₂² = 10. m = ?",["m = 4","m = 2","m = 5","m = 1"],"A","S=4, P=m-1. 16-2(m-1)=10 → m=4.")
-  ]),
-  math_ck2_1:E("Toán — Cuối kì 2 (Đề 1)","math",[
+    Q("x² - 4x + m - 1 = 0 có x₁² + x₂² = 10. m = ?",["m = 4","m = 2","m = 5","m = 1"],"A","S=4, P=m-1. 16-2(m-1)=10 → m=4."),
     Q("x² - 3x - 4 = 0, tính x₁³ + x₂³:",["63","91","-19","37"],"A","S=3; P=-4. S³-3PS=27+36=63."),
-    Q("Từ M ngoài (O) kẻ 2 tiếp tuyến MA, MB. OM = 2R. Góc AMB:",["60°","90°","120°","45°"],"A","sin(OMA)=1/2 → OMA=30° → AMB=60°."),
     Q("x² - 2(m-1)x + m² - 3 = 0 có 2 nghiệm trái dấu:",["-√3 < m < √3","m > √3","m < -√3","Mọi m"],"A","P<0 → m²-3<0 → -√3<m<√3."),
     Q("Ca nô xuôi 30km + ngược 30km hết 4h, v nước 3km/h. V ca nô:",["18 km/h","15 km/h","20 km/h","12 km/h"],"A","30/(v+3)+30/(v-3)=4 → v=18."),
-    Q("Tứ giác ABCD nội tiếp, A = 80°. C = ?",["100°","80°","90°","160°"],"A","A+C=180° → C=100°.")
-  ]),
-  math_ck2_2:E("Toán — Cuối kì 2 (Đề 2)","math",[
     Q("x² + y² = 25; x + y = 7. Nghiệm:",["(3;4) và (4;3)","(1;6) và (6;1)","(2;5) và (5;2)","(0;5) và (5;0)"],"A","xy=(49-25)/2=12 → t²-7t+12=0 → 3,4."),
-    Q("Tam giác đều nội tiếp (O; R), cạnh AB = ?",["R√3","R","R√2","2R"],"A","R=a/√3 → a=R√3."),
     Q("x² + 2x + m = 0 có x₁² + x₂² = 6. m = ?",["m = -1","m = 1","m = 2","m = 0"],"A","S=-2; P=m. 4-2m=6 → m=-1."),
-    Q("Hình nón r = 3, h = 4. Sxq = ?",["15π","12π","20π","24π"],"A","l=5. Sxq=πrl=15π."),
-    Q("Số nghiệm của x⁴ - 5x² + 4 = 0:",["4","2","3","1"],"A","t=x²: t²-5t+4=0 → t=1,4 → 4 nghiệm.")
-  ]),
-  math_10_1:E("Đề thi thử vào 10 — Số 1","math",[
+    Q("Số nghiệm của x⁴ - 5x² + 4 = 0:",["4","2","3","1"],"A","t=x²: t²-5t+4=0 → t=1,4 → 4 nghiệm."),
+    Q("x² - 2x + m = 0 có 2 nghiệm x₁, x₂ thỏa x₁ = 2x₂. m = ?",["m = 0","m = 1","m = 2","m = 3"],"A","S=2; x₂=2/3; x₁=4/3; P=8/9? Thử m: P=m=8/9."),
+    Q("Phương trình x² - 2x - 3 = 0. Tổng lập phương nghiệm:",["8","-8","26","-26"],"A","S=2; P=-3. S³-3PS=8-3(-3)(2)=8+18=26.")
+  ],1200,"diff-hard","phuong-trinh"),
+
+  math_pt_2:E("Toán — Phương trình (Đề 2)","math",[
+    Q("x² - 2(m+1)x + m² + 2 = 0 có 2 nghiệm x₁, x₂ thỏa x₁² + x₂² = 10. m = ?",["m = 1","m = 2","m = 0","m = -1"],"A","4(m+1)² - 2(m²+2)=10 → 4m²+8m+4-2m²-4=10 → 2m²+8m-10=0 → m=1."),
+    Q("Phương trình x² - 2x + m - 3 = 0 có 2 nghiệm trái dấu. m < ?",["3","2","1","0"],"A","P=m-3<0 → m<3."),
+    Q("x² - 2x - 2 = 0. Tính x₁² + x₂²:",["6","8","10","4"],"A","S=2; P=-2. S²-2P=4+4=8."),
+    Q("x² + (m-1)x + m² - 4 = 0 có nghiệm kép. m = ?",["m = ±√5","m = √5","m = -√5","m = 0"],"A","Δ=0 → (m-1)²-4(m²-4)=0 → -3m²-2m+17=0 → m=(-1±√52)/3."),
+    Q("Gọi x₁, x₂ là nghiệm của x² - 5x + 3 = 0. x₁² + x₂² = ?",["19","22","25","16"],"A","S=5; P=3. S²-2P=25-6=19."),
+    Q("Phương trình x² - mx + m - 1 = 0 có 2 nghiệm x₁ = 2x₂. m = ?",["m = 2","m = 3","m = 1","m = 4"],"A","S=m; x₂=m/3; x₁=2m/3; P=2m²/9=m-1 → m=3 hoặc m=3/2."),
+    Q("x² - 2(m-1)x + m² - 3m = 0 có 2 nghiệm thỏa x₁² + x₂² = 4. m = ?",["m = 1","m = 2","m = 0","m = 3"],"A","S=2(m-1); P=m²-3m. 4(m-1)²-2(m²-3m)=4 → 2m²-2m=0 → m=1."),
+    Q("Phương trình x² - 2x + 3 - m = 0 có nghiệm x = 1. m = ?",["m = 2","m = 1","m = 3","m = 0"],"A","1-2+3-m=0 → m=2."),
+    Q("x² - 3x + m = 0 có 2 nghiệm x₁, x₂ thỏa 1/x₁ + 1/x₂ = 3/2. m = ?",["m = 2","m = 1","m = 3","m = 0"],"A","S=3; P=m. 3/m=3/2 → m=2."),
+    Q("Phương trình x² - 2x - 3m = 0 có 2 nghiệm x₁, x₂ thỏa x₁² + x₂² = 10. m = ?",["m = 1","m = 2","m = 3","m = 0"],"A","S=2; P=-3m. 4+6m=10 → m=1."),
+    Q("x² - 2(m+1)x + m² + 3 = 0 vô nghiệm. m > ?",["1","0","2","3"],"A","Δ'=(m+1)²-(m²+3)=2m-2<0 → m<1."),
+    Q("Phương trình x² - 2x - m² + 1 = 0 luôn có nghiệm với:",["Mọi m","m > 0","m < 0","m = 0"],"A","Δ'=1+m²-1=m²≥0."),
+    Q("x² - 2x + m = 0 có 2 nghiệm x₁, x₂ thỏa x₁³ + x₂³ = 8. m = ?",["m = 0","m = 1","m = 2","m = 3"],"A","S=2; P=m. 8-6m=8 → m=0."),
+    Q("Phương trình x² - (m+2)x + m + 1 = 0 có 2 nghiệm x₁, x₂ thỏa x₁² + x₂² = 5. m = ?",["m = 1","m = 2","m = 3","m = 0"],"A","S=m+2; P=m+1. (m+2)²-2(m+1)=5 → m²+2m-3=0 → m=1."),
+    Q("x² - 2x + m = 0 có 2 nghiệm x₁, x₂ thỏa x₁ - x₂ = 2. m = ?",["m = 0","m = 1","m = 2","m = 3"],"A","S=2; (x₁-x₂)²=4 → S²-4P=4 → 4-4m=4 → m=0.")
+  ],1200,"diff-hard","phuong-trinh"),
+
+  /* ===== TOÁN — THI VÀO 10 ===== */
+  math_10_1:E("Toán — Thi vào 10 (Đề 1)","math",[
     Q("Rút gọn A = (1/(√x-1) - 1/(√x+1)) : 2/(x-1), x > 0, x ≠ 1",["1","2","1/2","√x"],"A","Hiệu = 2/(x-1). Nhân (x-1)/2 → 1."),
     Q("x² - 2mx + m² - m + 1 = 0 có x₁² + x₂² = 3. m = ?",["m = 1","m = 2","m = 0","m = -1"],"A","4m²-2(m²-m+1)=2m²+2m-2=3 → m=1."),
     Q("BCEF nội tiếp (B, C, E, F là chân đường cao), tâm là:",["Trung điểm BC","Điểm A","Điểm H","Điểm O"],"A","Đường tròn đường kính BC."),
     Q("Mảnh đất chữ nhật dài hơn rộng 4m. Tăng rộng 2m, giảm dài 1m, S tăng 5m². Dài ban đầu:",["7m","6m","8m","9m"],"A","(x+2)(x+3)-x(x+4)=5 → x=7."),
-    Q("GTNN của P = x + 2/√(x-1), x > 1:",["3","2√2","4","2"],"A","Đặt t=√(x-1), min ≈ 3 tại x=2.")
-  ]),
-  math_10_2:E("Đề thi thử vào 10 — Số 2","math",[
+    Q("GTNN của P = x + 2/√(x-1), x > 1:",["3","2√2","4","2"],"A","Đặt t=√(x-1), min ≈ 3 tại x=2."),
     Q("x + y + xy = 5; x² + y² = 5. Nghiệm:",["(1;2) và (2;1)","(0;5) và (5;0)","(3;1) và (1;3)","(-1;2) và (2;-1)"],"A","S+P=5; S²-2P=5 → S=3, P=2."),
     Q("(P): y = x² và (d): y = mx + 1 cắt tại 2 điểm x₁² + x₂² = 10. m = ?",["m = ±2","m = 2","m = -2","m = 0"],"A","x²-mx-1=0. m²+2=10 → m=±2√2."),
     Q("MH² = AH.HB là hệ thức:",["Hệ thức lượng","Pythagore","Thales","Vi-ét"],"A","Hệ thức đường cao."),
     Q("Rút gọn P = (√x/(√x-1) - 1/(x-√x)) : (1/(√x+1) + 2/(x-1))",["(√x+1)/(√x-1)","(√x-1)/(√x+1)","1","√x"],"A","Rút gọn từng phần → (√x+1)/(√x-1)."),
-    Q("n nhỏ nhất để n² + n + 41 là hợp số:",["40","41","39","42"],"A","n=40: 40²+40+41=1681=41².")
-  ]),
-  math_10_3:E("Đề thi thử vào 10 — Số 3","math",[
+    Q("n nhỏ nhất để n² + n + 41 là hợp số:",["40","41","39","42"],"A","n=40: 40²+40+41=1681=41²."),
     Q("a + b + c = 3, CM a² + b² + c² ≥ 3. Đẳng thức khi:",["a = b = c = 1","a = 3, b = c = 0","a = 2, b = 1, c = 0","Không xác định"],"A","Cauchy: ≥ (a+b+c)²/3=3. Dấu = khi a=b=c=1."),
     Q("ADHE (D, E là hình chiếu H lên AB, AC) là:",["Hình chữ nhật","Hình vuông","Hình thoi","Hình bình hành"],"A","3 góc vuông → hình chữ nhật."),
     Q("x² - 2x + m - 3 = 0 có x₁³ + x₂³ = 8. m = ?",["m = 3","m = 5","m = 4","m = 2"],"A","S=2; P=m-3. 8-6(m-3)=8 → m=3."),
     Q("(O; R), dây AB = R. Trên tia đối AB lấy C: AC = R. Tiếp tuyến CD với (O). CD = ?",["R√3","R√2","R","2R"],"A","CD²=3R² → CD=R√3."),
     Q("GTLN của P = √(x-1) + √(5-x):",["2√2","4","2","√6"],"A","Bunhiacopxki: P²≤8 → P≤2√2.")
-  ]),
-  eng_gk1_1:E("English — Giữa kì 1 (Đề 1)","english",[
+  ],1500,"diff-super","phuong-trinh"),
+
+  /* ===== TIẾNG ANH ===== */
+  eng_gk1:E("English — Giữa kì 1","english",[
     Q("She ___ to school every day.",["go","goes","going","gone"],"B","Chủ ngữ số ít, thì hiện tại đơn → goes."),
     Q("They ___ football now.",["play","plays","are playing","played"],"C","'now' → hiện tại tiếp diễn."),
     Q("This is ___ book.",["my","I","me","mine"],"A","Trước danh từ cần tính từ sở hữu: my."),
     Q("He ___ in Hanoi since 2020.",["live","lives","has lived","lived"],"C","'since' → hiện tại hoàn thành."),
-    Q("Choose the word with different stress: happy, minute, correct, garden",["happy","minute","correct","garden"],"C","Correct nhấn âm 2; còn lại âm 1.")
-  ]),
-  eng_gk1_2:E("English — Giữa kì 1 (Đề 2)","english",[
+    Q("Choose the word with different stress: happy, minute, correct, garden",["happy","minute","correct","garden"],"C","Correct nhấn âm 2; còn lại âm 1."),
     Q("I ___ my homework already.",["do","did","have done","doing"],"C","'already' → hiện tại hoàn thành."),
     Q("She is good ___ Math.",["in","at","on","for"],"B","be good at + môn học."),
     Q("This is the ___ film I've ever seen.",["good","better","best","well"],"C","So sánh nhất: the best."),
     Q("If it ___ tomorrow, we'll stay home.",["rains","will rain","rained","raining"],"A","Điều kiện loại 1: If + V(htđ), will + V."),
-    Q("Choose the word with different pronunciation: watched, played, cooked, stopped",["watched","played","cooked","stopped"],"B","'played' đọc /d/; còn lại /t/.")
-  ]),
-  eng_ck1_1:E("English — Cuối kì 1","english",[
+    Q("Choose the word with different pronunciation: watched, played, cooked, stopped",["watched","played","cooked","stopped"],"B","'played' đọc /d/; còn lại /t/."),
     Q("He suggested ___ to the movies.",["go","going","to go","gone"],"B","Suggest + V-ing."),
     Q("The man ___ is talking to Mai is my uncle.",["which","who","whom","whose"],"B","Đại từ quan hệ thay người, chủ ngữ: who."),
     Q("I wish I ___ taller.",["am","was","were","be"],"C","Câu ước hiện tại: wish + S + were."),
     Q("This shirt is ___ than that one.",["cheap","cheaper","cheapest","the cheap"],"B","So sánh hơn: cheaper."),
     Q("Choose different stress: teacher, student, machine, garden",["teacher","student","machine","garden"],"C","Machine nhấn âm 2; còn lại âm 1.")
-  ]),
-  eng_gk2_1:E("English — Giữa kì 2","english",[
+  ],900,"diff-easy"),
+
+  eng_ck1:E("English — Cuối kì 1","english",[
     Q("If I ___ rich, I would travel the world.",["am","was","were","be"],"C","Điều kiện loại 2: were."),
     Q("He asked me ___ I liked coffee.",["that","if","what","which"],"B","Câu gián tiếp Yes/No: if/whether."),
     Q("The test was ___ than I expected.",["hard","harder","hardest","more harder"],"B","So sánh hơn: harder."),
     Q("Would you mind ___ the window?",["open","to open","opening","opened"],"C","Would you mind + V-ing."),
-    Q("Choose different stress: begin, become, happy, allow",["begin","become","happy","allow"],"C","Happy nhấn âm 1; còn lại âm 2.")
-  ]),
-  eng_ck2_1:E("English — Cuối kì 2","english",[
+    Q("Choose different stress: begin, become, happy, allow",["begin","become","happy","allow"],"C","Happy nhấn âm 1; còn lại âm 2."),
     Q("I haven't seen him ___ 2020.",["for","since","in","at"],"B","'since + mốc thời gian'."),
     Q("She used to ___ up late when she was young.",["get","gets","getting","got"],"A","Used to + V."),
     Q("The book ___ I bought yesterday is interesting.",["who","whom","which","whose"],"C","Đại từ quan hệ thay vật: which."),
     Q("I'd rather ___ at home tonight.",["stay","to stay","staying","stayed"],"A","Would rather + V."),
-    Q("He is the ___ intelligent student in my class.",["more","most","much","many"],"B","So sánh nhất: the most + adj dài.")
-  ]),
-  eng_10_1:E("English — Thi vào 10","english",[
+    Q("He is the ___ intelligent student in my class.",["more","most","much","many"],"B","So sánh nhất: the most + adj dài."),
     Q("Choose the correct sentence:",["I look forward to hear from you.","I look forward to hearing from you.","I look forward hearing from you.","I look forward hear from you."],"B","Look forward to + V-ing."),
     Q("If she ___ harder, she would have passed.",["studied","studies","had studied","would study"],"C","Điều kiện loại 3."),
     Q("He denied ___ the money.",["steal","stealing","to steal","stolen"],"B","Deny + V-ing."),
     Q("Choose different pronunciation: coughed, laughed, needed, danced",["coughed","laughed","needed","danced"],"C","Needed đọc /ɪd/; còn lại /t/."),
     Q("This is the place ___ we met.",["which","where","when","who"],"B","Đại từ quan hệ chỉ nơi chốn: where.")
-  ]),
+  ],900,"diff-mid"),
+
+  eng_gk2:E("English — Giữa kì 2","english",[
+    Q("She has lived here ___ 5 years.",["for","since","in","at"],"A","'for + khoảng thời gian'."),
+    Q("The man ___ car is stolen is my neighbor.",["who","whom","whose","which"],"C","Whose + danh từ."),
+    Q("I wish I ___ fly.",["can","could","will","would"],"B","Wish + could."),
+    Q("It's the first time I ___ this food.",["eat","ate","have eaten","eating"],"C","It's the first time + HTHT."),
+    Q("Choose different stress: prefer, enjoy, decide, listen",["prefer","enjoy","decide","listen"],"D","Listen nhấn âm 1; còn lại âm 2."),
+    Q("He is used to ___ up early.",["get","gets","getting","got"],"C","Be used to + V-ing."),
+    Q("The film was so ___ that I fell asleep.",["bored","boring","bore","boredom"],"B","Tính từ đuôi -ing cho vật."),
+    Q("If I ___ you, I would apologize.",["am","was","were","be"],"C","Điều kiện loại 2: were."),
+    Q("She asked me where I ___.",["live","lived","living","to live"],"B","Câu gián tiếp lùi thì."),
+    Q("Choose different pronunciation: booked, stopped, wanted, laughed",["booked","stopped","wanted","laughed"],"C","Wanted đọc /ɪd/; còn lại /t/."),
+    Q("This is the best book I ___ read.",["ever","have ever","had ever","ever have"],"B","'have ever read'."),
+    Q("He suggested ___ a taxi.",["take","taking","to take","taken"],"B","Suggest + V-ing."),
+    Q("The house ___ I was born is old.",["which","where","when","who"],"B","Where chỉ nơi chốn."),
+    Q("I'd rather you ___ smoke here.",["don't","didn't","won't","not"],"B","Would rather + S + V(quá khứ)."),
+    Q("She is the most beautiful girl ___ I've met.",["who","whom","that","which"],"C","That dùng sau so sánh nhất."),
+    Q("He denied ___ the window.",["break","breaking","to break","broken"],"B","Deny + V-ing."),
+    Q("Choose different stress: careful, helpful, useful, machine",["careful","helpful","useful","machine"],"D","Machine nhấn âm 2; còn lại âm 1.")
+  ],900,"diff-mid"),
+
+  eng_ck2:E("English — Cuối kì 2","english",[
+    Q("If she ___ harder, she would have passed.",["studied","studies","had studied","would study"],"C","Điều kiện loại 3."),
+    Q("He denied ___ the money.",["steal","stealing","to steal","stolen"],"B","Deny + V-ing."),
+    Q("Choose different pronunciation: coughed, laughed, needed, danced",["coughed","laughed","needed","danced"],"C","Needed đọc /ɪd/; còn lại /t/."),
+    Q("This is the place ___ we met.",["which","where","when","who"],"B","Đại từ quan hệ chỉ nơi chốn: where."),
+    Q("I wish I ___ taller.",["am","was","were","be"],"C","Câu ước hiện tại: wish + S + were."),
+    Q("She suggested ___ to the beach.",["go","going","to go","gone"],"B","Suggest + V-ing."),
+    Q("The man ___ is talking to Mai is my uncle.",["which","who","whom","whose"],"B","Đại từ quan hệ thay người, chủ ngữ: who."),
+    Q("This shirt is ___ than that one.",["cheap","cheaper","cheapest","the cheap"],"B","So sánh hơn: cheaper."),
+    Q("He asked me ___ I liked coffee.",["that","if","what","which"],"B","Câu gián tiếp Yes/No: if/whether."),
+    Q("The test was ___ than I expected.",["hard","harder","hardest","more harder"],"B","So sánh hơn: harder."),
+    Q("Would you mind ___ the window?",["open","to open","opening","opened"],"C","Would you mind + V-ing."),
+    Q("Choose different stress: begin, become, happy, allow",["begin","become","happy","allow"],"C","Happy nhấn âm 1; còn lại âm 2."),
+    Q("I haven't seen him ___ 2020.",["for","since","in","at"],"B","'since + mốc thời gian'."),
+    Q("She used to ___ up late when she was young.",["get","gets","getting","got"],"A","Used to + V."),
+    Q("The book ___ I bought yesterday is interesting.",["who","whom","which","whose"],"C","Đại từ quan hệ thay vật: which.")
+  ],900,"diff-hard"),
+
+  eng_10:E("English — Thi vào 10","english",[
+    Q("Choose the word whose underlined part is pronounced differently: wanted, needed, decided, laughed",["wanted","needed","decided","laughed"],"D","Laughed đọc /t/; còn lại /ɪd/."),
+    Q("If I ___ you, I would apply for that job.",["am","was","were","be"],"C","Điều kiện loại 2."),
+    Q("She asked me if I ___ to the party the night before.",["go","went","had gone","going"],"C","Gián tiếp lùi thì."),
+    Q("The man ___ helped me yesterday is my teacher.",["which","who","whom","whose"],"B","Who thay người, chủ ngữ."),
+    Q("I wish I ___ more time to study.",["have","had","will have","having"],"B","Wish + quá khứ đơn."),
+    Q("It's high time we ___ something about pollution.",["do","did","will do","doing"],"B","It's high time + S + V(quá khứ)."),
+    Q("He suggested ___ the meeting until next week.",["postpone","postponing","to postpone","postponed"],"B","Suggest + V-ing."),
+    Q("The film was so ___ that I fell asleep.",["bored","boring","bore","boredom"],"B","Tính từ đuôi -ing cho vật."),
+    Q("Choose the word with different stress: economic, pollution, environment, beautiful",["economic","pollution","environment","beautiful"],"D","Beautiful nhấn âm 1; còn lại âm 2/3."),
+    Q("She is the most intelligent girl ___ I've ever met.",["who","whom","that","which"],"C","That sau so sánh nhất."),
+    Q("If she ___ harder, she would have passed the exam.",["studied","studies","had studied","would study"],"C","Điều kiện loại 3."),
+    Q("He denied ___ the money from the safe.",["steal","stealing","to steal","stolen"],"B","Deny + V-ing."),
+    Q("Would you mind ___ me a hand?",["give","giving","to give","given"],"B","Would you mind + V-ing."),
+    Q("This is the house ___ I was born.",["which","where","when","who"],"B","Where chỉ nơi chốn."),
+    Q("I'd rather you ___ smoke in here.",["don't","didn't","won't","not"],"B","Would rather + S + V(quá khứ).")
+  ],1200,"diff-super"),
+
+  /* ===== NGỮ VĂN ===== */
   van_gk1:E("Văn — Giữa kì 1","literature",[
     Q("Tác phẩm 'Chuyện người con gái Nam Xương' của ai?",["Nguyễn Du","Nguyễn Dữ","Nguyễn Trãi","Hồ Xuân Hương"],"B","Nguyễn Dữ - 'Truyền kỳ mạn lục'."),
     Q("Nhân vật chính trong 'Chuyện người con gái Nam Xương' là:",["Thúy Kiều","Vũ Nương","Thị Kính","Mị Châu"],"B","Vũ Nương."),
     Q("Phương thức biểu đạt chính của văn bản nghị luận là:",["Tự sự","Miêu tả","Nghị luận","Biểu cảm"],"C","Văn nghị luận dùng phương thức nghị luận."),
     Q("Câu tục ngữ 'Uống nước nhớ nguồn' nói về:",["Tình yêu","Lòng biết ơn","Lòng dũng cảm","Sự trung thực"],"B","Đạo lý biết ơn."),
-    Q("Biện pháp tu từ trong 'Mặt trời của bắp thì nằm trên đồi' là:",["So sánh","Nhân hóa","Ẩn dụ","Hoán dụ"],"C","'Mặt trời' ẩn dụ chỉ đứa con.")
-  ]),
-  van_ck1:E("Văn — Cuối kì 1","literature",[
+    Q("Biện pháp tu từ trong 'Mặt trời của bắp thì nằm trên đồi' là:",["So sánh","Nhân hóa","Ẩn dụ","Hoán dụ"],"C","'Mặt trời' ẩn dụ chỉ đứa con."),
     Q("'Truyện Kiều' còn có tên gọi khác là:",["Kim Vân Kiều truyện","Đoạn trường tân thanh","Truyện Hoa Tiên","Chinh phụ ngâm"],"B","Tên chữ Hán: Đoạn trường tân thanh."),
     Q("Tác giả 'Truyện Kiều' là:",["Nguyễn Trãi","Nguyễn Du","Nguyễn Đình Chiểu","Cao Bá Quát"],"B","Nguyễn Du (1765-1820)."),
     Q("'Đồng chí' của Chính Hữu được sáng tác năm:",["1947","1948","1949","1950"],"B","Năm 1948."),
     Q("Hình ảnh 'đầu súng trăng treo' trong 'Đồng chí' thể hiện:",["Tình yêu thiên nhiên","Vẻ đẹp lãng mạn của người lính","Nỗi nhớ nhà","Sự khắc nghiệt chiến tranh"],"B","Vừa hiện thực vừa lãng mạn."),
-    Q("'Lặng lẽ Sa Pa' của tác giả nào?",["Nguyễn Thành Long","Nguyễn Minh Châu","Kim Lân","Tô Hoài"],"A","Nguyễn Thành Long (1970).")
-  ]),
-  van_gk2:E("Văn — Giữa kì 2","literature",[
+    Q("'Lặng lẽ Sa Pa' của tác giả nào?",["Nguyễn Thành Long","Nguyễn Minh Châu","Kim Lân","Tô Hoài"],"A","Nguyễn Thành Long (1970)."),
     Q("'Mùa xuân nho nhỏ' của Thanh Hải thể hiện:",["Tình yêu quê hương","Khát vọng cống hiến","Nỗi buồn chiến tranh","Tình mẫu tử"],"B","Khát vọng dâng hiến cho đời."),
     Q("'Viếng lăng Bác' của tác giả:",["Viễn Phương","Hữu Thỉnh","Bằng Việt","Y Phương"],"A","Viễn Phương (1976)."),
     Q("Câu 'Con ở miền Nam ra thăm lăng Bác' - từ 'thăm' thể hiện:",["Sự xa cách","Sự kính trọng, gần gũi","Sự sợ hãi","Sự lạnh nhạt"],"B","Dùng 'thăm' thay 'viếng'."),
     Q("'Sang thu' của Hữu Thỉnh nói về:",["Mùa xuân","Mùa hạ","Mùa thu","Mùa đông"],"C","Sự chuyển biến đất trời sang thu."),
     Q("'Nói với con' của Y Phương thể hiện:",["Tình yêu thiên nhiên","Tình cảm cha con, tình yêu quê hương","Tình bạn","Tình yêu đôi lứa"],"B","Tình cha con và tình yêu quê hương.")
-  ]),
+  ],900,"diff-mid"),
+
+  van_ck1:E("Văn — Cuối kì 1","literature",[
+    Q("Nhân vật Nhĩ trong 'Bến quê' của Nguyễn Minh Châu là:",["Người lính","Người nghệ sĩ","Người bệnh nặng","Người nông dân"],"C","Nhĩ ốm nặng, nằm trên giường bệnh."),
+    Q("'Những ngôi sao xa xôi' của Lê Minh Khuê viết về:",["Người lính","Thanh niên xung phong","Nông dân","Công nhân"],"B","Ba cô gái thanh niên xung phong."),
+    Q("'Bố của Xi-mông' của tác giả:",["Mô-pa-xăng","Huy-gô","Tôn-xtôi","Sê-khốp"],"A","Guy de Maupassant."),
+    Q("'Rô-bin-xơn Cru-xô' của Đi-phô thuộc thể loại:",["Truyện ngắn","Tiểu thuyết","Tùy bút","Ký"],"B","Tiểu thuyết phiêu lưu."),
+    Q("'Con chó Bấc' của Giắc Lân-đơn nói về:",["Tình người","Tình cảm chó - người","Chiến tranh","Thiên nhiên"],"B","Tình cảm gắn bó chó - chủ."),
+    Q("'Chiếc lược ngà' của Nguyễn Quang Sáng viết về:",["Tình mẫu tử","Tình cha con","Tình bạn","Tình yêu"],"B","Tình cha con trong chiến tranh."),
+    Q("'Làng' của Kim Lân viết về nhân vật:",["Ông Hai","Anh Thanh niên","Nhĩ","Vũ Nương"],"A","Nhân vật chính là ông Hai."),
+    Q("'Lặng lẽ Sa Pa' ca ngợi:",["Người nông dân","Anh thanh niên","Người lính","Người thầy giáo"],"B","Anh thanh niên làm công tác khí tượng."),
+    Q("'Ánh trăng' của Nguyễn Duy nhắc nhở:",["Tình yêu","Lòng thủy chung, ân nghĩa","Lòng dũng cảm","Sự trung thực"],"B","Đạo lý uống nước nhớ nguồn."),
+    Q("'Đồng chí' được viết theo thể thơ:",["Lục bát","Tự do","Thất ngôn","Ngũ ngôn"],"B","Thể thơ tự do."),
+    Q("Câu 'Quê hương anh nước mặn đồng chua' - 'nước mặn đồng chua' chỉ:",["Vùng biển","Vùng đồng bằng","Vùng đất nghèo, khó làm ăn","Vùng núi"],"C","Thành ngữ chỉ vùng đất nghèo khó."),
+    Q("Trong 'Truyện Kiều', Thúy Kiều bán mình chuộc cha là biểu hiện của:",["Sự yếu đuối","Lòng hiếu thảo","Sự mưu mô","Tính kiêu ngạo"],"B","Lòng hiếu thảo."),
+    Q("'Bài thơ về tiểu đội xe không kính' của Phạm Tiến Duật viết về:",["Người lính","Thanh niên xung phong","Nông dân","Công nhân"],"A","Người lính lái xe Trường Sơn."),
+    Q("'Đoàn thuyền đánh cá' của Huy Cận viết về:",["Người nông dân","Người ngư dân","Người lính","Người công nhân"],"B","Người ngư dân ra khơi."),
+    Q("'Bếp lửa' của Bằng Việt viết về:",["Tình mẫu tử","Tình bà cháu","Tình cha con","Tình bạn"],"B","Tình bà cháu.")
+  ],900,"diff-hard"),
+
+  van_gk2:E("Văn — Giữa kì 2","literature",[
+    Q("'Mùa xuân nho nhỏ' của Thanh Hải thể hiện:",["Tình yêu quê hương","Khát vọng cống hiến","Nỗi buồn chiến tranh","Tình mẫu tử"],"B","Khát vọng dâng hiến cho đời."),
+    Q("'Viếng lăng Bác' của tác giả:",["Viễn Phương","Hữu Thỉnh","Bằng Việt","Y Phương"],"A","Viễn Phương (1976)."),
+    Q("Câu 'Con ở miền Nam ra thăm lăng Bác' - từ 'thăm' thể hiện:",["Sự xa cách","Sự kính trọng, gần gũi","Sự sợ hãi","Sự lạnh nhạt"],"B","Dùng 'thăm' thay 'viếng'."),
+    Q("'Sang thu' của Hữu Thỉnh nói về:",["Mùa xuân","Mùa hạ","Mùa thu","Mùa đông"],"C","Sự chuyển biến đất trời sang thu."),
+    Q("'Nói với con' của Y Phương thể hiện:",["Tình yêu thiên nhiên","Tình cảm cha con, tình yêu quê hương","Tình bạn","Tình yêu đôi lứa"],"B","Tình cha con và tình yêu quê hương."),
+    Q("'Bến quê' của Nguyễn Minh Châu gửi gắm:",["Tình yêu thiên nhiên","Triết lý về cuộc đời","Nỗi buồn chiến tranh","Tình mẫu tử"],"B","Triết lý nhân sinh sâu sắc."),
+    Q("'Những ngôi sao xa xôi' của Lê Minh Khuê viết về:",["Người lính","Thanh niên xung phong","Nông dân","Công nhân"],"B","Ba cô gái thanh niên xung phong."),
+    Q("'Bố của Xi-mông' của tác giả:",["Mô-pa-xăng","Huy-gô","Tôn-xtôi","Sê-khốp"],"A","Guy de Maupassant."),
+    Q("'Rô-bin-xơn Cru-xô' của Đi-phô thuộc thể loại:",["Truyện ngắn","Tiểu thuyết","Tùy bút","Ký"],"B","Tiểu thuyết phiêu lưu."),
+    Q("'Con chó Bấc' của Giắc Lân-đơn nói về:",["Tình người","Tình cảm chó - người","Chiến tranh","Thiên nhiên"],"B","Tình cảm gắn bó chó - chủ."),
+    Q("'Chiếc lược ngà' của Nguyễn Quang Sáng viết về:",["Tình mẫu tử","Tình cha con","Tình bạn","Tình yêu"],"B","Tình cha con trong chiến tranh."),
+    Q("'Làng' của Kim Lân viết về nhân vật:",["Ông Hai","Anh Thanh niên","Nhĩ","Vũ Nương"],"A","Nhân vật chính là ông Hai."),
+    Q("'Lặng lẽ Sa Pa' ca ngợi:",["Người nông dân","Anh thanh niên","Người lính","Người thầy giáo"],"B","Anh thanh niên làm công tác khí tượng."),
+    Q("'Ánh trăng' của Nguyễn Duy nhắc nhở:",["Tình yêu","Lòng thủy chung, ân nghĩa","Lòng dũng cảm","Sự trung thực"],"B","Đạo lý uống nước nhớ nguồn."),
+    Q("'Đồng chí' được viết theo thể thơ:",["Lục bát","Tự do","Thất ngôn","Ngũ ngôn"],"B","Thể thơ tự do.")
+  ],900,"diff-hard"),
+
   van_ck2:E("Văn — Cuối kì 2","literature",[
     Q("Nhân vật Nhĩ trong 'Bến quê' của Nguyễn Minh Châu là:",["Người lính","Người nghệ sĩ","Người bệnh nặng","Người nông dân"],"C","Nhĩ ốm nặng, nằm trên giường bệnh."),
     Q("'Những ngôi sao xa xôi' của Lê Minh Khuê viết về:",["Người lính","Thanh niên xung phong","Nông dân","Công nhân"],"B","Ba cô gái thanh niên xung phong."),
     Q("'Bố của Xi-mông' của tác giả:",["Mô-pa-xăng","Huy-gô","Tôn-xtôi","Sê-khốp"],"A","Guy de Maupassant."),
     Q("'Rô-bin-xơn Cru-xô' của Đi-phô thuộc thể loại:",["Truyện ngắn","Tiểu thuyết","Tùy bút","Ký"],"B","Tiểu thuyết phiêu lưu."),
-    Q("'Con chó Bấc' của Giắc Lân-đơn nói về:",["Tình người","Tình cảm chó - người","Chiến tranh","Thiên nhiên"],"B","Tình cảm gắn bó chó - chủ.")
-  ]),
-  van_10_1:E("Văn — Thi vào 10","literature",[
+    Q("'Con chó Bấc' của Giắc Lân-đơn nói về:",["Tình người","Tình cảm chó - người","Chiến tranh","Thiên nhiên"],"B","Tình cảm gắn bó chó - chủ."),
+    Q("'Chiếc lược ngà' của Nguyễn Quang Sáng viết về:",["Tình mẫu tử","Tình cha con","Tình bạn","Tình yêu"],"B","Tình cha con trong chiến tranh."),
+    Q("'Làng' của Kim Lân viết về nhân vật:",["Ông Hai","Anh Thanh niên","Nhĩ","Vũ Nương"],"A","Nhân vật chính là ông Hai."),
+    Q("'Lặng lẽ Sa Pa' ca ngợi:",["Người nông dân","Anh thanh niên","Người lính","Người thầy giáo"],"B","Anh thanh niên làm công tác khí tượng."),
+    Q("'Ánh trăng' của Nguyễn Duy nhắc nhở:",["Tình yêu","Lòng thủy chung, ân nghĩa","Lòng dũng cảm","Sự trung thực"],"B","Đạo lý uống nước nhớ nguồn."),
+    Q("'Đồng chí' được viết theo thể thơ:",["Lục bát","Tự do","Thất ngôn","Ngũ ngôn"],"B","Thể thơ tự do."),
+    Q("'Bài thơ về tiểu đội xe không kính' của Phạm Tiến Duật viết về:",["Người lính","Thanh niên xung phong","Nông dân","Công nhân"],"A","Người lính lái xe Trường Sơn."),
+    Q("'Đoàn thuyền đánh cá' của Huy Cận viết về:",["Người nông dân","Người ngư dân","Người lính","Người công nhân"],"B","Người ngư dân ra khơi."),
+    Q("'Bếp lửa' của Bằng Việt viết về:",["Tình mẫu tử","Tình bà cháu","Tình cha con","Tình bạn"],"B","Tình bà cháu."),
+    Q("'Khúc hát ru những em bé lớn trên lưng mẹ' của Nguyễn Khoa Điềm viết về:",["Tình mẫu tử","Tình cha con","Tình bạn","Tình yêu"],"A","Tình mẹ con."),
+    Q("'Con cò' của Chế Lan Viên viết về:",["Tình mẫu tử","Tình cha con","Tình bạn","Tình yêu"],"A","Tình mẹ con.")
+  ],900,"diff-hard"),
+
+  van_10:E("Văn — Thi vào 10","literature",[
     Q("'Đồng chí' của Chính Hữu viết theo thể thơ:",["Lục bát","Tự do","Thất ngôn","Ngũ ngôn"],"B","Thể thơ tự do."),
     Q("Câu 'Quê hương anh nước mặn đồng chua' - 'nước mặn đồng chua' chỉ:",["Vùng biển","Vùng đồng bằng","Vùng đất nghèo, khó làm ăn","Vùng núi"],"C","Thành ngữ chỉ vùng đất nghèo khó."),
     Q("Trong 'Truyện Kiều', Thúy Kiều bán mình chuộc cha là biểu hiện của:",["Sự yếu đuối","Lòng hiếu thảo","Sự mưu mô","Tính kiêu ngạo"],"B","Lòng hiếu thảo."),
     Q("'Làng' của Kim Lân viết về nhân vật:",["Ông Hai","Anh Thanh niên","Nhĩ","Vũ Nương"],"A","Nhân vật chính là ông Hai."),
-    Q("Biện pháp tu từ 'Mặt trời của mẹ, em nằm trên lưng' là:",["So sánh","Ẩn dụ","Nhân hóa","Điệp ngữ"],"B","'Mặt trời' ẩn dụ chỉ em bé.")
-  ])
+    Q("Biện pháp tu từ 'Mặt trời của mẹ, em nằm trên lưng' là:",["So sánh","Ẩn dụ","Nhân hóa","Điệp ngữ"],"B","'Mặt trời' ẩn dụ chỉ em bé."),
+    Q("'Bếp lửa' của Bằng Việt viết về:",["Tình mẫu tử","Tình bà cháu","Tình cha con","Tình bạn"],"B","Tình bà cháu."),
+    Q("'Ánh trăng' của Nguyễn Duy nhắc nhở:",["Tình yêu","Lòng thủy chung, ân nghĩa","Lòng dũng cảm","Sự trung thực"],"B","Đạo lý uống nước nhớ nguồn."),
+    Q("'Chiếc lược ngà' của Nguyễn Quang Sáng viết về:",["Tình mẫu tử","Tình cha con","Tình bạn","Tình yêu"],"B","Tình cha con trong chiến tranh."),
+    Q("'Mùa xuân nho nhỏ' của Thanh Hải thể hiện:",["Tình yêu quê hương","Khát vọng cống hiến","Nỗi buồn chiến tranh","Tình mẫu tử"],"B","Khát vọng dâng hiến cho đời."),
+    Q("'Viếng lăng Bác' của tác giả:",["Viễn Phương","Hữu Thỉnh","Bằng Việt","Y Phương"],"A","Viễn Phương (1976)."),
+    Q("'Sang thu' của Hữu Thỉnh nói về:",["Mùa xuân","Mùa hạ","Mùa thu","Mùa đông"],"C","Sự chuyển biến đất trời sang thu."),
+    Q("'Nói với con' của Y Phương thể hiện:",["Tình yêu thiên nhiên","Tình cảm cha con, tình yêu quê hương","Tình bạn","Tình yêu đôi lứa"],"B","Tình cha con và tình yêu quê hương."),
+    Q("'Bến quê' của Nguyễn Minh Châu gửi gắm:",["Tình yêu thiên nhiên","Triết lý về cuộc đời","Nỗi buồn chiến tranh","Tình mẫu tử"],"B","Triết lý nhân sinh sâu sắc."),
+    Q("'Những ngôi sao xa xôi' của Lê Minh Khuê viết về:",["Người lính","Thanh niên xung phong","Nông dân","Công nhân"],"B","Ba cô gái thanh niên xung phong."),
+    Q("'Con chó Bấc' của Giắc Lân-đơn nói về:",["Tình người","Tình cảm chó - người","Chiến tranh","Thiên nhiên"],"B","Tình cảm gắn bó chó - chủ.")
+  ],1200,"diff-super")
 };
 
+/* ===== STATE ===== */
 let currentUser="";
 let currentExam=null;
+let currentExamId=null;
+let timerInterval=null;
+let timeLeft=0;
+let examStartTime=0;
+let shuffledQuestions=[];
+let userAnswers={};
+let filterMode="all";
 
+/* ===== STORAGE ===== */
 const getKey=()=>"quyetTam_"+currentUser;
 const getUsersDB=()=>JSON.parse(localStorage.getItem("quyetTam_users")||"{}");
 const saveUsersDB=db=>localStorage.setItem("quyetTam_users",JSON.stringify(db));
-const getData=()=>{const d=localStorage.getItem(getKey());return d?JSON.parse(d):{streak:0,exams:0,best:0,lastDay:""};};
+const getData=()=>{const d=localStorage.getItem(getKey());return d?JSON.parse(d):{streak:0,exams:0,best:0,lastDay:"",history:[],totalScore:0};};
 const saveData=d=>localStorage.setItem(getKey(),JSON.stringify(d));
 
+/* ===== THEME ===== */
+function toggleTheme(){
+  const html=document.documentElement;
+  const isDark=html.getAttribute("data-theme")==="dark";
+  html.setAttribute("data-theme",isDark?"light":"dark");
+  $("themeToggle").textContent=isDark?"🌙":"☀️";
+  localStorage.setItem("quyetTam_theme",isDark?"light":"dark");
+  playSFX("click");
+}
+(function(){
+  const saved=localStorage.getItem("quyetTam_theme");
+  if(saved==="dark"){document.documentElement.setAttribute("data-theme","dark");
+    $("themeToggle").textContent="☀️";}
+})();
+
+/* ===== AUDIO ===== */
+let audioContext=null,musicPlaying=false,musicTimer=null,musicStep=0,musicVolume=.65;
+const MELODY=[261.63,329.63,392.00,329.63,293.66,349.23,440.00,349.23,
+  261.63,329.63,392.00,523.25,440.00,392.00,329.63,293.66];
+
+function initAudio(){
+  if(!audioContext)audioContext=new (window.AudioContext||window.webkitAudioContext)();
+}
+
+function playNote(freq,dur=.5,type="sine",vol=.1){
+  if(!audioContext)return;
+  const o=audioContext.createOscillator(),g=audioContext.createGain();
+  o.type=type;o.frequency.value=freq;
+  g.gain.setValueAtTime(.0001,audioContext.currentTime);
+  g.gain.exponentialRampToValueAtTime(Math.max(.0001,musicVolume*vol),audioContext.currentTime+.03);
+  g.gain.exponentialRampToValueAtTime(.0001,audioContext.currentTime+dur);
+  o.connect(g);g.connect(audioContext.destination);
+  o.start();o.stop(audioContext.currentTime+dur+.05);
+}
+
+function playSFX(type){
+  if(!audioContext)return;
+  const t=audioContext.currentTime;
+  if(type==="hover"){playNote(880,.08,"sine",.04);}
+  else if(type==="click"){playNote(660,.1,"triangle",.08);}
+  else if(type==="correct"){playNote(523,.15,"sine",.12);setTimeout(()=>playNote(659,.15,"sine",.12),100);setTimeout(()=>playNote(784,.2,"sine",.12),200);}
+  else if(type==="wrong"){playNote(300,.2,"sawtooth",.08);setTimeout(()=>playNote(250,.3,"sawtooth",.08),120);}
+  else if(type==="submit"){playNote(440,.15,"triangle",.1);setTimeout(()=>playNote(554,.15,"triangle",.1),120);setTimeout(()=>playNote(659,.25,"triangle",.1),240);}
+}
+
+function musicLoop(){
+  if(!musicPlaying)return;
+  const step=musicStep%MELODY.length;
+  playNote(MELODY[step],.45,"sine",.08);
+  if(step%4===0)playNote(MELODY[step]/2,.6,"triangle",.05);
+  musicStep++;
+  musicTimer=setTimeout(musicLoop,450);
+}
+
+function toggleMusic(){
+  initAudio();
+  const panel=$("musicPanel");
+  if(!musicPlaying){
+    audioContext.resume();musicPlaying=true;
+    $("musicButton").textContent="🎵";
+    $("musicStatus").textContent="Bật";
+    musicLoop();panel.classList.add("show");
+    showToast("Nhạc nền bật 🎵","Âm lượng: "+Math.round(musicVolume*100)+"%","info",2000);
+  } else {
+    musicPlaying=false;clearTimeout(musicTimer);
+    $("musicButton").textContent="🔇";
+    $("musicStatus").textContent="Tắt";
+    panel.classList.remove("show");
+  }
+}
+
+$("volumeSlider").addEventListener("input",function(){
+  musicVolume=this.value/100;
+  $("volDisplay").textContent=this.value+"%";
+});
+
+/* ===== HOVER SFX ===== */
+document.addEventListener("mouseover",e=>{
+  if(e.target.closest("button,.subject,.exam,.answer,.board-row,.stat")){
+    playSFX("hover");
+  }
+});
+document.addEventListener("click",e=>{
+  if(e.target.closest("button,.subject,.exam,.answer"))playSFX("click");
+});
+
+/* ===== AUTH ===== */
 function switchAuth(tab){
   const isLogin=tab==="login";
   $("tabLogin").classList.toggle("active",isLogin);
@@ -719,6 +1242,7 @@ function doLogin(){
   $("loginPage").style.display="none";
   updateAll();
   showToast("Chào mừng trở lại! 🔥","Xin chào "+(db[name].fullName||name),"success",4000);
+  setTimeout(()=>showNewsBanner(),1500);
 }
 
 function doRegister(){
@@ -760,6 +1284,7 @@ function logout(){
   },800);
 }
 
+/* ===== ACCOUNT MODAL ===== */
 function openAccountModal(){
   if(!currentUser)return;
   const info=getUsersDB()[currentUser]||{};
@@ -786,7 +1311,18 @@ function openAccountModal(){
 function closeAccountModal(){$("accountModal").classList.remove("show");}
 $("accountModal").addEventListener("click",function(e){if(e.target===this)closeAccountModal();});
 
+/* ===== NEWS BANNER ===== */
+function showNewsBanner(){
+  if(localStorage.getItem("quyetTam_newsDismissed")==="1")return;
+  $("newsBanner").classList.add("show");
+  showToast("📢 Văn chữa đã xuất hiện!","Đề Văn mới với đáp án chi tiết vừa được cập nhật.","news",5000);
+}
+function closeNews(){
+  $("newsBanner").classList.remove("show");
+  localStorage.setItem("quyetTam_newsDismissed","1");
+}
 
+/* ===== LEADERBOARD ===== */
 function saveToLeaderboard(){
   if(!currentUser)return;
   const data=getData(),info=getUsersDB()[currentUser]||{};
@@ -817,6 +1353,26 @@ function renderLeaderboard(){
   }).join("");
 }
 
+/* ===== HISTORY ===== */
+function renderHistory(){
+  const data=getData();
+  const box=$("historyList");
+  if(!data.history||!data.history.length){
+    box.innerHTML='<div class="board-empty">Bạn chưa làm đề nào. Hãy bắt đầu ôn tập! 📚</div>';return;
+  }
+  box.innerHTML=data.history.slice().reverse().map(h=>{
+    const cls=h.score>=8?"high":h.score>=5?"":"low";
+    return `<div class="history-item">
+      <div class="history-info">
+        <h4>${h.title}</h4>
+        <p>${h.date} — ${h.correct}/${h.total} câu đúng — ${h.time}s</p>
+      </div>
+      <div class="history-score ${cls}">${h.score}/10</div>
+    </div>`;
+  }).join("");
+}
+
+/* ===== NAV ===== */
 function goHome(){showSection("home",document.querySelector("nav button"));}
 function showSection(id,button){
   document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
@@ -824,137 +1380,306 @@ function showSection(id,button){
   document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
   button?.classList.add("active");
   if(id==="leaderboard")renderLeaderboard();
+  if(id==="history")renderHistory();
   scrollTo({top:0,behavior:"smooth"});
 }
 
-const TERMS=[
-  {icon:"📘",name:"Giữa kì 1"},
-  {icon:"📗",name:"Cuối kì 1"},
-  {icon:"📙",name:"Giữa kì 2"},
-  {icon:"📕",name:"Cuối kì 2"},
-  {icon:"🎓",name:"Thi vào lớp 10"}
-];
-const DIFF_MAP={
-  math:{gk1_1:["CƠ BẢN","diff-easy"],gk1_2:["TRUNG BÌNH","diff-mid"],ck1_1:["TRUNG BÌNH","diff-mid"],ck1_2:["KHÓ","diff-hard"],
-    gk2_1:["TRUNG BÌNH","diff-mid"],gk2_2:["KHÓ","diff-hard"],ck2_1:["KHÓ","diff-hard"],ck2_2:["CỰC KHÓ","diff-super"],
-    "10_1":["CỰC KHÓ","diff-super"],"10_2":["CỰC KHÓ","diff-super"],"10_3":["CỰC KHÓ","diff-super"]},
-  english:{gk1_1:["CƠ BẢN","diff-easy"],gk1_2:["CƠ BẢN","diff-easy"],ck1_1:["TRUNG BÌNH","diff-mid"],
-    gk2_1:["TRUNG BÌNH","diff-mid"],ck2_1:["KHÓ","diff-hard"],"10_1":["CỰC KHÓ","diff-super"]},
-  literature:{gk1:["TRUNG BÌNH","diff-mid"],ck1:["KHÓ","diff-hard"],gk2:["KHÓ","diff-hard"],ck2:["KHÓ","diff-hard"],"10_1":["CỰC KHÓ","diff-super"]}
-};
-
-function renderExamList(subject,containerId){
-  const prefix=subject==="math"?"math_":subject==="english"?"eng_":"van_";
-  const box=$(containerId);
-  let html="";
-  TERMS.forEach((term,termIdx)=>{
-    const keys=Object.keys(exams).filter(k=>k.startsWith(prefix)&&exams[k].subject===subject);
-    const termKeys=keys.filter(k=>{
-      const n=parseInt(k.replace(prefix,""));
-      return Math.floor(n/10)===termIdx+1 || (termIdx===4&&n>=100);
-    });
-    const groups={};
-    keys.forEach(k=>{
-      const t=exams[k].title;
-      const m=t.match(/(Giữa kì 1|Cuối kì 1|Giữa kì 2|Cuối kì 2|Thi vào 10|Thi vào lớp 10)/);
-      const g=m?m[1]:"Khác";
-      (groups[g]=groups[g]||[]).push(k);
-    });
-    const list=groups[term.name]||[];
-    if(!list.length)return;
-    html+=`<div class="term-title"><span class="term-icon">${term.icon}</span> ${term.name}<span class="term-count">${list.length} đề</span></div>`;
-    html+=`<div class="exam-list">`;
-    list.forEach(k=>{
-      const ex=exams[k];
-      const diff=(DIFF_MAP[subject]||{})[k.replace(prefix,"")]||["TRUNG BÌNH","diff-mid"];
-      html+=`<div class="exam">
-        <span class="difficulty ${diff[1]}">${diff[0]}</span>
-        <h3>${ex.title}</h3>
-        <p>${ex.questions.length} câu</p>
-        <button onclick="startExam('${k}')">Làm đề</button>
-      </div>`;
-    });
-    html+=`</div>`;
-  });
-  box.innerHTML=html;
+/* ===== EXAM LIST ===== */
+function filterMath(mode,btn){
+  filterMode=mode;
+  document.querySelectorAll("#math .mode-btn").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  renderExamList("math","mathList");
 }
 
+function renderExamList(subject,containerId){
+  const box=$(containerId);
+  let html="";
+  const allKeys=Object.keys(exams).filter(k=>exams[k].subject===subject);
+
+  if(subject==="math"){
+    const cats={
+      "dai-so":{name:"📘 Đại số cơ bản",icon:"📘"},
+      "dai-hinh":{name:"📗 Đại số + Hình học",icon:"📗"},
+      "phuong-trinh":{name:"📕 Phương trình",icon:"📕"}
+    };
+    Object.keys(cats).forEach(cat=>{
+      if(filterMode!=="all"&&filterMode!==cat)return;
+      const keys=allKeys.filter(k=>exams[k].category===cat);
+      if(!keys.length)return;
+      html+=`<div class="term-title"><span class="term-icon">${cats[cat].icon}</span> ${cats[cat].name}<span class="term-count">${keys.length} đề</span></div>`;
+      html+=`<div class="exam-list">`;
+      keys.forEach(k=>{
+        const ex=exams[k];
+        html+=`<div class="exam">
+          <span class="difficulty ${ex.difficulty}">${ex.difficulty==="diff-easy"?"CƠ BẢN":ex.difficulty==="diff-mid"?"TRUNG BÌNH":ex.difficulty==="diff-hard"?"KHÓ":"CỰC KHÓ"}</span>
+          <h3>${ex.title}</h3>
+          <div class="exam-meta">
+            <span>📝 ${ex.questions.length} câu</span>
+            <span>⏱️ ${Math.round(ex.time/60)} phút</span>
+          </div>
+          <button onclick="startExam('${k}')">Làm đề</button>
+        </div>`;
+      });
+      html+=`</div>`;
+    });
+  } else {
+    const terms=[
+      {name:"Giữa kì 1",icon:"📘",match:"Giữa kì 1"},
+      {name:"Cuối kì 1",icon:"📗",match:"Cuối kì 1"},
+      {name:"Giữa kì 2",icon:"📙",match:"Giữa kì 2"},
+      {name:"Cuối kì 2",icon:"📕",match:"Cuối kì 2"},
+      {name:"Thi vào lớp 10",icon:"🎓",match:"Thi vào 10"}
+    ];
+    terms.forEach(term=>{
+      const keys=allKeys.filter(k=>exams[k].title.includes(term.match));
+      if(!keys.length)return;
+      html+=`<div class="term-title"><span class="term-icon">${term.icon}</span> ${term.name}<span class="term-count">${keys.length} đề</span></div>`;
+      html+=`<div class="exam-list">`;
+      keys.forEach(k=>{
+        const ex=exams[k];
+        html+=`<div class="exam">
+          <span class="difficulty ${ex.difficulty}">${ex.difficulty==="diff-easy"?"CƠ BẢN":ex.difficulty==="diff-mid"?"TRUNG BÌNH":ex.difficulty==="diff-hard"?"KHÓ":"CỰC KHÓ"}</span>
+          <h3>${ex.title}</h3>
+          <div class="exam-meta">
+            <span>📝 ${ex.questions.length} câu</span>
+            <span>⏱️ ${Math.round(ex.time/60)} phút</span>
+          </div>
+          <button onclick="startExam('${k}')">Làm đề</button>
+        </div>`;
+      });
+      html+=`</div>`;
+    });
+  }
+  box.innerHTML=html||'<div class="board-empty">Chưa có đề nào trong mục này.</div>';
+}
+
+/* ===== SHUFFLE ===== */
+function shuffle(arr){
+  const a=arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+/* ===== START EXAM ===== */
 function startExam(id){
   const exam=exams[id];
   if(!exam){showToast("Đề chưa có dữ liệu","Đề này đang được cập nhật.","warning",3000);return;}
 
   currentExam=exam;
+  currentExamId=id;
+  shuffledQuestions=shuffle(exam.questions);
+  userAnswers={};
+
   document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
   $("examPage").classList.add("active");
   document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
-  $("examTitle").innerHTML=`<h2>${exam.title}</h2><p>Chọn đáp án đúng cho từng câu.</p>`;
-  $("result").style.display="none";
+
+  $("examTitleText").textContent=exam.title;
+  $("examSubtitle").textContent=exam.questions.length+" câu hỏi — Chọn đáp án đúng";
+  $("result").classList.remove("show");
+  $("retryBtn").style.display="none";
   const btn=$("submitBtn");btn.disabled=false;btn.textContent="Nộp bài";
 
-  $("examForm").innerHTML=exam.questions.map((q,i)=>{
-    const opts=["A","B","C","D"].map((L,j)=>
-      `<label class="answer" id="ans-${i}-${L}"><input type="radio" name="q${i}" value="${L}">${L}. ${q.opts[j]}</label>`
-    ).join("");
-    return `<div class="question" id="question-${i}">
-      <h3>Câu ${i+1}: ${q.q}</h3>${opts}
-      <div class="explanation" id="exp-${i}" style="display:none;"></div>
-    </div>`;
-  }).join("");
+  renderQuestions();
+  startTimer(exam.time);
+  updateProgress();
 
   scrollTo({top:0,behavior:"smooth"});
   showToast("Bắt đầu làm bài 📝",exam.title+" — "+exam.questions.length+" câu","info",2500);
 }
 
-function submitExam(){
-  if(!currentExam)return;
-  let score=0;
+function renderQuestions(){
+  $("examForm").innerHTML=shuffledQuestions.map((q,i)=>{
+    const qNumber=`<div class="q-number">Câu ${i+1}/${shuffledQuestions.length}</div>`;
+    if(q.type==="text"){
+      return `<div class="question" id="question-${i}" style="animation-delay:${i*.05}s">
+        ${qNumber}<h3>${q.q}</h3>
+        <input type="text" class="text-input-answer" id="input-${i}" placeholder="Nhập đáp án của bạn..." autocomplete="off">
+        <div class="explanation" id="exp-${i}" style="display:none;"></div>
+      </div>`;
+    }
+    const opts=q.opts.map((opt,j)=>{
+      const L=String.fromCharCode(65+j);
+      return `<label class="answer" id="ans-${i}-${L}">
+        <input type="radio" name="q${i}" value="${L}" onchange="selectAnswer(${i},'${L}')">
+        <span><b>${L}.</b> ${opt}</span>
+      </label>`;
+    }).join("");
+    return `<div class="question" id="question-${i}" style="animation-delay:${i*.05}s">
+      ${qNumber}<h3>${q.q}</h3>${opts}
+      <div class="explanation" id="exp-${i}" style="display:none;"></div>
+    </div>`;
+  }).join("");
+}
 
-  currentExam.questions.forEach((q,i)=>{
+function selectAnswer(i,val){
+  userAnswers[i]=val;
+  document.querySelectorAll(`#question-${i} .answer`).forEach(a=>a.classList.remove("selected"));
+  $(`ans-${i}-${val}`)?.classList.add("selected");
+  updateProgress();
+}
+
+function updateProgress(){
+  const answered=Object.keys(userAnswers).length;
+  const total=shuffledQuestions.length;
+  $("progressFill").style.width=(answered/total*100)+"%";
+}
+
+/* ===== TIMER ===== */
+function startTimer(seconds){
+  clearInterval(timerInterval);
+  timeLeft=seconds;
+  examStartTime=Date.now();
+  updateTimerDisplay();
+  timerInterval=setInterval(()=>{
+    timeLeft--;
+    updateTimerDisplay();
+    if(timeLeft<=0){
+      clearInterval(timerInterval);
+      showToast("⏰ Hết giờ!","Bài đã được tự động nộp.","warning",3000);
+      submitExam(true);
+    }
+  },1000);
+}
+
+function updateTimerDisplay(){
+  const m=Math.floor(timeLeft/60),s=timeLeft%60;
+  $("timerText").textContent=String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
+  const box=$("timerBox");
+  box.classList.remove("warning","danger");
+  if(timeLeft<=30)box.classList.add("danger");
+  else if(timeLeft<=60)box.classList.add("warning");
+}
+
+/* ===== SUBMIT ===== */
+function submitExam(auto=false){
+  if(!currentExam)return;
+  clearInterval(timerInterval);
+
+  let score=0;
+  let correctCount=0,wrongCount=0;
+
+  shuffledQuestions.forEach((q,i)=>{
     const correct=q.ans;
-    const sel=document.querySelector(`input[name="q${i}"]:checked`);
-    const userAns=sel?sel.value:null;
-    $(`ans-${i}-${correct}`)?.classList.add("correct");
-    if(userAns&&userAns!==correct)$(`ans-${i}-${userAns}`)?.classList.add("wrong");
+    let userAns=null;
+
+    if(q.type==="text"){
+      const input=$(`input-${i}`);
+      if(input){
+        userAns=input.value.trim();
+        if(userAns.toLowerCase()===correct.toLowerCase()){
+          input.classList.add("correct");score++;
+        } else {
+          input.classList.add("wrong");
+        }
+      }
+    } else {
+      const sel=document.querySelector(`input[name="q${i}"]:checked`);
+      userAns=sel?sel.value:null;
+      $(`ans-${i}-${correct}`)?.classList.add("correct");
+      if(userAns&&userAns!==correct)$(`ans-${i}-${userAns}`)?.classList.add("wrong");
+    }
+
+    const isCorrect=q.type==="text"
+      ?(userAns&&userAns.toLowerCase()===correct.toLowerCase())
+      :(userAns===correct);
+
+    if(isCorrect){correctCount++;score++;}
+    else wrongCount++;
 
     const exp=$(`exp-${i}`);
     if(exp){
-      if(userAns===correct){exp.classList.add("correct-exp");exp.innerHTML=`<span class="exp-title">✅ Chính xác!</span>${q.exp||"Bạn đã chọn đáp án đúng."}`;score++;}
-      else{exp.classList.remove("correct-exp");exp.innerHTML=`<span class="exp-title">❌ Chưa đúng! Đáp án đúng là ${correct}.</span>${q.exp||"Hãy xem lại kiến thức phần này nhé."}`;}
+      if(isCorrect){
+        exp.classList.add("correct-exp");
+        exp.innerHTML=`<span class="exp-title">✅ Chính xác!</span>${q.exp||"Bạn đã chọn đáp án đúng."}`;
+      } else {
+        exp.classList.remove("correct-exp");
+        exp.innerHTML=`<span class="exp-title">❌ Chưa đúng! Đáp án đúng là ${q.type==="text"?correct:String.fromCharCode(65+["A","B","C","D"].indexOf(correct))}.</span>${q.exp||"Hãy xem lại kiến thức phần này nhé."}`;
+      }
       exp.style.display="block";
     }
-    document.querySelectorAll(`input[name="q${i}"]`).forEach(r=>r.disabled=true);
+
+    if(q.type!=="text"){
+      document.querySelectorAll(`input[name="q${i}"]`).forEach(r=>r.disabled=true);
+    } else {
+      const inp=$(`input-${i}`);if(inp)inp.disabled=true;
+    }
   });
 
-  const total=currentExam.questions.length;
+  const total=shuffledQuestions.length;
   const diem=Number((score/total*10).toFixed(2));
+  const elapsed=Math.round((Date.now()-examStartTime)/1000);
+
   const data=getData();
-  data.exams++;if(diem>data.best)data.best=diem;
+  data.exams++;
+  if(diem>data.best)data.best=diem;
+  data.totalScore=(data.totalScore||0)+diem;
+  if(!data.history)data.history=[];
+  data.history.push({
+    title:currentExam.title,
+    score:diem,
+    correct:correctCount,
+    total:total,
+    time:elapsed,
+    date:new Date().toLocaleString("vi-VN")
+  });
+  if(data.history.length>20)data.history=data.history.slice(-20);
   saveData(data);saveToLeaderboard();
 
-  $("result").style.display="block";
-  $("resultText").innerHTML=`Bạn trả lời đúng <b>${score}/${total}</b> câu.<br>
-    Điểm: <b>${diem}/10</b><br>
-    <small style="color:#166534;">Xem giải thích chi tiết bên dưới mỗi câu 👇</small>`;
+  $("result").classList.add("show");
+  $("resultScore").textContent=diem+"/10";
+  $("resultText").innerHTML=`Bạn trả lời đúng <b>${correctCount}/${total}</b> câu.${auto?"<br><b style='color:#f59e0b'>⏰ Hết giờ — bài đã tự động nộp!</b>":""}<br><small>Xem giải thích chi tiết bên dưới mỗi câu 👇</small>`;
+  $("resultCorrect").textContent=correctCount;
+  $("resultWrong").textContent=wrongCount;
+  $("resultTime").textContent=elapsed+"s";
 
   const btn=$("submitBtn");btn.disabled=true;btn.textContent="✓ Đã nộp bài";
+  $("retryBtn").style.display="inline-block";
   updateAll();
 
-  if(diem>=8)showToast("Xuất sắc! 🎉","Bạn đạt "+diem+"/10!","success",4000);
-  else if(diem>=5)showToast("Khá tốt! 👍","Bạn đạt "+diem+"/10.","info",4000);
-  else showToast("Cần cố gắng 💪","Bạn đạt "+diem+"/10. Xem giải thích nhé!","warning",4000);
+  if(diem>=8){showToast("Xuất sắc! 🎉","Bạn đạt "+diem+"/10!","success",4000);playSFX("correct");launchConfetti();}
+  else if(diem>=5){showToast("Khá tốt! 👍","Bạn đạt "+diem+"/10.","info",4000);playSFX("correct");}
+  else {showToast("Cần cố gắng 💪","Bạn đạt "+diem+"/10. Xem giải thích nhé!","warning",4000);playSFX("wrong");}
 
   scrollTo({top:0,behavior:"smooth"});
 }
 
+function retryExam(){
+  if(!currentExamId)return;
+  startExam(currentExamId);
+}
+
+/* ===== CONFETTI ===== */
+function launchConfetti(){
+  const colors=["#3b82f6","#8b5cf6","#ec4899","#f59e0b","#10b981","#ef4444"];
+  for(let i=0;i<60;i++){
+    const c=document.createElement("div");
+    c.className="confetti";
+    c.style.left=Math.random()*100+"vw";
+    c.style.background=colors[Math.floor(Math.random()*colors.length)];
+    c.style.animationDuration=(2+Math.random()*2)+"s";
+    c.style.animationDelay=(Math.random()*.5)+"s";
+    c.style.borderRadius=Math.random()>.5?"50%":"0";
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),5000);
+  }
+}
+
+/* ===== BACK ===== */
 function backToSubjects(){
+  clearInterval(timerInterval);
   if(!currentExam){goHome();return;}
   const map={math:1,english:2,literature:3};
   const idx=map[currentExam.subject]||1;
   showSection(currentExam.subject,document.querySelectorAll("nav button")[idx]);
-  currentExam=null;
+  currentExam=null;currentExamId=null;
 }
 
-
+/* ===== DAILY ===== */
 function completeDaily(){
   const data=getData(),today=getToday();
   if(data.lastDay===today){showToast("Hôm nay điểm danh rồi! 🔥","Hẹn gặp lại bạn ngày mai!","warning",3000);return;}
@@ -968,6 +1693,8 @@ function completeDaily(){
     setTimeout(()=>flame.style.transform="scale(1)",400);}
 
   showToast("Điểm danh thành công! 🔥","Streak đã tăng lên "+data.streak+" ngày!","fire",3500);
+  playSFX("correct");
+  if(data.streak%7===0)launchConfetti();
 }
 
 function updateDaily(){
@@ -988,6 +1715,7 @@ function updateDaily(){
     "Điểm danh hôm nay để bắt đầu streak!";
 }
 
+/* ===== UPDATE ALL ===== */
 function updateAll(){
   const data=getData(),info=getUsersDB()[currentUser]||{};
   const name=info.fullName||currentUser;
@@ -998,6 +1726,9 @@ function updateAll(){
   ["homeStreak","streakNumber","streakPageStreak"].forEach(id=>$(id).textContent=data.streak);
   ["homeExams","streakPageExams"].forEach(id=>$(id).textContent=data.exams);
   ["homeBest","streakPageBest"].forEach(id=>$(id).textContent=data.best);
+
+  const avg=data.exams?Number((data.totalScore/data.exams).toFixed(1)):0;
+  ["homeAvg","streakPageAvg"].forEach(id=>$(id).textContent=avg);
 
   const flame=$("bigFlame");
   if(flame){
@@ -1012,41 +1743,8 @@ function updateAll(){
   updateDaily();
   saveToLeaderboard();
 }
-let audioContext=null,musicPlaying=false,musicTimer=null,musicStep=0,musicVolume=.35;
-const MELODY=[261.63,329.63,392.00,329.63,293.66,349.23,440.00,349.23];
 
-function playNote(freq){
-  if(!audioContext)return;
-  const o=audioContext.createOscillator(),g=audioContext.createGain();
-  o.type="sine";o.frequency.value=freq;
-  g.gain.setValueAtTime(.0001,audioContext.currentTime);
-  g.gain.exponentialRampToValueAtTime(Math.max(.0001,musicVolume*.1),audioContext.currentTime+.03);
-  g.gain.exponentialRampToValueAtTime(.0001,audioContext.currentTime+.45);
-  o.connect(g);g.connect(audioContext.destination);
-  o.start();o.stop(audioContext.currentTime+.5);
-}
-function musicLoop(){
-  if(!musicPlaying)return;
-  playNote(MELODY[musicStep%MELODY.length]);musicStep++;
-  musicTimer=setTimeout(musicLoop,500);
-}
-function toggleMusic(){
-  const panel=$("musicPanel");
-  if(!audioContext)audioContext=new (window.AudioContext||window.webkitAudioContext)();
-  if(!musicPlaying){
-    audioContext.resume();musicPlaying=true;
-    $("musicButton").textContent="🎵";
-    musicLoop();panel.classList.add("show");
-  } else {
-    musicPlaying=false;clearTimeout(musicTimer);
-    $("musicButton").textContent="🔇";
-    panel.classList.remove("show");
-  }
-}
-$("volumeSlider").addEventListener("input",function(){
-  musicVolume=this.value/100;
-  $("volDisplay").textContent=this.value+"%";
-});
+/* ===== INIT ===== */
 window.onload=function(){
   renderExamList("math","mathList");
   renderExamList("english","engList");
@@ -1057,6 +1755,7 @@ window.onload=function(){
     currentUser=saved;
     $("loginPage").style.display="none";
     updateAll();
+    setTimeout(()=>showNewsBanner(),1500);
   } else {
     if(saved)localStorage.removeItem("currentUser");
     $("loginPage").style.display="flex";
